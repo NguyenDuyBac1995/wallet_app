@@ -1,16 +1,16 @@
 part of 'splash.bloc.dart';
 
-abstract class SplashState extends Equatable {
-  const SplashState();
-  final num percent = 0;
+class SplashState extends Equatable {
+  final double loadingPercent;
+
+  const SplashState({this.loadingPercent = 0});
+
+  SplashState copy({required double loadingPercent}) {
+    return SplashState(
+      loadingPercent: loadingPercent,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [loadingPercent];
 }
-
-class SplashInitialState extends SplashState {}
-
-class SplashLoadingState extends SplashState {}
-
-class SplashLoadedState extends SplashState {}
-
-class SplashErrorState extends SplashState {}

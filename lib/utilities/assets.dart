@@ -1,3 +1,4 @@
 class Images {
-  static String splashBackground = 'assets/images/splash-screen-background.png';
+  static const splashBackground = 'assets/images/splash.background.png';
+  static const authBackground = 'assets/images/auth.background.png';
 }

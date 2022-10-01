@@ -1,6 +1,7 @@
-import 'dart:convert';
+import 'dart:async';
 
-import 'package:big_wallet/core/repository/base.response.dart';
+import 'package:big_wallet/core/responses/collection.response.dart';
+import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/utilities/api.dart';
 import 'package:dio/dio.dart';
 
@@ -9,7 +10,7 @@ enum RequestType { get, post, delete, put }
 class Repository {
   final Dio _dio = Dio();
   Options? _options;
-  Future<dynamic> requestAsync(String path, RequestType type,
+  Future<T> requestAsync<T>(String path, RequestType type,
       {dynamic data}) async {
     late Response<dynamic> response;
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
@@ -31,13 +32,18 @@ class Repository {
           break;
       }
     } on DioError catch (e) {
-      response.data =
-          ApiResponse(message: e.message, type: "Exception", statusCode: 500);
+      if (e.response?.data != null) {
+      } else {}
     }
-    try {
-      return json.decode(response.data?.payload);
-    } catch (exception) {
-      return exception;
+    final test = fromJson<T>(response.data);
+    return test;
+  }
+
+  T fromJson<T>(Map<String, dynamic> json) {
+    if (T == CollectionResponse) {
+      return CollectionResponse.fromJson(json) as T;
+    } else {
+      return SingleResponse.fromJson(json) as T;
     }
   }
 }

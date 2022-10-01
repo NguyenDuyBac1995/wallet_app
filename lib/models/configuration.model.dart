@@ -32,13 +32,13 @@ class Configuration {
     value = json['Value'];
     description = json['Description'];
     id = json['Id'];
-    createdTime = json['CreatedTime'];
+    createdTime = DateTime.tryParse(json['CreatedTime']);
     createdBy = json['CreatedBy'];
-    modifiedTime = json['ModifiedTime'];
+    modifiedTime = DateTime.tryParse(json['ModifiedTime']);
     modifiedBy = json['ModifiedBy'];
     isDeleted = json['IsDeleted'];
     deletedBy = json['DeletedBy'];
-    deletedTime = json['DeletedTime'];
+    deletedTime = DateTime.tryParse(json['DeletedTime']);
   }
 
   Map<String, dynamic> toJson() {

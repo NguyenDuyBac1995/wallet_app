@@ -7,4 +7,9 @@ abstract class SplashEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadConfigurationEvent extends SplashEvent {}
+class LoadConfigurationEvent extends SplashEvent {
+  final double loadingPercent;
+  const LoadConfigurationEvent(this.loadingPercent);
+  @override
+  List<Object> get props => [loadingPercent];
+}

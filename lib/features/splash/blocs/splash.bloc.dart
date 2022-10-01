@@ -11,14 +11,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final ConfigurationRepository configurationRepository;
   SplashBloc(
     this.configurationRepository,
-  ) : super(SplashInitialState()) {
-    on<SplashEvent>((event, emit) async {
-      if (event is LoadConfigurationEvent) {
-        emit(SplashLoadingState());
-        List<Configuration>? configurations =
-            await configurationRepository.getConfigurationsAsync();
-        Logger().i(configurations);
-      }
-    });
+  ) : super(const SplashState()) {
+    on<LoadConfigurationEvent>(onLoadConfiguration);
+  }
+
+  void onLoadConfiguration(
+      LoadConfigurationEvent event, Emitter<SplashState> emit) async {
+    List<Configuration>? configurations =
+        await configurationRepository.getConfigurationsAsync();
+    Logger().i(configurations);
+    emit(state.copy(loadingPercent: 100));
   }
 }
