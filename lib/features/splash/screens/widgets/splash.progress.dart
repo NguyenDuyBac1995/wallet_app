@@ -1,13 +1,20 @@
-import 'package:big_wallet/features/splash/blocs/splash.bloc.dart';
+import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashLinearProgressIndicator extends StatelessWidget {
+class SplashLinearProgressIndicator extends StatefulWidget {
   const SplashLinearProgressIndicator({super.key});
 
   @override
+  State<SplashLinearProgressIndicator> createState() =>
+      _SplashLinearProgressIndicatorState();
+}
+
+class _SplashLinearProgressIndicatorState
+    extends State<SplashLinearProgressIndicator> {
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SplashBloc, SplashState>(
+    return BlocBuilder<AppBloc, AppState>(
       builder: ((context, state) {
         return Expanded(
           flex: 1,

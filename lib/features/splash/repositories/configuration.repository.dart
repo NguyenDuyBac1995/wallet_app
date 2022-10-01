@@ -4,8 +4,8 @@ import 'package:big_wallet/models/configuration.model.dart';
 import 'package:big_wallet/utilities/api.dart';
 
 class ConfigurationRepository extends Repository {
-  Future<List<Configuration>?> getConfigurationsAsync() async {
-    final url = Api.getConfigurations;
+  Future<List<Configuration>> getConfigurationsAsync() async {
+    const url = Api.getConfigurations;
     final apiResponse =
         await requestAsync<CollectionResponse>(url, RequestType.get);
     final result = <Configuration>[];

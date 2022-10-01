@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:big_wallet/core/routes/routes.dart';
-import 'package:big_wallet/features/splash/blocs/splash.bloc.dart';
+import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/splash/repositories/configuration.repository.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.background.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
+import 'package:big_wallet/models/configuration.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,27 +17,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final SplashBloc _splashBloc = SplashBloc(ConfigurationRepository());
-
+  final AppBloc _appBloc = AppBloc(ConfigurationRepository());
   @override
   void initState() {
-    _splashBloc.add(const LoadConfigurationEvent(10));
+    _appBloc.add(const LoadConfiguration(<Configuration>[]));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocProvider(
-      create: (_) => _splashBloc,
-      child: BlocListener<SplashBloc, SplashState>(
+        body: MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => _appBloc)],
+      child: BlocListener<AppBloc, AppState>(
           listenWhen: (previous, current) =>
-              previous.loadingPercent < current.loadingPercent,
+              previous.loadingPercent != current.loadingPercent,
           listener: ((context, state) {
-            if (state.loadingPercent == 100) {
-              FocusScope.of(context).unfocus();
-              Navigator.pushReplacementNamed(context, Routes.authScreen);
+            if (state.configurations.isNotEmpty && state.loadingPercent < 1) {
+              sleep(const Duration(seconds: 1));
+              var loadingPercent = state.loadingPercent + 0.1;
+              _appBloc.add(ChangeLoadingPercent(loadingPercent));
             }
+            /*if (state.loadingPercent > 1) {
+              // ignore: use_build_context_synchronously
+              FocusScope.of(context).unfocus();
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacementNamed(context, Routes.authScreen);
+            }*/
           }),
           child: Stack(
             children: [
