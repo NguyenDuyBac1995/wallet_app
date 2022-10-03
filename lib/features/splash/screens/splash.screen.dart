@@ -29,15 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 previous.loadingPercent != current.loadingPercent,
             listener: ((context, state) {
               if (state.configurations.isNotEmpty && state.loadingPercent < 1) {
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  var loadingPercent = state.loadingPercent + 0.1;
+                Future.delayed(const Duration(seconds: 1), () {
+                  var loadingPercent = state.loadingPercent + 0.5;
                   context
                       .read<AppBloc>()
                       .add(ChangeLoadingPercent(loadingPercent));
                 });
               }
               if (state.loadingPercent >= 1) {
-                FocusScope.of(context).unfocus();
                 Navigator.pushReplacementNamed(context, Routes.authScreen);
               }
             }),
