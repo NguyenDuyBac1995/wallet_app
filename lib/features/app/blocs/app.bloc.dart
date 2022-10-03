@@ -21,7 +21,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(state.copyWith(loadingPercent: 0.1));
     List<Configuration> configurations =
         await configurationRepository.getConfigurationsAsync();
-    Logger().i(configurations);
     emit(state.copyWith(configurations: configurations));
   }
 

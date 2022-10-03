@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +17,9 @@ class _SplashLinearProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
+      buildWhen: (pre, cur) => pre.loadingPercent != cur.loadingPercent,
       builder: ((context, state) {
+        log("loading percent ${state.loadingPercent}");
         return Expanded(
           flex: 1,
           child: Column(
