@@ -1,6 +1,4 @@
-import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
-import 'package:big_wallet/features/splash/repositories/configuration.repository.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.background.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
 import 'package:big_wallet/models/configuration.model.dart';
@@ -37,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 });
               }
               if (state.loadingPercent >= 1) {
-                Navigator.pushReplacementNamed(context, Routes.authScreen);
+                //Navigator.pushReplacementNamed(context, Routes.authScreen);
               }
             }),
             child: Stack(
@@ -46,28 +44,34 @@ class _SplashScreenState extends State<SplashScreen> {
                 Align(
                   alignment: Alignment.topCenter,
                   child: Column(
-                    children: const [
-                      Spacer(
-                        flex: 3,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.65,
                       ),
-                      Text(
+                      const Text(
                         "Big Wallet",
                         style: TextStyle(
                             color: Color(0xFFA8D930),
                             fontSize: 64,
                             fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
-                      Text(
+                      const Text(
                         "Never lose money",
                         style: TextStyle(
                             color: Color(0xFF262338),
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
-                      SplashLinearProgressIndicator()
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      const SplashLinearProgressIndicator(),
+                      const SizedBox(
+                        height: 40,
+                      ),
                     ],
                   ),
                 )

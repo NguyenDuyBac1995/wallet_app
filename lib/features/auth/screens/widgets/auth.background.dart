@@ -6,19 +6,13 @@ class AuthBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return Container(
       alignment: Alignment.topCenter,
-      child: FractionallySizedBox(
-        alignment: Alignment.topCenter,
-        heightFactor: 1,
-        widthFactor: 1,
-        child: FittedBox(
-          clipBehavior: Clip.antiAlias,
-          alignment: Alignment.topCenter,
-          fit: BoxFit.cover,
-          child: Image.asset(
-            Images.authBackground,
-          ),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Image.asset(
+          Images.authBackground,
+          fit: BoxFit.fill,
         ),
       ),
     );

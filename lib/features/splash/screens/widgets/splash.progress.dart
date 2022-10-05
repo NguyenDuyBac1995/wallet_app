@@ -17,32 +17,17 @@ class _SplashLinearProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
-      buildWhen: (pre, cur) => pre.loadingPercent != cur.loadingPercent,
-      builder: ((context, state) {
-        log("loading percent ${state.loadingPercent}");
-        return Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Spacer(
-                flex: 1,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50.0, right: 50.0),
-                child: LinearProgressIndicator(
-                  backgroundColor: Colors.grey,
-                  value: state.loadingPercent,
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.black),
-                ),
-              ),
-              const Spacer(
-                flex: 4,
-              )
-            ],
-          ),
-        );
-      }),
-    );
+        buildWhen: (pre, cur) => pre.loadingPercent != cur.loadingPercent,
+        builder: ((context, state) {
+          log("loading percent ${state.loadingPercent}");
+          return Padding(
+            padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+            child: LinearProgressIndicator(
+              backgroundColor: Colors.grey,
+              value: state.loadingPercent,
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.black),
+            ),
+          );
+        }));
   }
 }
