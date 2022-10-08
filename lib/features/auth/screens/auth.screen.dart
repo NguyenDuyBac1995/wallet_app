@@ -38,68 +38,70 @@ class _AuthScreenState extends State<AuthScreen>
               const AuthBackground(),
               Column(
                 children: [
-                  const Spacer(
-                    flex: 1,
+                  Expanded(
+                    flex: 40,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.1,
+                            right: MediaQuery.of(context).size.width * 0.05),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Image.asset(AppLocalizations.of(context)!
+                                  .changeLanguageFlag),
+                              const SizedBox(width: 5),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .changeLanguageName,
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ]),
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                  Expanded(
+                    flex: 60,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Column(
                         children: [
-                          Image.asset(
-                              AppLocalizations.of(context)!.changeLanguageFlag),
-                          const SizedBox(width: 5),
-                          Text(
-                              AppLocalizations.of(context)!.changeLanguageName),
-                        ]),
-                  ),
-                  const Spacer(
-                    flex: 15,
-                  ),
+                          TabBar(
+                            controller: _tabController,
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorPadding:
+                                const EdgeInsets.only(left: 50, right: 50),
+                            indicatorColor: const Color(0xffA8D930),
+                            tabs: [
+                              Tab(
+                                text: AppLocalizations.of(context)!.signIn,
+                              ),
+                              Tab(
+                                text: AppLocalizations.of(context)!.signUp,
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                                controller: _tabController,
+                                children: const [
+                                  Center(
+                                    child: SignInScreen(),
+                                  ),
+                                  Center(
+                                    child: SignInScreen(),
+                                  )
+                                ]),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: [
-                    const Spacer(
-                      flex: 2,
-                    ),
-                    TabBar(
-                      controller: _tabController,
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorPadding:
-                          const EdgeInsets.only(left: 50, right: 50),
-                      indicatorColor: const Color(0xffA8D930),
-                      tabs: [
-                        Tab(
-                          text: AppLocalizations.of(context)!.signIn,
-                        ),
-                        Tab(
-                          text: AppLocalizations.of(context)!.signUp,
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                          controller: _tabController,
-                          children: const [
-                            Center(
-                              child: SignInScreen(),
-                            ),
-                            Center(
-                              child: SignInScreen(),
-                            )
-                          ]),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                  ],
-                ),
-              )
             ],
           );
         })),

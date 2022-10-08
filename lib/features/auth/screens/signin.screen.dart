@@ -1,3 +1,4 @@
+import 'package:big_wallet/utilities/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,79 +29,120 @@ class _SignInScreenState extends State<SignInScreen>
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              const Spacer(
-                flex: 3,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.email, color: Colors.grey),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 55,
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Expanded(flex: 5, child: Container()),
+                    Expanded(
+                      flex: 30,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            prefixIcon:
+                                const Icon(Icons.email, color: Colors.grey),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            hintText:
+                                AppLocalizations.of(context)!.emailAddress),
+                      ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+                    Expanded(
+                      flex: 25,
+                      child: TextFormField(
+                        obscureText: !_passwordVisible,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            prefixIcon:
+                                const Icon(Icons.key, color: Colors.grey),
+                            suffixIcon: IconButton(
+                              icon: Icon(_passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              color: Colors.grey,
+                              onPressed: () {
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            hintText: AppLocalizations.of(context)!.password),
+                      ),
                     ),
-                    hintText: AppLocalizations.of(context)!.emailAddress),
-              ),
-              const Spacer(
-                flex: 3,
-              ),
-              TextFormField(
-                obscureText: !_passwordVisible,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.key, color: Colors.grey),
-                    suffixIcon: IconButton(
-                      icon: Icon(_passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      color: Colors.grey,
-                      onPressed: () {
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      },
+                    Expanded(
+                      flex: 20,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            AppLocalizations.of(context)!.forgotPassword,
+                            style: const TextStyle(color: Color(0xFFF19465)),
+                          ),
+                        ),
+                      ),
                     ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+                    Expanded(
+                      flex: 20,
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      _isFormValid
+                                          ? const Color(0xFF262338)
+                                          : const Color(0xFFD9DBE9)),
+                                  fixedSize: MaterialStateProperty.all(
+                                      Size.fromWidth(
+                                          MediaQuery.of(context).size.width *
+                                              0.8))),
+                              child:
+                                  Text(AppLocalizations.of(context)!.signIn)),
+                        ],
+                      ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    hintText: AppLocalizations.of(context)!.password),
-              ),
-              const Spacer(
-                flex: 3,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    AppLocalizations.of(context)!.forgotPassword,
-                    style: const TextStyle(color: Color(0xFFF19465)),
+                  ],
+                )),
+          ),
+          Expanded(
+              flex: 10,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                        child: const Divider(
+                          color: Colors.grey,
+                        )),
                   ),
-                ),
-              ),
-              const Spacer(
-                flex: 3,
-              ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(_isFormValid
-                          ? const Color(0xFF262338)
-                          : const Color(0xFFD9DBE9)),
-                      fixedSize: MaterialStateProperty.all(Size.fromWidth(
-                          MediaQuery.of(context).size.width * 0.8))),
-                  child: const Text('Đăng nhập'))
-            ],
-          )),
+                  Text(AppLocalizations.of(context)!.or),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                        child: const Divider(
+                          color: Colors.grey,
+                        )),
+                  ),
+                ],
+              )),
+          Expanded(flex: 35, child: Container())
+        ],
+      ),
     );
   }
 }

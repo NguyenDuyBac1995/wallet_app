@@ -1,3 +1,4 @@
+import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.background.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 });
               }
               if (state.loadingPercent >= 1) {
-                //Navigator.pushReplacementNamed(context, Routes.authScreen);
+                Navigator.pushReplacementNamed(context, Routes.authScreen);
               }
             }),
             child: Stack(
@@ -45,33 +46,34 @@ class _SplashScreenState extends State<SplashScreen> {
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.65,
-                      ),
-                      const Text(
-                        "Big Wallet",
-                        style: TextStyle(
-                            color: Color(0xFFA8D930),
-                            fontSize: 64,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const Text(
-                        "Never lose money",
-                        style: TextStyle(
-                            color: Color(0xFF262338),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      const SplashLinearProgressIndicator(),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      Expanded(flex: 65, child: Container()),
+                      Expanded(
+                          flex: 35,
+                          child: Column(
+                            children: const [
+                              Text(
+                                "Big Wallet",
+                                style: TextStyle(
+                                    color: Color(0xFFA8D930),
+                                    fontSize: 64,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                "Never lose money",
+                                style: TextStyle(
+                                    color: Color(0xFF262338),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              SplashLinearProgressIndicator(),
+                            ],
+                          ))
                     ],
                   ),
                 )
