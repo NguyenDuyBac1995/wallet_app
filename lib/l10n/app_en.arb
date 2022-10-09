@@ -1,10 +1,17 @@
 {
+    "applicationName": "Big Wallet",
     "signIn": "Sign in",
     "signUp": "Sign up",
     "changeLanguageFlag": "assets/images/flags/en.png",
     "changeLanguageName": "English",
     "emailAddress": "Email address",
+    "phoneNumber": "Phone number",
     "password": "Password",
     "forgotPassword": "Forgot Password?",
-    "or": "or"
+    "orLabel": "or",
+    "ofLabel": "of",
+    "displayName": "Display name",
+    "confirmPassword": "Confirm password",
+    "signUpAcceptLabel": "Accept",
+    "termsOfService": "The terms and conditions"
 }

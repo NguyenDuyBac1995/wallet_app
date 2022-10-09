@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen>
                 key: _formKey,
                 child: Column(
                   children: [
-                    Expanded(flex: 5, child: Container()),
+                    Expanded(flex: 10, child: Container()),
                     Expanded(
                       flex: 30,
                       child: TextFormField(
@@ -52,6 +52,7 @@ class _SignInScreenState extends State<SignInScreen>
                             ),
                             hintText:
                                 AppLocalizations.of(context)!.emailAddress),
+                        onChanged: (value) {},
                       ),
                     ),
                     Expanded(
@@ -119,28 +120,28 @@ class _SignInScreenState extends State<SignInScreen>
                   ],
                 )),
           ),
-          Expanded(
-              flex: 10,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                        child: const Divider(
-                          color: Colors.grey,
-                        )),
-                  ),
-                  Text(AppLocalizations.of(context)!.or),
-                  Expanded(
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                        child: const Divider(
-                          color: Colors.grey,
-                        )),
-                  ),
-                ],
-              )),
-          Expanded(flex: 35, child: Container())
+          // Expanded(
+          //     flex: 10,
+          //     child: Row(
+          //       children: [
+          //         Expanded(
+          //           child: Container(
+          //               margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+          //               child: const Divider(
+          //                 color: Colors.grey,
+          //               )),
+          //         ),
+          //         Text(AppLocalizations.of(context)!.or),
+          //         Expanded(
+          //           child: Container(
+          //               margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+          //               child: const Divider(
+          //                 color: Colors.grey,
+          //               )),
+          //         ),
+          //       ],
+          //     )),
+          Expanded(flex: 40, child: Container())
         ],
       ),
     );

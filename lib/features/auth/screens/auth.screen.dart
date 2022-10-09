@@ -1,5 +1,6 @@
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/auth/screens/signin.screen.dart';
+import 'package:big_wallet/features/auth/screens/signup.screen.dart';
 import 'package:big_wallet/features/auth/screens/widgets/auth.background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,7 @@ class _AuthScreenState extends State<AuthScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => AuthBloc(),
         child: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
@@ -49,8 +51,11 @@ class _AuthScreenState extends State<AuthScreen>
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Image.asset(AppLocalizations.of(context)!
-                                  .changeLanguageFlag),
+                              Image.asset(
+                                AppLocalizations.of(context)!
+                                    .changeLanguageFlag,
+                                height: 15,
+                              ),
                               const SizedBox(width: 5),
                               Text(
                                 AppLocalizations.of(context)!
@@ -92,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen>
                                     child: SignInScreen(),
                                   ),
                                   Center(
-                                    child: SignInScreen(),
+                                    child: SignUpScreen(),
                                   )
                                 ]),
                           )

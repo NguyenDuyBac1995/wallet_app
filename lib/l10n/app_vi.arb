@@ -1,10 +1,17 @@
 {
+    "applicationName": "Big Wallet",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
     "changeLanguageFlag": "assets/images/flags/vi.png",
     "changeLanguageName": "Tiếng Việt",
     "emailAddress": "Thư điện tử",
+    "phoneNumber": "Số điện thoại",
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
-    "or": "hoặc"
+    "orLabel": "hoặc",
+    "ofLabel": "của",
+    "displayName": "Tên hiển thị",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "signUpAcceptLabel": "Đồng ý với các",
+    "termsOfService": "Điều khoản dịch vụ"
 }
