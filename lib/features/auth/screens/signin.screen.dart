@@ -1,6 +1,6 @@
-import 'package:big_wallet/utilities/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -13,6 +13,8 @@ class _SignInScreenState extends State<SignInScreen>
   final _formKey = GlobalKey<FormState>();
   late bool _passwordVisible = false;
   late bool _isFormValid = false;
+  late PhoneNumber number = PhoneNumber(isoCode: 'VN');
+  final TextEditingController controller = TextEditingController();
   @override
   void initState() {
     _passwordVisible = false;
@@ -40,10 +42,14 @@ class _SignInScreenState extends State<SignInScreen>
                     Expanded(flex: 10, child: Container()),
                     Expanded(
                       flex: 30,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            prefixIcon:
-                                const Icon(Icons.email, color: Colors.grey),
+                      child: InternationalPhoneNumberInput(
+                        onInputChanged: (value) {},
+                        selectorConfig: const SelectorConfig(
+                          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                        ),
+                        inputDecoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.phone_android,
+                                color: Colors.grey),
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
@@ -51,8 +57,13 @@ class _SignInScreenState extends State<SignInScreen>
                               borderSide: BorderSide(color: Colors.grey),
                             ),
                             hintText:
-                                AppLocalizations.of(context)!.emailAddress),
-                        onChanged: (value) {},
+                                AppLocalizations.of(context)!.phoneNumber),
+                        selectorTextStyle: const TextStyle(color: Colors.black),
+                        initialValue: number,
+                        textFieldController: controller,
+                        formatInput: false,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            signed: true, decimal: true),
                       ),
                     ),
                     Expanded(

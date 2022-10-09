@@ -31,7 +31,6 @@ class _AuthScreenState extends State<AuthScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => AuthBloc(),
         child: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
