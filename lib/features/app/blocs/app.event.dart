@@ -23,3 +23,12 @@ class ChangeLoadingPercent extends AppEvent {
         {loadingPercent}
       ];
 }
+
+class ChangeLanguage extends AppEvent {
+  final Locale locale;
+  const ChangeLanguage(this.locale);
+  @override
+  List<Object> get props => [
+        {locale}
+      ];
+}

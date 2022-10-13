@@ -1,9 +1,9 @@
 {
     "applicationName": "Big Wallet",
+    "slogan": "Never lose money",
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "changeLanguageFlag": "assets/images/flags/en.png",
-    "changeLanguageName": "English",
+    "languageName": "English",
     "emailAddress": "Email address",
     "phoneNumber": "Phone number",
     "password": "Password",

@@ -3,6 +3,7 @@ import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.background.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
 import 'package:big_wallet/models/configuration.model.dart';
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,28 +51,28 @@ class _SplashScreenState extends State<SplashScreen> {
                       Expanded(
                           flex: 35,
                           child: Column(
-                            children: const [
+                            children: [
                               Text(
-                                "Big Wallet",
-                                style: TextStyle(
+                                context.l10n?.applicationName ?? 'Big Wallet',
+                                style: const TextStyle(
                                     color: Color(0xFFA8D930),
                                     fontSize: 64,
                                     fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
                               Text(
-                                "Never lose money",
-                                style: TextStyle(
+                                context.l10n?.slogan ?? 'Never lose money',
+                                style: const TextStyle(
                                     color: Color(0xFF262338),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 40,
                               ),
-                              SplashLinearProgressIndicator(),
+                              const SplashLinearProgressIndicator(),
                             ],
                           ))
                     ],

@@ -19,7 +19,7 @@ class _SplashLinearProgressIndicatorState
     return BlocBuilder<AppBloc, AppState>(
         buildWhen: (pre, cur) => pre.loadingPercent != cur.loadingPercent,
         builder: ((context, state) {
-          log("loading percent ${state.loadingPercent}");
+          log('loading percent ${state.loadingPercent}');
           return Padding(
             padding: const EdgeInsets.only(left: 50.0, right: 50.0),
             child: LinearProgressIndicator(

@@ -1,9 +1,9 @@
 {
     "applicationName": "Big Wallet",
+    "slogan": "Never lose money",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
-    "changeLanguageFlag": "assets/images/flags/vi.png",
-    "changeLanguageName": "Tiếng Việt",
+    "languageName": "Tiếng Việt",
     "emailAddress": "Thư điện tử",
     "phoneNumber": "Số điện thoại",
     "password": "Mật khẩu",

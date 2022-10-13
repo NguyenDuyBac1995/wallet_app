@@ -1,5 +1,5 @@
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -34,14 +34,14 @@ class _SignInScreenState extends State<SignInScreen>
       child: Column(
         children: [
           Expanded(
-            flex: 55,
+            flex: 6,
             child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    Expanded(flex: 10, child: Container()),
+                    Expanded(flex: 1, child: Container()),
                     Expanded(
-                      flex: 30,
+                      flex: 3,
                       child: InternationalPhoneNumberInput(
                         onInputChanged: (value) {},
                         selectorConfig: const SelectorConfig(
@@ -56,8 +56,7 @@ class _SignInScreenState extends State<SignInScreen>
                             focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
-                            hintText:
-                                AppLocalizations.of(context)!.phoneNumber),
+                            hintText: context.l10n?.phoneNumber),
                         selectorTextStyle: const TextStyle(color: Colors.black),
                         initialValue: number,
                         textFieldController: controller,
@@ -67,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen>
                       ),
                     ),
                     Expanded(
-                      flex: 25,
+                      flex: 2,
                       child: TextFormField(
                         obscureText: !_passwordVisible,
                         enableSuggestions: false,
@@ -92,24 +91,24 @@ class _SignInScreenState extends State<SignInScreen>
                             focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
-                            hintText: AppLocalizations.of(context)!.password),
+                            hintText: context.l10n?.password),
                       ),
                     ),
                     Expanded(
-                      flex: 20,
+                      flex: 2,
                       child: Align(
                         alignment: Alignment.topRight,
                         child: TextButton(
                           onPressed: () {},
                           child: Text(
-                            AppLocalizations.of(context)!.forgotPassword,
+                            context.l10n?.forgotPassword ?? 'Forgot password?',
                             style: const TextStyle(color: Color(0xFFF19465)),
                           ),
                         ),
                       ),
                     ),
                     Expanded(
-                      flex: 20,
+                      flex: 2,
                       child: Column(
                         children: [
                           ElevatedButton(
@@ -123,8 +122,7 @@ class _SignInScreenState extends State<SignInScreen>
                                       Size.fromWidth(
                                           MediaQuery.of(context).size.width *
                                               0.8))),
-                              child:
-                                  Text(AppLocalizations.of(context)!.signIn)),
+                              child: Text(context.l10n?.signIn ?? 'Sign in')),
                         ],
                       ),
                     ),
@@ -152,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen>
           //         ),
           //       ],
           //     )),
-          Expanded(flex: 40, child: Container())
+          Expanded(flex: 4, child: Container())
         ],
       ),
     );

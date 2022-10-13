@@ -1,5 +1,5 @@
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      hintText: AppLocalizations.of(context)!.phoneNumber),
+                      hintText: context.l10n?.phoneNumber),
                   selectorTextStyle: const TextStyle(color: Colors.black),
                   initialValue: number,
                   textFieldController: controller,
@@ -74,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      hintText: AppLocalizations.of(context)!.displayName),
+                      hintText: context.l10n?.displayName),
                 ),
               ),
               Expanded(
@@ -102,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      hintText: AppLocalizations.of(context)!.password),
+                      hintText: context.l10n?.password),
                 ),
               ),
               Expanded(
@@ -130,7 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      hintText: AppLocalizations.of(context)!.confirmPassword),
+                      hintText: context.l10n?.confirmPassword),
                 ),
               ),
               Expanded(
@@ -148,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                   Expanded(
                     child: Wrap(
                       children: [
-                        Text(AppLocalizations.of(context)!.signUpAcceptLabel),
+                        Text(context.l10n?.signUpAcceptLabel ?? 'Accept'),
                         TextButton(
                             onPressed: () {},
                             style: TextButton.styleFrom(
@@ -157,12 +157,11 @@ class _SignUpScreenState extends State<SignUpScreen>
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
                             child: Text(
-                              ' ${AppLocalizations.of(context)!.termsOfService}',
+                              ' ${context.l10n?.termsOfService}',
                               style: const TextStyle(color: Color(0xFFF19465)),
                             )),
-                        Text(' ${AppLocalizations.of(context)!.ofLabel}'),
-                        Text(
-                            ' ${AppLocalizations.of(context)!.applicationName}'),
+                        Text(' ${context.l10n?.ofLabel}'),
+                        Text('${context.l10n?.applicationName}'),
                       ],
                     ),
                   )
@@ -181,7 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                                     : const Color(0xFFD9DBE9)),
                             fixedSize: MaterialStateProperty.all(Size.fromWidth(
                                 MediaQuery.of(context).size.width * 0.8))),
-                        child: Text(AppLocalizations.of(context)!.signUp)),
+                        child: Text(context.l10n?.signUp ?? 'Sign up')),
                   ],
                 ),
               ),
