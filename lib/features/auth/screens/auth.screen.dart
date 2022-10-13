@@ -56,31 +56,35 @@ class _AuthScreenState extends State<AuthScreen>
                                   top: MediaQuery.of(context).size.height * 0.1,
                                   right:
                                       MediaQuery.of(context).size.width * 0.05),
-                              child: DropdownButton(
-                                  alignment: Alignment.centerRight,
-                                  value: state.locale.languageCode,
-                                  items: Language.languages()
-                                      .map<DropdownMenuItem<String>>(
-                                          (e) => DropdownMenuItem(
-                                              value: e.code,
-                                              child: Row(children: [
-                                                Image.asset(
-                                                  e.flag,
-                                                  height: 15,
-                                                ),
-                                                const SizedBox(width: 5),
-                                                Text(
-                                                  e.name,
-                                                  style: const TextStyle(
-                                                      fontSize: 14),
-                                                ),
-                                              ])))
-                                      .toList(),
-                                  onChanged: (value) async {
-                                    _languageCode = value ?? 'en';
-                                    context.read<AppBloc>().add(
-                                        ChangeLanguage(Locale(_languageCode)));
-                                  })),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                    iconSize: 0.0,
+                                    alignment: Alignment.centerRight,
+                                    value: state.locale.languageCode,
+                                    items: Language.languages()
+                                        .map<DropdownMenuItem<String>>(
+                                            (e) => DropdownMenuItem(
+                                                value: e.code,
+                                                child: Row(children: [
+                                                  Image.asset(
+                                                    e.flag,
+                                                    height: 15,
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Text(
+                                                    e.name,
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                  ),
+                                                ])))
+                                        .toList(),
+                                    onChanged: (value) async {
+                                      _languageCode = value ?? 'en';
+                                      context.read<AppBloc>().add(
+                                          ChangeLanguage(
+                                              Locale(_languageCode)));
+                                    }),
+                              )),
                         ),
                       ),
                       Expanded(
