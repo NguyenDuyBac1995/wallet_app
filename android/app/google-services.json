@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "587302009735",
+    "project_id": "big-wallet-f9c7e",
+    "storage_bucket": "big-wallet-f9c7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587302009735:android:7f397e459cda3c61487122",
+        "android_client_info": {
+          "package_name": "com.megiservices.bigWallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587302009735-3epgd7td8k3lp9muuf428utu6rqhjdc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsznUVG0NNGx7_u5BPJBfVqUO27a4xJEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587302009735-3epgd7td8k3lp9muuf428utu6rqhjdc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

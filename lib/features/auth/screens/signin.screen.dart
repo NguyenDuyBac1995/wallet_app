@@ -1,6 +1,7 @@
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:logger/logger.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -14,7 +15,7 @@ class _SignInScreenState extends State<SignInScreen>
   late bool _passwordVisible = false;
   late bool _isFormValid = false;
   late PhoneNumber number = PhoneNumber(isoCode: 'VN');
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   @override
   void initState() {
     _passwordVisible = false;
@@ -44,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen>
                       flex: 3,
                       child: InternationalPhoneNumberInput(
                         onInputChanged: (value) {},
+                        onInputValidated: (value) {},
                         selectorConfig: const SelectorConfig(
                           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                         ),
@@ -59,7 +61,7 @@ class _SignInScreenState extends State<SignInScreen>
                             hintText: context.l10n?.phoneNumber),
                         selectorTextStyle: const TextStyle(color: Colors.black),
                         initialValue: number,
-                        textFieldController: controller,
+                        textFieldController: _phoneNumberController,
                         formatInput: false,
                         keyboardType: const TextInputType.numberWithOptions(
                             signed: true, decimal: true),

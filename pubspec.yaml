@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^1.1.5
   intl_phone_number_input: ^0.7.1
   collection: ^1.16.0
+  firebase_auth: ^3.11.2
 
 dev_dependencies:
   flutter_test:
