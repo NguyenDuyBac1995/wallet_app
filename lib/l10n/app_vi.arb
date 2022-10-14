@@ -13,5 +13,6 @@
     "displayName": "Tên hiển thị",
     "confirmPassword": "Xác nhận mật khẩu",
     "signUpAcceptLabel": "Đồng ý với các",
-    "termsOfService": "Điều khoản dịch vụ"
+    "termsOfService": "Điều khoản dịch vụ",
+    "passwordWarning": "Mật khẩu có tối thiếu 6 ký tự bao gồm số, chữ cái và dấu chấm câu (như ! và &)"
 }

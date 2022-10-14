@@ -13,5 +13,6 @@
     "displayName": "Display name",
     "confirmPassword": "Confirm password",
     "signUpAcceptLabel": "Accept",
-    "termsOfService": "The terms and conditions"
+    "termsOfService": "The terms and conditions",
+    "passwordWarning": "Password must be at least 6 characters including numbers, letters and punctuation (like ! and &)"
 }

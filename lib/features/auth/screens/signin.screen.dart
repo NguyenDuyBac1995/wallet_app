@@ -1,7 +1,6 @@
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:logger/logger.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -11,11 +10,10 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen>
     with SingleTickerProviderStateMixin {
-  final _formKey = GlobalKey<FormState>();
   late bool _passwordVisible = false;
   late bool _isFormValid = false;
   late PhoneNumber number = PhoneNumber(isoCode: 'VN');
-  final TextEditingController _phoneNumberController = TextEditingController();
+
   @override
   void initState() {
     _passwordVisible = false;
@@ -35,101 +33,97 @@ class _SignInScreenState extends State<SignInScreen>
       child: Column(
         children: [
           Expanded(
-            flex: 6,
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Expanded(flex: 1, child: Container()),
-                    Expanded(
-                      flex: 3,
-                      child: InternationalPhoneNumberInput(
-                        onInputChanged: (value) {},
-                        onInputValidated: (value) {},
-                        selectorConfig: const SelectorConfig(
-                          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+            flex: 8,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 20,
+                  child: InternationalPhoneNumberInput(
+                    onInputChanged: (value) {},
+                    onInputValidated: (value) {},
+                    selectorConfig: const SelectorConfig(
+                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                    ),
+                    inputDecoration: InputDecoration(
+                        prefixIcon:
+                            const Icon(Icons.phone_android, color: Colors.grey),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
-                        inputDecoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.phone_android,
-                                color: Colors.grey),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            hintText: context.l10n?.phoneNumber),
-                        selectorTextStyle: const TextStyle(color: Colors.black),
-                        initialValue: number,
-                        textFieldController: _phoneNumberController,
-                        formatInput: false,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        hintText: context.l10n?.phoneNumber),
+                    selectorTextStyle: const TextStyle(color: Colors.black),
+                    initialValue: number,
+                    formatInput: false,
+                    keyboardType: const TextInputType.numberWithOptions(
+                        signed: true, decimal: true),
+                  ),
+                ),
+                Expanded(
+                  flex: 20,
+                  child: TextFormField(
+                    obscureText: !_passwordVisible,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.key, color: Colors.grey),
+                        suffixIcon: IconButton(
+                          icon: Icon(_passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          color: Colors.grey,
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        hintText: context.l10n?.password),
+                  ),
+                ),
+                Expanded(
+                  flex: 15,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        context.l10n?.forgotPassword ?? 'Forgot password?',
+                        style: const TextStyle(color: Color(0xFFF19465)),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: TextFormField(
-                        obscureText: !_passwordVisible,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        decoration: InputDecoration(
-                            prefixIcon:
-                                const Icon(Icons.key, color: Colors.grey),
-                            suffixIcon: IconButton(
-                              icon: Icon(_passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              color: Colors.grey,
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            hintText: context.l10n?.password),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: TextButton(
+                  ),
+                ),
+                Expanded(
+                  flex: 20,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
                           onPressed: () {},
-                          child: Text(
-                            context.l10n?.forgotPassword ?? 'Forgot password?',
-                            style: const TextStyle(color: Color(0xFFF19465)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      _isFormValid
-                                          ? const Color(0xFF262338)
-                                          : const Color(0xFFD9DBE9)),
-                                  fixedSize: MaterialStateProperty.all(
-                                      Size.fromWidth(
-                                          MediaQuery.of(context).size.width *
-                                              0.8))),
-                              child: Text(context.l10n?.signIn ?? 'Sign in')),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  _isFormValid
+                                      ? const Color(0xFF262338)
+                                      : const Color(0xFFD9DBE9)),
+                              fixedSize: MaterialStateProperty.all(
+                                  Size.fromWidth(
+                                      MediaQuery.of(context).size.width *
+                                          0.8))),
+                          child: Text(context.l10n?.signIn ?? 'Sign in')),
+                    ],
+                  ),
+                ),
+                Expanded(flex: 25, child: Container()),
+              ],
+            ),
           ),
           // Expanded(
           //     flex: 10,
@@ -152,7 +146,7 @@ class _SignInScreenState extends State<SignInScreen>
           //         ),
           //       ],
           //     )),
-          Expanded(flex: 4, child: Container())
+          Expanded(flex: 2, child: Container())
         ],
       ),
     );

@@ -104,11 +104,9 @@ class _AuthScreenState extends State<AuthScreen>
                                 tabs: [
                                   Tab(
                                     text: context.l10n?.signIn,
-                                    key: UniqueKey(),
                                   ),
                                   Tab(
                                     text: context.l10n?.signUp,
-                                    key: UniqueKey(),
                                   ),
                                 ],
                               ),
@@ -117,14 +115,12 @@ class _AuthScreenState extends State<AuthScreen>
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     controller: _tabController,
-                                    children: [
+                                    children: const [
                                       Center(
-                                        key: UniqueKey(),
-                                        child: const SignInScreen(),
+                                        child: SignInScreen(),
                                       ),
                                       Center(
-                                        key: UniqueKey(),
-                                        child: const SignUpScreen(),
+                                        child: SignUpScreen(),
                                       )
                                     ]),
                               )
