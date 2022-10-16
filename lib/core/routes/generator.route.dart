@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> generate(RouteSettings settings) {
-    final args = settings.arguments;
     switch (settings.name) {
       case Routes.splashScreen:
         return GeneratePageRoute(

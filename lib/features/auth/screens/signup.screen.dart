@@ -1,4 +1,5 @@
 import 'package:big_wallet/utilities/localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:logger/logger.dart';
@@ -14,15 +15,19 @@ class _SignUpScreenState extends State<SignUpScreen>
   late bool _passwordVisible;
   late bool _confirmPasswordVisible;
   late bool _isFormValid;
-  late bool? _isPrivacyAccepted;
-  late PhoneNumber number;
+  late bool _isPrivacyAccepted;
+  late PhoneNumber _phoneNumber;
+  late bool _isPhoneNumberValid;
   late TextEditingController _phoneNumberController;
   late TextEditingController _displayNameController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
+  final RegExp _regexPassword =
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!&@#]).{8,}$');
+
   @override
   void initState() {
-    number = PhoneNumber(isoCode: 'VN');
+    _phoneNumber = PhoneNumber(isoCode: 'VN');
     _isPrivacyAccepted = false;
     _isFormValid = false;
     _confirmPasswordVisible = false;
@@ -40,7 +45,51 @@ class _SignUpScreenState extends State<SignUpScreen>
   }
 
   onChange() {
-    Logger().i('number $number');
+    if (!_isPhoneNumberValid || _phoneNumber.phoneNumber!.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (_displayNameController.text.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (_passwordController.text.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (_confirmPasswordController.text.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (!_isPrivacyAccepted) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (!_regexPassword.hasMatch(_passwordController.text)) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    if (_passwordController.text != _confirmPasswordController.text) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    setState(() {
+      _isFormValid = true;
+    });
   }
 
   @override
@@ -54,10 +103,15 @@ class _SignUpScreenState extends State<SignUpScreen>
             child: InternationalPhoneNumberInput(
               textFieldController: _phoneNumberController,
               onInputChanged: (value) {
-                if (number.phoneNumber != value.phoneNumber) number = value;
+                if (_phoneNumber.phoneNumber != value.phoneNumber) {
+                  _phoneNumber = value;
+                }
               },
               onInputValidated: (value) {
-                if (value) onChange();
+                if (value) {
+                  _isPhoneNumberValid = value;
+                  onChange();
+                }
               },
               selectorConfig: const SelectorConfig(
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -73,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                   ),
                   hintText: context.l10n?.phoneNumber),
               selectorTextStyle: const TextStyle(color: Colors.black),
-              initialValue: number,
+              initialValue: _phoneNumber,
               formatInput: false,
               keyboardType: const TextInputType.numberWithOptions(
                   signed: true, decimal: true),
@@ -92,6 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                   hintText: context.l10n?.displayName),
+              onChanged: ((value) => onChange()),
             ),
           ),
           Expanded(
@@ -121,6 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                   hintText: context.l10n?.password),
+              onChanged: ((value) => onChange()),
             ),
           ),
           Expanded(
@@ -150,6 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                   hintText: context.l10n?.confirmPassword),
+              onChanged: ((value) => onChange()),
             ),
           ),
           Expanded(
@@ -167,7 +224,8 @@ class _SignUpScreenState extends State<SignUpScreen>
                   child: Checkbox(
                       value: _isPrivacyAccepted,
                       onChanged: (value) {
-                        setState(() => _isPrivacyAccepted = value);
+                        setState(() => _isPrivacyAccepted = value ?? false);
+                        onChange();
                       })),
               // You can play with the width to adjust your
               // desired spacing
@@ -198,7 +256,31 @@ class _SignUpScreenState extends State<SignUpScreen>
             child: Column(
               children: [
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_isFormValid) {
+                        var auth = FirebaseAuth.instance;
+                        auth.verifyPhoneNumber(
+                          phoneNumber: _phoneNumber.phoneNumber,
+                          timeout: const Duration(seconds: 60),
+                          verificationCompleted: (phoneAuthCredential) {
+                            auth
+                                .signInWithCredential(phoneAuthCredential)
+                                .then((dynamic result) {
+                              Logger().i(result);
+                            }).catchError((e) {
+                              Logger().i(e);
+                            });
+                          },
+                          verificationFailed: (error) {
+                            Logger().i(error);
+                          },
+                          codeSent: (verificationId, forceResendingToken) {
+                            Logger().i(verificationId);
+                          },
+                          codeAutoRetrievalTimeout: (verificationId) {},
+                        );
+                      }
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(_isFormValid
                             ? const Color(0xFF262338)
