@@ -14,5 +14,7 @@
     "confirmPassword": "Confirm password",
     "signUpAcceptLabel": "Accept",
     "termsOfService": "The terms and conditions",
-    "passwordWarning": "Password must be at least 8 characters including numbers, letters and punctuation (like ! and &)"
+    "passwordWarning": "Password must be at least 8 characters including numbers, letters and punctuation (like ! and &)",
+    "otpVerification": "OTP Verification",
+    "otpSentTo": "A verification code has been sent to"
 }

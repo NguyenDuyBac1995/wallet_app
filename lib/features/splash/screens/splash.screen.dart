@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 });
               }
               if (state.loadingPercent >= 1) {
-                Navigator.pushReplacementNamed(context, Routes.authScreen);
+                Navigator.pushReplacementNamed(context, Routes.otpScreen);
               }
             }),
             child: Stack(

@@ -14,5 +14,7 @@
     "confirmPassword": "Xác nhận mật khẩu",
     "signUpAcceptLabel": "Đồng ý với các",
     "termsOfService": "Điều khoản dịch vụ",
-    "passwordWarning": "Mật khẩu có tối thiếu 8 ký tự bao gồm số, chữ cái và dấu chấm câu (như ! và &)"
+    "passwordWarning": "Mật khẩu có tối thiếu 8 ký tự bao gồm số, chữ cái và dấu chấm câu (như ! và &)",
+    "otpVerification": "Xác thực mã OTP",
+    "otpSentTo": "Mã xác thực đã được gửi tới"
 }

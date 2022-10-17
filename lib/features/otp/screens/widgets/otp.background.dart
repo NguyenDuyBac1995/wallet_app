@@ -11,7 +11,7 @@ class OtpBackground extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Image.asset(
-          Images.authBackground,
+          Images.otpBackground,
           fit: BoxFit.fill,
         ),
       ),
