@@ -10,11 +10,21 @@
     "forgotPassword": "Quên mật khẩu?",
     "orLabel": "hoặc",
     "ofLabel": "của",
+    "afterLabel": "sau",
     "displayName": "Tên hiển thị",
     "confirmPassword": "Xác nhận mật khẩu",
     "signUpAcceptLabel": "Đồng ý với các",
     "termsOfService": "Điều khoản dịch vụ",
     "passwordWarning": "Mật khẩu có tối thiếu 8 ký tự bao gồm số, chữ cái và dấu chấm câu (như ! và &)",
     "otpVerification": "Xác thực mã OTP",
-    "otpSentTo": "Mã xác thực đã được gửi tới"
+    "otpSentTo": "Mã xác thực đã được gửi tới",
+    "verify": "Xác nhận",
+    "dontReceiveOtp": "Không nhận được OTP ?",
+    "resend": "Gửi lại",
+    "seconds": "{count,plural, =0{giây}=1{giây}other{giây}}",
+    "@seconds": {
+        "placeholders": {
+            "count": {}
+        }
+    }
 }

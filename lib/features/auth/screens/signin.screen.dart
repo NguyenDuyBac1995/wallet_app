@@ -96,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen>
                     child: TextButton(
                       onPressed: () {},
                       child: Text(
-                        context.l10n?.forgotPassword ?? 'Forgot password?',
+                        '${context.l10n?.forgotPassword}',
                         style: const TextStyle(color: Color(0xFFF19465)),
                       ),
                     ),
@@ -117,7 +117,7 @@ class _SignInScreenState extends State<SignInScreen>
                                   Size.fromWidth(
                                       MediaQuery.of(context).size.width *
                                           0.8))),
-                          child: Text(context.l10n?.signIn ?? 'Sign in')),
+                          child: Text('${context.l10n?.signIn}')),
                     ],
                   ),
                 ),

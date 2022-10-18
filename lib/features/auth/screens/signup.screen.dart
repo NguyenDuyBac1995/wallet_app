@@ -213,8 +213,7 @@ class _SignUpScreenState extends State<SignUpScreen>
             flex: 10,
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(context.l10n?.passwordWarning ??
-                  'Password must be at least 6 characters including numbers, letters and punctuation (like ! and &)'),
+              child: Text('${context.l10n?.passwordWarning}'),
             ),
           ),
           Expanded(
@@ -232,7 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               Expanded(
                 child: Wrap(
                   children: [
-                    Text(context.l10n?.signUpAcceptLabel ?? 'Accept'),
+                    Text('${context.l10n?.signUpAcceptLabel}'),
                     TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
@@ -287,7 +286,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                             : const Color(0xFFD9DBE9)),
                         fixedSize: MaterialStateProperty.all(Size.fromWidth(
                             MediaQuery.of(context).size.width * 0.8))),
-                    child: Text(context.l10n?.signUp ?? 'Sign up')),
+                    child: Text('${context.l10n?.signUp}')),
               ],
             ),
           )

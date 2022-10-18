@@ -12,11 +12,6 @@ class OtpInputWidget extends StatelessWidget {
         height: width,
         width: height,
         child: TextField(
-          decoration: const InputDecoration(
-              border: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.0, color: Colors.black),
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          )),
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           inputFormatters: [

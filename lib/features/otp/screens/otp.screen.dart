@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
@@ -17,10 +19,28 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  late bool _isOtpEntered;
+  late bool _enableResend;
+  late Timer _timer;
+  late int _secondsRemaining;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _isOtpEntered = false;
+    _enableResend = false;
+    _secondsRemaining = 30;
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_secondsRemaining > 1) {
+        setState(() {
+          _secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          _enableResend = true;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -28,6 +48,14 @@ class _OtpScreenState extends State<OtpScreen>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    _timer.cancel();
+  }
+
+  void resend() {
+    setState(() {
+      _secondsRemaining = 30;
+      _enableResend = false;
+    });
   }
 
   @override
@@ -88,8 +116,7 @@ class _OtpScreenState extends State<OtpScreen>
                                     },
                                     icon: const Icon(Icons.arrow_back)),
                                 Text(
-                                  context.l10n?.otpVerification ??
-                                      'OTP Verification',
+                                  '${context.l10n?.otpVerification}',
                                   style: const TextStyle(
                                       color: Color(0xFF4E4B66),
                                       fontSize: 24,
@@ -103,12 +130,13 @@ class _OtpScreenState extends State<OtpScreen>
                           child: Column(
                             children: [
                               Text(
-                                '${context.l10n?.otpSentTo ?? 'A verification code has been sent to'} 094****189',
+                                '${'${context.l10n?.otpSentTo} '} 094****189',
                                 style: const TextStyle(fontSize: 12),
                               ),
+                              const SizedBox(height: 15),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15, right: 15, top: 30, bottom: 30),
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -127,6 +155,41 @@ class _OtpScreenState extends State<OtpScreen>
                                         width: inputWidth, height: inputHeight),
                                   ],
                                 ),
+                              ),
+                              const SizedBox(height: 15),
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              _isOtpEntered
+                                                  ? const Color(0xFF262338)
+                                                  : const Color(0xFFD9DBE9)),
+                                      fixedSize: MaterialStateProperty.all(
+                                          Size.fromWidth(MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8))),
+                                  child: Text('${context.l10n?.verify}')),
+                              const SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('${context.l10n?.dontReceiveOtp} '),
+                                  _enableResend
+                                      ? TextButton(
+                                          onPressed: () {
+                                            resend();
+                                          },
+                                          child: Text(
+                                            '${context.l10n?.resend}',
+                                            style: const TextStyle(
+                                                color: Color(0xFFF19465)),
+                                          ),
+                                        )
+                                      : Text(
+                                          '${context.l10n?.resend} ${context.l10n?.afterLabel} $_secondsRemaining ${context.l10n?.seconds(_secondsRemaining)}')
+                                ],
                               )
                             ],
                           ))

@@ -10,11 +10,21 @@
     "forgotPassword": "Forgot Password?",
     "orLabel": "or",
     "ofLabel": "of",
+    "afterLabel": "after",
     "displayName": "Display name",
     "confirmPassword": "Confirm password",
     "signUpAcceptLabel": "Accept",
     "termsOfService": "The terms and conditions",
     "passwordWarning": "Password must be at least 8 characters including numbers, letters and punctuation (like ! and &)",
     "otpVerification": "OTP Verification",
-    "otpSentTo": "A verification code has been sent to"
+    "otpSentTo": "A verification code has been sent to",
+    "verify": "Verify",
+    "dontReceiveOtp": "Don't receive the OTP ?",
+    "resend": "Resend",
+    "seconds": "{count,plural, =0{second}=1{second}other{seconds}}",
+    "@seconds": {
+        "placeholders": {
+            "count": {}
+        }
+    }
 }
