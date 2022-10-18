@@ -24,6 +24,13 @@ class _OtpScreenState extends State<OtpScreen>
   late bool _enableResend;
   late Timer _timer;
   late int _secondsRemaining;
+  late String _otpValue;
+  final TextEditingController _number1 = TextEditingController();
+  final TextEditingController _number2 = TextEditingController();
+  final TextEditingController _number3 = TextEditingController();
+  final TextEditingController _number4 = TextEditingController();
+  final TextEditingController _number5 = TextEditingController();
+  final TextEditingController _number6 = TextEditingController();
 
   @override
   void initState() {
@@ -31,6 +38,7 @@ class _OtpScreenState extends State<OtpScreen>
     _isOtpEntered = false;
     _enableResend = false;
     _secondsRemaining = 30;
+    _otpValue = '';
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (_secondsRemaining > 1) {
         setState(() {
@@ -57,6 +65,16 @@ class _OtpScreenState extends State<OtpScreen>
       _secondsRemaining = 30;
       _enableResend = false;
     });
+  }
+
+  void onChange() {
+    _otpValue =
+        '${_number1.text}${_number2.text}${_number3.text}${_number4.text}${_number5.text}${_number6.text}';
+    if (_otpValue.length == 6) {
+      setState(() {
+        _isOtpEntered = true;
+      });
+    }
   }
 
   @override
@@ -139,17 +157,41 @@ class _OtpScreenState extends State<OtpScreen>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number1,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number2,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number3,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number4,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number5,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                     OtpInputWidget(
-                                        width: inputWidth, height: inputHeight),
+                                      width: inputWidth,
+                                      height: inputHeight,
+                                      controller: _number6,
+                                      onChanged: (value) => onChange(),
+                                    ),
                                   ],
                                 ),
                               ),

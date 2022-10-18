@@ -1,6 +1,8 @@
 import 'package:big_wallet/utilities/localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:logger/logger.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -12,18 +14,51 @@ class _SignInScreenState extends State<SignInScreen>
     with SingleTickerProviderStateMixin {
   late bool _passwordVisible = false;
   late bool _isFormValid = false;
-  late PhoneNumber number = PhoneNumber(isoCode: 'VN');
+  late PhoneNumber _phoneNumber;
+  late TextEditingController _phoneNumberController;
+  late bool _isPhoneNumberValid;
+  late TextEditingController _passwordController;
+  final RegExp _regexPassword =
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!&@#]).{8,}$');
 
   @override
   void initState() {
     _passwordVisible = false;
     _isFormValid = false;
+    _phoneNumber = PhoneNumber(isoCode: 'VN');
+    _phoneNumberController = TextEditingController();
+    _isPhoneNumberValid = false;
+    _passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  onChange() {
+    if (!_isPhoneNumberValid || _phoneNumber.phoneNumber!.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    // if (_passwordController.text.isEmpty) {
+    //   setState(() {
+    //     _isFormValid = false;
+    //   });
+    //   return;
+    // }
+    // if (!_regexPassword.hasMatch(_passwordController.text)) {
+    //   setState(() {
+    //     _isFormValid = false;
+    //   });
+    //   return;
+    // }
+    setState(() {
+      _isFormValid = true;
+    });
   }
 
   @override
@@ -39,8 +74,18 @@ class _SignInScreenState extends State<SignInScreen>
                 Expanded(
                   flex: 20,
                   child: InternationalPhoneNumberInput(
-                    onInputChanged: (value) {},
-                    onInputValidated: (value) {},
+                    textFieldController: _phoneNumberController,
+                    onInputChanged: (value) {
+                      if (_phoneNumber.phoneNumber != value.phoneNumber) {
+                        _phoneNumber = value;
+                      }
+                    },
+                    onInputValidated: (value) {
+                      if (value) {
+                        _isPhoneNumberValid = value;
+                        onChange();
+                      }
+                    },
                     selectorConfig: const SelectorConfig(
                       selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                     ),
@@ -55,7 +100,7 @@ class _SignInScreenState extends State<SignInScreen>
                         ),
                         hintText: context.l10n?.phoneNumber),
                     selectorTextStyle: const TextStyle(color: Colors.black),
-                    initialValue: number,
+                    initialValue: _phoneNumber,
                     formatInput: false,
                     keyboardType: const TextInputType.numberWithOptions(
                         signed: true, decimal: true),
@@ -64,6 +109,7 @@ class _SignInScreenState extends State<SignInScreen>
                 Expanded(
                   flex: 20,
                   child: TextFormField(
+                    controller: _passwordController,
                     obscureText: !_passwordVisible,
                     enableSuggestions: false,
                     autocorrect: false,
@@ -107,7 +153,28 @@ class _SignInScreenState extends State<SignInScreen>
                   child: Column(
                     children: [
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_isFormValid) {
+                              var auth = FirebaseAuth.instance;
+                              auth.verifyPhoneNumber(
+                                phoneNumber: _phoneNumber.phoneNumber,
+                                timeout: const Duration(seconds: 30),
+                                verificationCompleted: (phoneAuthCredential) {
+                                  Logger().i('verificationCompleted');
+                                },
+                                verificationFailed: (error) {
+                                  Logger().i('verificationFailed');
+                                },
+                                codeSent:
+                                    (verificationId, forceResendingToken) {
+                                  Logger().i('codeSent');
+                                },
+                                codeAutoRetrievalTimeout: (verificationId) {
+                                  Logger().i('codeAutoRetrievalTimeout');
+                                },
+                              );
+                            }
+                          },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
                                   _isFormValid

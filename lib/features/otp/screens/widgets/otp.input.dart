@@ -4,7 +4,14 @@ import 'package:flutter/services.dart';
 class OtpInputWidget extends StatelessWidget {
   final double? width;
   final double? height;
-  const OtpInputWidget({super.key, this.width, this.height});
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  const OtpInputWidget(
+      {super.key,
+      this.width,
+      this.height,
+      required this.controller,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +26,12 @@ class OtpInputWidget extends StatelessWidget {
             LengthLimitingTextInputFormatter(1),
             FilteringTextInputFormatter.digitsOnly
           ],
+          controller: controller,
           onChanged: (value) {
             if (value.length == 1) {
               FocusScope.of(context).nextFocus();
             }
+            onChanged(value);
           },
         ));
   }
