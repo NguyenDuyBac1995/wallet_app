@@ -76,32 +76,28 @@ class _OtpScreenState extends State<OtpScreen>
             Column(
               children: [
                 Expanded(
-                  flex: 15,
+                  flex: 10,
                   child: Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.05,
-                            right: MediaQuery.of(context).size.width * 0.05),
-                        child: BlocSelector<AppBloc, AppState, String>(
-                          selector: (state) {
-                            return state.locale.languageCode;
+                    alignment: Alignment.bottomRight,
+                    child: BlocSelector<AppBloc, AppState, String>(
+                      selector: (state) {
+                        return state.locale.languageCode;
+                      },
+                      builder: (context, languageCode) {
+                        return SwitchLanguageWidget(
+                          languageCode: languageCode,
+                          onChange: (value) {
+                            context
+                                .read<AppBloc>()
+                                .add(ChangeLanguage(Locale(value)));
                           },
-                          builder: (context, languageCode) {
-                            return SwitchLanguageWidget(
-                              languageCode: languageCode,
-                              onChange: (value) {
-                                context
-                                    .read<AppBloc>()
-                                    .add(ChangeLanguage(Locale(value)));
-                              },
-                            );
-                          },
-                        )),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Expanded(
-                  flex: 85,
+                  flex: 90,
                   child: Column(
                     children: [
                       Expanded(

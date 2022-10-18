@@ -45,36 +45,35 @@ class _AuthScreenState extends State<AuthScreen>
             Column(
               children: [
                 Expanded(
-                  flex: 40,
+                  flex: 10,
                   child: Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.05,
-                            right: MediaQuery.of(context).size.width * 0.05),
-                        child: BlocSelector<AppBloc, AppState, String>(
-                          selector: (state) {
-                            return state.locale.languageCode;
+                    alignment: Alignment.bottomRight,
+                    child: BlocSelector<AppBloc, AppState, String>(
+                      selector: (state) {
+                        return state.locale.languageCode;
+                      },
+                      builder: (context, languageCode) {
+                        return SwitchLanguageWidget(
+                          languageCode: languageCode,
+                          onChange: (value) {
+                            context
+                                .read<AppBloc>()
+                                .add(ChangeLanguage(Locale(value)));
                           },
-                          builder: (context, languageCode) {
-                            return SwitchLanguageWidget(
-                              languageCode: languageCode,
-                              onChange: (value) {
-                                context
-                                    .read<AppBloc>()
-                                    .add(ChangeLanguage(Locale(value)));
-                              },
-                            );
-                          },
-                        )),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Expanded(
-                  flex: 60,
+                  flex: 90,
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 3.5,
+                        ),
                         TabBar(
                           controller: _tabController,
                           labelColor: Colors.black,

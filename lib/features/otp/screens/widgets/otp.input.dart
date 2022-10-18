@@ -12,6 +12,7 @@ class OtpInputWidget extends StatelessWidget {
         height: width,
         width: height,
         child: TextField(
+          decoration: const InputDecoration(hintText: '0'),
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           inputFormatters: [
