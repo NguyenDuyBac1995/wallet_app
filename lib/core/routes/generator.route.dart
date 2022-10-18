@@ -1,6 +1,7 @@
 import 'package:big_wallet/core/routes/page.route.dart';
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/screens/auth.screen.dart';
+import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/features/otp/screens/otp.screen.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,9 @@ class RouteGenerator {
         return GeneratePageRoute(
             widget: const AuthScreen(), routeName: settings.name);
       case Routes.otpScreen:
+        final type = settings.arguments as OtpType;
         return GeneratePageRoute(
-            widget: const OtpScreen(), routeName: settings.name);
+            widget: OtpScreen(type: type), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

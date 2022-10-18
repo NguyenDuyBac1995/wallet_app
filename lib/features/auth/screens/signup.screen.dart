@@ -28,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen>
   @override
   void initState() {
     _phoneNumber = PhoneNumber(isoCode: 'VN');
+    _isPhoneNumberValid = false;
     _isPrivacyAccepted = false;
     _isFormValid = false;
     _confirmPasswordVisible = false;
@@ -262,6 +263,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                           phoneNumber: _phoneNumber.phoneNumber,
                           timeout: const Duration(seconds: 60),
                           verificationCompleted: (phoneAuthCredential) {
+                            Logger().i(phoneAuthCredential);
                             auth
                                 .signInWithCredential(phoneAuthCredential)
                                 .then((dynamic result) {

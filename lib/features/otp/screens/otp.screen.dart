@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
+import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/features/otp/screens/widgets/otp.background.dart';
 import 'package:big_wallet/features/otp/screens/widgets/otp.input.dart';
 import 'package:big_wallet/utilities/localization.dart';
@@ -11,7 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final OtpType type;
+  const OtpScreen({super.key, required this.type});
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }

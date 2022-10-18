@@ -95,16 +95,12 @@ class _AuthScreenState extends State<AuthScreen>
                           child: TabBarView(
                               physics: const NeverScrollableScrollPhysics(),
                               controller: _tabController,
-                              children: [
+                              children: const [
                                 Center(
-                                  child: SignInScreen(
-                                    key: UniqueKey(),
-                                  ),
+                                  child: SignInScreen(),
                                 ),
                                 Center(
-                                  child: SignUpScreen(
-                                    key: UniqueKey(),
-                                  ),
+                                  child: SignUpScreen(),
                                 )
                               ]),
                         )
