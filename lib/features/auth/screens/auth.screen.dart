@@ -1,8 +1,6 @@
+import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
-import 'package:big_wallet/features/auth/screens/signin.screen.dart';
-import 'package:big_wallet/features/auth/screens/signup.screen.dart';
-import 'package:big_wallet/features/auth/screens/widgets/auth.background.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
@@ -33,42 +31,83 @@ class _AuthScreenState extends State<AuthScreen>
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     return BlocProvider(
         create: (context) => AuthBloc(),
         child: Scaffold(
-          body: SingleChildScrollView(
-              child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height,
-                      minWidth: MediaQuery.of(context).size.width),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(Images.authBackground),
-                            fit: BoxFit.fill)),
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+          body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(Images.authBackground),
+                    fit: BoxFit.fill)),
+            child: Padding(
+              padding: EdgeInsets.only(left: width * 0.05, right: width * 0.05),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.7,
+                    child: Align(
+                        alignment: Alignment.topRight,
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.4,
-                              child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: SwitchLanguageWidget(
-                                    onChange: (value) {
-                                      context
-                                          .read<AppBloc>()
-                                          .add(ChangeLanguage(Locale(value)));
-                                    },
-                                  )),
+                              height: height * 0.05,
                             ),
-                            const SignInScreen()
+                            SwitchLanguageWidget(
+                              onChange: (value) {
+                                context
+                                    .read<AppBloc>()
+                                    .add(ChangeLanguage(Locale(value)));
+                              },
+                            ),
                           ],
-                        ),
-                      ),
+                        )),
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.signInScreen);
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xFF262338)),
+                              fixedSize: MaterialStateProperty.all(
+                                  Size.fromWidth(width))),
+                          child: Text('${context.l10n?.signIn}')),
                     ),
-                  ))),
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.signUpScreen);
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              foregroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                              fixedSize: MaterialStateProperty.all(
+                                Size.fromWidth(width),
+                              )),
+                          child: Text('${context.l10n?.signUp}')),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
+                  )
+                ],
+              ),
+            ),
+          ),
         ));
   }
 }
