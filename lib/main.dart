@@ -12,13 +12,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
-  //runApp(const MainScreen());
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const MainScreen(), // Wrap your app
-    ),
-  );
+  runApp(const MainScreen());
+  // runApp(
+  //   DevicePreview(
+  //     enabled: false,
+  //     builder: (context) => const MainScreen(), // Wrap your app
+  //   ),
+  // );
 }
 
 class MainScreen extends StatelessWidget {
