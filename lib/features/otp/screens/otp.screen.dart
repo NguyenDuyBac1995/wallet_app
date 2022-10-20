@@ -5,6 +5,7 @@ import 'package:big_wallet/features/localization/widgets/switch.language.dart';
 import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/features/otp/screens/widgets/otp.background.dart';
 import 'package:big_wallet/features/otp/screens/widgets/otp.input.dart';
+import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,158 +80,157 @@ class _OtpScreenState extends State<OtpScreen>
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var inputWidth = width / 6 - 20;
-    var inputHeight = width / 6 - 20;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Scaffold(
-          body: SingleChildScrollView(
-              child: ConstrainedBox(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: Stack(
-          children: [
-            const OtpBackground(),
-            Column(
-              children: [
-                Expanded(
-                  flex: 10,
-                  child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: SwitchLanguageWidget(
-                        onChange: (value) {
-                          context
-                              .read<AppBloc>()
-                              .add(ChangeLanguage(Locale(value)));
-                        },
-                      )),
-                ),
-                Expanded(
-                  flex: 90,
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.authBackground), fit: BoxFit.fill)),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: width * 0.05),
+                child: SizedBox(
+                  height: height * 0.6,
+                  width: width,
                   child: Column(
                     children: [
-                      Expanded(
-                        flex: 60,
-                        child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Logger().i('đã ấn nút back');
-                                    },
-                                    icon: const Icon(Icons.arrow_back)),
-                                Text(
-                                  '${context.l10n?.otpVerification}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF4E4B66),
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w400),
-                                )
-                              ],
-                            )),
+                      SizedBox(
+                        height: height * 0.05,
                       ),
-                      Expanded(
-                          flex: 40,
-                          child: Column(
-                            children: [
-                              Text(
-                                '${'${context.l10n?.otpSentTo} '} 094****189',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(height: 15),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number1,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number2,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number3,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number4,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number5,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                    OtpInputWidget(
-                                      width: inputWidth,
-                                      height: inputHeight,
-                                      controller: _number6,
-                                      onChanged: (value) => onChange(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 15),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              _isOtpEntered
-                                                  ? const Color(0xFF262338)
-                                                  : const Color(0xFFD9DBE9)),
-                                      fixedSize: MaterialStateProperty.all(
-                                          Size.fromWidth(MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.8))),
-                                  child: Text('${context.l10n?.verify}')),
-                              const SizedBox(height: 5),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('${context.l10n?.dontReceiveOtp} '),
-                                  _enableResend
-                                      ? TextButton(
-                                          onPressed: () {
-                                            resend();
-                                          },
-                                          child: Text(
-                                            '${context.l10n?.resend}',
-                                            style: const TextStyle(
-                                                color: Color(0xFFF19465)),
-                                          ),
-                                        )
-                                      : Text(
-                                          '${context.l10n?.resend} ${context.l10n?.afterLabel} $_secondsRemaining ${context.l10n?.seconds(_secondsRemaining)}')
-                                ],
-                              )
-                            ],
-                          ))
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop(context);
+                              },
+                              icon: const Icon(Icons.arrow_back)),
+                          const Spacer(),
+                          SwitchLanguageWidget(
+                            onChange: (value) {
+                              context
+                                  .read<AppBloc>()
+                                  .add(ChangeLanguage(Locale(value)));
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                )
-              ],
-            ),
-          ],
+                ),
+              ),
+              SizedBox(
+                  height: height * 0.4,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(width * 0.05),
+                            topRight: Radius.circular(width * 0.05)),
+                        border: Border.all(color: Colors.black, width: 0.0)),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.05, right: width * 0.05),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('${context.l10n?.signUp}',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w700))),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              OtpInputWidget(
+                                controller: _number1,
+                                onChanged: (value) {},
+                              ),
+                              OtpInputWidget(
+                                controller: _number2,
+                                onChanged: (value) {},
+                              ),
+                              OtpInputWidget(
+                                controller: _number3,
+                                onChanged: (value) {},
+                              ),
+                              OtpInputWidget(
+                                controller: _number4,
+                                onChanged: (value) {},
+                              ),
+                              OtpInputWidget(
+                                controller: _number5,
+                                onChanged: (value) {},
+                              ),
+                              OtpInputWidget(
+                                controller: _number6,
+                                onChanged: (value) {},
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      _isOtpEntered
+                                          ? Colors.black
+                                          : Colors.grey),
+                                  foregroundColor: MaterialStateProperty.all(
+                                      _isOtpEntered
+                                          ? Colors.white
+                                          : const Color(0xFF4E4B66)),
+                                  fixedSize: MaterialStateProperty.all(
+                                    Size.fromWidth(width),
+                                  )),
+                              child: Text('${context.l10n?.verify}')),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Row(children: [
+                            const Expanded(child: Divider()),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: width * 0.05, right: width * 0.05),
+                              child: Text(
+                                  '${context.l10n?.orLabel} ${context.l10n?.signUp.toLowerCase()} ${context.l10n?.withLabel}'),
+                            ),
+                            const Expanded(child: Divider()),
+                          ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: Image.asset(Images.facebookIcon),
+                                  iconSize: height * 0.1,
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: Image.asset(Images.googleIcon),
+                                  iconSize: height * 0.1,
+                                  onPressed: () {},
+                                )
+                              ]),
+                        ],
+                      ),
+                    ),
+                  )),
+            ],
+          ),
         ),
-      ))),
+      ),
     );
   }
 }

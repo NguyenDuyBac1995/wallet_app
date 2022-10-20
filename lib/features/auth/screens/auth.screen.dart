@@ -70,8 +70,7 @@ class _AuthScreenState extends State<AuthScreen>
                       alignment: Alignment.topCenter,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.signInScreen);
+                            Navigator.pushNamed(context, Routes.signInScreen);
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
@@ -87,8 +86,7 @@ class _AuthScreenState extends State<AuthScreen>
                       alignment: Alignment.topCenter,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.signUpScreen);
+                            Navigator.pushNamed(context, Routes.signUpScreen);
                           },
                           style: ButtonStyle(
                               backgroundColor:
