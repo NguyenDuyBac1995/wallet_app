@@ -39,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen>
           body: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(Images.authBackground),
+                    image: AssetImage(Images.splashBackground),
                     fit: BoxFit.fill)),
             child: Padding(
               padding: EdgeInsets.only(left: width * 0.05, right: width * 0.05),

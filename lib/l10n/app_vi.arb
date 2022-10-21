@@ -1,5 +1,6 @@
 {
     "applicationName": "Big Wallet",
+    "welcome": "Xin chào!",
     "slogan": "Never lose money",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
@@ -22,7 +23,7 @@
     "sendOtp": "Nhận mã OTP",
     "verify": "Xác nhận",
     "dontReceiveOtp": "Không nhận được OTP ?",
-    "resend": "Gửi lại",
+    "resendOtp": "Gửi lại mã",
     "seconds": "{count,plural, =0{giây}=1{giây}other{giây}}",
     "@seconds": {
         "placeholders": {

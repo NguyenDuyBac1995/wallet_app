@@ -2,6 +2,7 @@ import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
+import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,46 +56,42 @@ class _SignUpScreenState extends State<SignUpScreen>
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: width * 0.05),
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    Images.authBackground,
+                  ),
+                  fit: BoxFit.fill),
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(right: width * 0.05, left: width * 0.05),
               child: Column(
                 children: [
                   SizedBox(
                     height: height * 0.05,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back)),
-                      Text('${context.l10n?.signUp}',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: width * 0.05, right: width * 0.05),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.01,
-                  ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
-                    child:
-                        Text('Nhập số điện thoại của bạn để tạo tài khoản mới'),
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .pop(context);
+                        },
+                        icon: const Icon(Icons.arrow_back)),
                   ),
                   SizedBox(
-                    height: height * 0.03,
+                    height: height * 0.02,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('${context.l10n?.welcome}',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w600)),
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
                   ),
                   InternationalPhoneNumberInput(
                     textFieldController: _phoneNumberController,
@@ -113,13 +110,13 @@ class _SignUpScreenState extends State<SignUpScreen>
                         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                         trailingSpace: false),
                     inputDecoration: InputDecoration(
-                        prefixIcon:
-                            const Icon(Icons.phone_android, color: Colors.grey),
-                        enabledBorder: const UnderlineInputBorder(
+                        filled: true,
+                        fillColor: const Color(0xFFEFF0F7),
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
-                        focusedBorder: const UnderlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
@@ -133,16 +130,45 @@ class _SignUpScreenState extends State<SignUpScreen>
                   SizedBox(
                     height: height * 0.02,
                   ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.otpScreen,
+                              arguments: OtpType.firebase);
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                _isFormValid ? Colors.black : Colors.grey),
+                            foregroundColor: MaterialStateProperty.all(
+                                _isFormValid ? Colors.white : Colors.black),
+                            fixedSize: MaterialStateProperty.all(
+                              Size.fromWidth(width),
+                            )),
+                        child: Text('${context.l10n?.signUp}')),
+                  ),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Row(children: [
-                    const Expanded(child: Divider()),
+                    const Expanded(
+                        child: Divider(
+                      color: Colors.black,
+                    )),
                     Padding(
                       padding: EdgeInsets.only(
                           left: width * 0.05, right: width * 0.05),
                       child: Text(
                           '${context.l10n?.orLabel} ${context.l10n?.signUp.toLowerCase()} ${context.l10n?.withLabel}'),
                     ),
-                    const Expanded(child: Divider()),
+                    const Expanded(
+                        child: Divider(
+                      color: Colors.black,
+                    )),
                   ]),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     IconButton(
                       icon: Image.asset(Images.facebookIcon),
@@ -158,30 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                 ],
               ),
             ),
-            Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.05, right: width * 0.05),
-                  child: Row(
-                    children: [
-                      const Text('Bằng việc tiếp tục bạn đã ok với điều khoản'),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                        ),
-                        child: const Icon(Icons.navigate_next),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ))
-          ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 {
     "applicationName": "Big Wallet",
+    "welcome": "Welcome to Big Wallet!",
     "slogan": "Never lose money",
     "signIn": "Sign in",
     "signUp": "Sign up",
@@ -17,12 +18,12 @@
     "signUpAcceptLabel": "Accept",
     "termsOfService": "The terms and conditions",
     "passwordWarning": "Password must be at least 8 characters including numbers, letters and punctuation (like ! and &)",
-    "otpVerification": "OTP Verification",
+    "otpVerification": "Verify OTP",
     "otpSentTo": "A verification code has been sent to",
     "sendOtp": "Send OTP",
     "verify": "Verify",
     "dontReceiveOtp": "Don't receive the OTP ?",
-    "resend": "Resend",
+    "resendOtp": "Resend OTP",
     "seconds": "{count,plural, =0{second}=1{second}other{seconds}}",
     "@seconds": {
         "placeholders": {

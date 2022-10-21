@@ -1,14 +1,15 @@
 import 'dart:async';
+import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
 import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/features/otp/screens/widgets/otp.background.dart';
-import 'package:big_wallet/features/otp/screens/widgets/otp.input.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:logger/logger.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -89,145 +90,108 @@ class _OtpScreenState extends State<OtpScreen>
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.authBackground), fit: BoxFit.fill)),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(right: width * 0.05),
-                child: SizedBox(
-                  height: height * 0.6,
-                  width: width,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: height * 0.05,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop(context);
-                              },
-                              icon: const Icon(Icons.arrow_back)),
-                          const Spacer(),
-                          SwitchLanguageWidget(
-                            onChange: (value) {
-                              context
-                                  .read<AppBloc>()
-                                  .add(ChangeLanguage(Locale(value)));
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+          child: Padding(
+            padding: EdgeInsets.only(right: width * 0.05, left: width * 0.05),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.05,
                 ),
-              ),
-              SizedBox(
-                  height: height * 0.4,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(width * 0.05),
-                            topRight: Radius.circular(width * 0.05)),
-                        border: Border.all(color: Colors.black, width: 0.0)),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: width * 0.05, right: width * 0.05),
-                      child: Column(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back)),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('${context.l10n?.otpVerification}',
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.w600)),
+                ),
+                SizedBox(
+                  height: height * 0.1,
+                ),
+                OtpTextField(
+                  numberOfFields: 6,
+                  //set to true to show as box or false to show as dash
+                  showFieldAsBox: false,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //runs when every textfield is filled
+                  onSubmit: (String verificationCode) {
+                    setState(() {
+                      _isOtpEntered = true;
+                    });
+                  }, // end onSubmit
+                ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              _isOtpEntered ? Colors.black : Colors.grey),
+                          foregroundColor: MaterialStateProperty.all(
+                              _isOtpEntered ? Colors.white : Colors.black),
+                          fixedSize: MaterialStateProperty.all(
+                            Size.fromWidth(width),
+                          )),
+                      child: Text('${context.l10n?.verify}')),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                if (_enableResend)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        resend();
+                      },
+                      child: Text(
+                        '${context.l10n?.resendOtp}',
+                        style: const TextStyle(
+                            color: Color(0xFFF19465),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  )
+                else
+                  Align(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text('${context.l10n?.signUp}',
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w700))),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              OtpInputWidget(
-                                controller: _number1,
-                                onChanged: (value) {},
-                              ),
-                              OtpInputWidget(
-                                controller: _number2,
-                                onChanged: (value) {},
-                              ),
-                              OtpInputWidget(
-                                controller: _number3,
-                                onChanged: (value) {},
-                              ),
-                              OtpInputWidget(
-                                controller: _number4,
-                                onChanged: (value) {},
-                              ),
-                              OtpInputWidget(
-                                controller: _number5,
-                                onChanged: (value) {},
-                              ),
-                              OtpInputWidget(
-                                controller: _number6,
-                                onChanged: (value) {},
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: height * 0.01,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      _isOtpEntered
-                                          ? Colors.black
-                                          : Colors.grey),
-                                  foregroundColor: MaterialStateProperty.all(
-                                      _isOtpEntered
-                                          ? Colors.white
-                                          : const Color(0xFF4E4B66)),
-                                  fixedSize: MaterialStateProperty.all(
-                                    Size.fromWidth(width),
-                                  )),
-                              child: Text('${context.l10n?.verify}')),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Row(children: [
-                            const Expanded(child: Divider()),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: width * 0.05, right: width * 0.05),
-                              child: Text(
-                                  '${context.l10n?.orLabel} ${context.l10n?.signUp.toLowerCase()} ${context.l10n?.withLabel}'),
+                          Text(
+                            '${context.l10n?.resendOtp} ${context.l10n?.afterLabel} ',
+                            style: const TextStyle(
+                              fontSize: 15,
                             ),
-                            const Expanded(child: Divider()),
-                          ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: Image.asset(Images.facebookIcon),
-                                  iconSize: height * 0.1,
-                                  onPressed: () {},
-                                ),
-                                IconButton(
-                                  icon: Image.asset(Images.googleIcon),
-                                  iconSize: height * 0.1,
-                                  onPressed: () {},
-                                )
-                              ]),
+                          ),
+                          Text(
+                            '$_secondsRemaining ${context.l10n?.seconds(_secondsRemaining)}',
+                            style: const TextStyle(
+                                color: Color(0xFFF19465),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ],
                       ),
                     ),
-                  )),
-            ],
+                  )
+              ],
+            ),
           ),
         ),
       ),
