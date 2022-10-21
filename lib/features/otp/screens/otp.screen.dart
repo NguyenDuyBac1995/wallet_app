@@ -103,7 +103,7 @@ class _OtpScreenState extends State<OtpScreen>
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).pop(context);
                       },
-                      icon: const Icon(Icons.arrow_back)),
+                      icon: const Icon(Icons.arrow_back_ios)),
                 ),
                 SizedBox(
                   height: height * 0.02,
@@ -115,7 +115,14 @@ class _OtpScreenState extends State<OtpScreen>
                           fontSize: 30, fontWeight: FontWeight.w600)),
                 ),
                 SizedBox(
-                  height: height * 0.1,
+                  height: height * 0.05,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text('${context.l10n?.otpSentTo} 094****189'),
+                ),
+                SizedBox(
+                  height: height * 0.05,
                 ),
                 OtpTextField(
                   numberOfFields: 6,
