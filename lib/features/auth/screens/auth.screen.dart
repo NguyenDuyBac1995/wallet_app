@@ -33,79 +33,76 @@ class _AuthScreenState extends State<AuthScreen>
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    return BlocProvider(
-        create: (context) => AuthBloc(),
-        child: Scaffold(
-          body: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(Images.splashBackground),
-                    fit: BoxFit.fill)),
-            child: Padding(
-              padding: EdgeInsets.only(left: width * 0.05, right: width * 0.05),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.7,
-                    child: Align(
-                        alignment: Alignment.topRight,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            SwitchLanguageWidget(
-                              onChange: (value) {
-                                context
-                                    .read<AppBloc>()
-                                    .add(ChangeLanguage(Locale(value)));
-                              },
-                            ),
-                          ],
-                        )),
-                  ),
-                  SizedBox(
-                    height: height * 0.1,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.signInScreen);
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Images.splashBackground), fit: BoxFit.fill)),
+        child: Padding(
+          padding: EdgeInsets.only(left: width * 0.05, right: width * 0.05),
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.7,
+                child: Align(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: height * 0.05,
+                        ),
+                        SwitchLanguageWidget(
+                          onChange: (value) {
+                            context
+                                .read<AppBloc>()
+                                .add(ChangeLanguage(Locale(value)));
                           },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color(0xFF262338)),
-                              fixedSize: MaterialStateProperty.all(
-                                  Size.fromWidth(width))),
-                          child: Text('${context.l10n?.signIn}')),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.1,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.signUpScreen);
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.black),
-                              fixedSize: MaterialStateProperty.all(
-                                Size.fromWidth(width),
-                              )),
-                          child: Text('${context.l10n?.signUp}')),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.1,
-                  )
-                ],
+                        ),
+                      ],
+                    )),
               ),
-            ),
+              SizedBox(
+                height: height * 0.1,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.signInScreen);
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xFF262338)),
+                          fixedSize:
+                              MaterialStateProperty.all(Size.fromWidth(width))),
+                      child: Text('${context.l10n?.signIn}')),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.1,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.signUpScreen);
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          fixedSize: MaterialStateProperty.all(
+                            Size.fromWidth(width),
+                          )),
+                      child: Text('${context.l10n?.signUp}')),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.1,
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

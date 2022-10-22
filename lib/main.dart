@@ -1,5 +1,6 @@
 import 'package:big_wallet/core/routes/generator.route.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
+import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/splash/repositories/configuration.repository.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:device_preview/device_preview.dart';
@@ -11,14 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const MainScreen());
-  // runApp(
-  //   DevicePreview(
-  //     enabled: false,
-  //     builder: (context) => const MainScreen(), // Wrap your app
-  //   ),
-  // );
 }
 
 class MainScreen extends StatelessWidget {
@@ -26,8 +21,15 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => AppBloc(ConfigurationRepository()),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+          BlocProvider(
+            create: (context) => AppBloc(ConfigurationRepository()),
+          ),
+        ],
         child: BlocBuilder<AppBloc, AppState>(
             buildWhen: (previous, current) => previous.locale != current.locale,
             builder: ((context, state) {
