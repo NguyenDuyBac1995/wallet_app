@@ -12,10 +12,15 @@ class ChangePhoneNumber extends AuthEvent {
   const ChangePhoneNumber(this.phoneNumber);
   @override
   List<Object> get props => [
-        {phoneNumber}
+        {phoneNumber: phoneNumber}
       ];
 }
 
-class SignInEvent extends AuthEvent {}
-
-class SignUpEvent extends AuthEvent {}
+class ChangeUid extends AuthEvent {
+  final String uid;
+  const ChangeUid(this.uid);
+  @override
+  List<Object> get props => [
+        {uid: uid}
+      ];
+}

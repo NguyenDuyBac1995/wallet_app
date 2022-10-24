@@ -1,6 +1,5 @@
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
-import 'package:big_wallet/features/splash/screens/widgets/splash.background.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
 import 'package:big_wallet/models/configuration.model.dart';
 import 'package:big_wallet/utilities/assets.dart';

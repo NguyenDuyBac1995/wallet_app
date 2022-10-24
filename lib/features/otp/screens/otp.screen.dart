@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
-import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/toast.dart';
@@ -11,8 +11,8 @@ import 'package:logger/logger.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
-  final OtpType type;
-  const OtpScreen({super.key, required this.type});
+  final Function(Object?) callback;
+  const OtpScreen({super.key, required this.callback});
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -94,6 +94,8 @@ class _OtpScreenState extends State<OtpScreen>
       PhoneAuthCredential phoneAuthCredential) async {
     await auth.signInWithCredential(phoneAuthCredential).then((value) {
       Logger().i('signInWithCredential $value');
+      context.read<AuthBloc>().add(ChangeUid(value.user!.uid));
+      widget.callback(value);
     }).catchError((onError) {
       // Handle Errors here.
       switch (onError.code) {

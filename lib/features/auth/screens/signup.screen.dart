@@ -1,12 +1,11 @@
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
-import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:logger/logger.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -133,7 +132,10 @@ class _SignUpScreenState extends State<SignUpScreen>
                               context.read<AuthBloc>().add(ChangePhoneNumber(
                                   '${_phoneNumber.phoneNumber}'));
                               Navigator.pushNamed(context, Routes.otpScreen,
-                                  arguments: OtpType.firebase);
+                                  arguments: ((value) {
+                                Navigator.pushNamed(
+                                    context, Routes.authInformation);
+                              }));
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(

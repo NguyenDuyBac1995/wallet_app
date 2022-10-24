@@ -1,1 +1,0 @@
-enum OtpType { firebase }
