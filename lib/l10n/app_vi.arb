@@ -29,5 +29,7 @@
         "placeholders": {
             "count": {}
         }
-    }
+    },
+    "wrongOtpEntered": "Bạn đã nhập sai mã. Vui lòng nhập lại",
+    "somethingWentWrong": "Xin lỗi, đã gặp lỗi hệ thống."
 }

@@ -27,9 +27,11 @@ class Toast {
                 const SizedBox(
                   width: 12.0,
                 ),
-              Text(
-                message,
-                style: TextStyle(color: messageColor),
+              Flexible(
+                child: Text(
+                  message,
+                  style: TextStyle(color: messageColor),
+                ),
               ),
             ],
           ),

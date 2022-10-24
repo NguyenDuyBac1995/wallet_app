@@ -3,11 +3,12 @@ import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/otp/models/otp.type.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
+import 'package:big_wallet/utilities/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:logger/logger.dart';
+import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
   final OtpType type;
@@ -25,6 +26,7 @@ class _OtpScreenState extends State<OtpScreen>
   late String _phoneNumber;
   late String _verificationId;
   late String _verificationCode;
+  final int otpLength = 6;
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
@@ -34,47 +36,18 @@ class _OtpScreenState extends State<OtpScreen>
     _phoneNumber = context.read<AuthBloc>().state.phoneNumber;
     _verificationId = '';
     _verificationCode = '';
-    auth.verifyPhoneNumber(
-      timeout: const Duration(seconds: 30),
-      phoneNumber: _phoneNumber,
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
-        Logger().i('verificationCompleted: $phoneAuthCredential');
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        Logger().i('verificationFailed: $e');
+    verifyPhoneNumber();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_secondsRemaining > 1) {
         setState(() {
-          _secondsRemaining = 0;
+          _secondsRemaining--;
+        });
+      } else {
+        setState(() {
           _enableResend = true;
         });
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        Logger().i('codeSent: $verificationId');
-        setState(() {
-          _verificationId = verificationId;
-        });
-        _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-          if (_secondsRemaining > 1) {
-            setState(() {
-              _secondsRemaining--;
-            });
-          } else {
-            setState(() {
-              _enableResend = true;
-            });
-          }
-        });
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        Logger().i('codeAutoRetrievalTimeout: $verificationId');
-        setState(() {
-          _verificationId = verificationId;
-        });
-        setState(() {
-          _secondsRemaining = 0;
-          _enableResend = true;
-        });
-      },
-    );
+      }
+    });
     super.initState();
   }
 
@@ -84,12 +57,13 @@ class _OtpScreenState extends State<OtpScreen>
     _timer.cancel();
   }
 
-  void resend() {
+  void verifyPhoneNumber() {
     auth.verifyPhoneNumber(
       timeout: const Duration(seconds: 30),
       phoneNumber: _phoneNumber,
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
         Logger().i('verificationCompleted: $phoneAuthCredential');
+        await signInWithCredential(phoneAuthCredential);
       },
       verificationFailed: (FirebaseAuthException e) {
         Logger().i('verificationFailed: $e');
@@ -101,6 +75,7 @@ class _OtpScreenState extends State<OtpScreen>
       codeSent: (String verificationId, int? resendToken) {
         Logger().i('codeSent: $verificationId');
         setState(() {
+          _verificationId = verificationId;
           _secondsRemaining = 30;
           _enableResend = false;
         });
@@ -113,6 +88,28 @@ class _OtpScreenState extends State<OtpScreen>
         });
       },
     );
+  }
+
+  Future<void> signInWithCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
+    await auth.signInWithCredential(phoneAuthCredential).then((value) {
+      Logger().i('signInWithCredential $value');
+    }).catchError((onError) {
+      // Handle Errors here.
+      switch (onError.code) {
+        case 'invalid-verification-code':
+          Toast.show(context, '${context.l10n?.wrongOtpEntered}');
+          break;
+        default:
+          Toast.show(
+              context, '${context.l10n?.somethingWentWrong} ${onError.code}');
+          break;
+      }
+    });
+  }
+
+  void resend() {
+    verifyPhoneNumber();
   }
 
   @override
@@ -169,18 +166,18 @@ class _OtpScreenState extends State<OtpScreen>
                   SizedBox(
                     height: height * 0.05,
                   ),
-                  OtpTextField(
-                    numberOfFields: 6,
-                    showFieldAsBox: false,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    onSubmit: (String verificationCode) {
+                  Pinput(
+                    length: otpLength,
+                    androidSmsAutofillMethod:
+                        AndroidSmsAutofillMethod.smsRetrieverApi,
+                    onCompleted: (value) {
                       setState(() {
                         _isOtpEntered = true;
-                        _verificationCode = verificationCode;
+                        _verificationCode = value;
                       });
                     },
-                    onCodeChanged: (value) {
-                      if (value.isEmpty) {
+                    onChanged: (value) {
+                      if (value.length < otpLength) {
                         setState(() {
                           _isOtpEntered = false;
                           _verificationCode = '';
@@ -198,16 +195,7 @@ class _OtpScreenState extends State<OtpScreen>
                           var credential = PhoneAuthProvider.credential(
                               verificationId: _verificationId,
                               smsCode: _verificationCode);
-                          await auth
-                              .signInWithCredential(credential)
-                              .then((value) {
-                            Logger().i('signInWithCredential $value');
-                          }).catchError((onError) {
-                            // Handle Errors here.
-                            var errorCode = onError.code;
-                            var errorMessage = onError.message;
-                            var credential = onError.credential;
-                          });
+                          await signInWithCredential(credential);
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(

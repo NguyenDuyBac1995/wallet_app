@@ -29,5 +29,7 @@
         "placeholders": {
             "count": {}
         }
-    }
+    },
+    "wrongOtpEntered": "You have entered a wrong code. Please try again",
+    "somethingWentWrong": "Opps! sorry, something went wrong."
 }
