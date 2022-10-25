@@ -11,12 +11,14 @@
     "forgotPassword": "Quên mật khẩu?",
     "orLabel": "hoặc",
     "ofLabel": "của",
+    "andLabel": "và",
     "afterLabel": "sau",
     "withLabel": "với",
     "displayName": "Tên hiển thị",
     "confirmPassword": "Xác nhận mật khẩu",
     "signUpAcceptLabel": "Đồng ý với các",
-    "termsOfService": "Điều khoản dịch vụ",
+    "termsOfUse": "Điều khoản sử dụng",
+    "privacyPolicy": "Chính sách bảo mật",
     "passwordWarning": "Mật khẩu có tối thiếu 8 ký tự bao gồm số, chữ cái và dấu chấm câu (như ! và &)",
     "otpVerification": "Xác thực mã OTP",
     "otpSentTo": "Mã xác thực đã được gửi tới",
@@ -31,5 +33,14 @@
         }
     },
     "wrongOtpEntered": "Bạn đã nhập sai mã. Vui lòng nhập lại",
-    "somethingWentWrong": "Xin lỗi, đã gặp lỗi hệ thống."
+    "somethingWentWrong": "Xin lỗi, đã gặp lỗi hệ thống.",
+    "agreeMessage": "Bởi ấn nút \"{button}\" bạn đã đồng ý với",
+    "@agreeMessage":{
+        "placeholders": {
+            "button": {
+                "type": "String",
+                "example": "Đăng ký"
+            }
+        }
+    }
 }

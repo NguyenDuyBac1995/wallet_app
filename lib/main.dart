@@ -36,9 +36,6 @@ class MainScreen extends StatelessWidget {
               return MaterialApp(
                   useInheritedMediaQuery: true,
                   title: 'Big Wallet',
-                  theme: ThemeData(
-                    primarySwatch: Colors.blue,
-                  ),
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,

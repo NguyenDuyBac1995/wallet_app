@@ -11,12 +11,14 @@
     "forgotPassword": "Forgot Password?",
     "orLabel": "or",
     "ofLabel": "of",
+    "andLabel": "and",
     "withLabel": "with",
     "afterLabel": "after",
     "displayName": "Display name",
     "confirmPassword": "Confirm password",
     "signUpAcceptLabel": "Accept",
-    "termsOfService": "The terms and conditions",
+    "termsOfUse": "Terms of Use",
+    "privacyPolicy": "Privacy Policy",
     "passwordWarning": "Password must be at least 8 characters including numbers, letters and punctuation (like ! and &)",
     "otpVerification": "Verify OTP",
     "otpSentTo": "A verification code has been sent to",
@@ -31,5 +33,14 @@
         }
     },
     "wrongOtpEntered": "You have entered a wrong code. Please try again",
-    "somethingWentWrong": "Opps! sorry, something went wrong."
+    "somethingWentWrong": "Opps! sorry, something went wrong.",
+    "agreeMessage": "By tapping \"{button}\" you agree to",
+    "@agreeMessage":{
+        "placeholders": {
+            "button": {
+                "type": "String",
+                "example": "Sign Up"
+            }
+        }
+    }
 }
