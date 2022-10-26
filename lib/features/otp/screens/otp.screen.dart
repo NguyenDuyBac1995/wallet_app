@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
