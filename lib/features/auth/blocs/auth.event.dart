@@ -7,6 +7,15 @@ class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ChangeUid extends AuthEvent {
+  final String uid;
+  const ChangeUid(this.uid);
+  @override
+  List<Object> get props => [
+        {uid: uid}
+      ];
+}
+
 class ChangePhoneNumber extends AuthEvent {
   final String phoneNumber;
   const ChangePhoneNumber(this.phoneNumber);
@@ -16,11 +25,29 @@ class ChangePhoneNumber extends AuthEvent {
       ];
 }
 
-class ChangeUid extends AuthEvent {
-  final String uid;
-  const ChangeUid(this.uid);
+class ChangeVerificationId extends AuthEvent {
+  final String verificationId;
+  const ChangeVerificationId(this.verificationId);
   @override
   List<Object> get props => [
-        {uid: uid}
+        {verificationId: verificationId}
+      ];
+}
+
+class ChangeDisplayName extends AuthEvent {
+  final String displayName;
+  const ChangeDisplayName(this.displayName);
+  @override
+  List<Object> get props => [
+        {displayName: displayName}
+      ];
+}
+
+class ChangePassword extends AuthEvent {
+  final String password;
+  const ChangePassword(this.password);
+  @override
+  List<Object> get props => [
+        {password: password}
       ];
 }

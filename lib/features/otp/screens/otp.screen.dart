@@ -18,23 +18,19 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen>
     with SingleTickerProviderStateMixin {
-  late bool _isOtpEntered;
   late bool _enableResend;
   late Timer _timer;
   late int _secondsRemaining;
   late String _phoneNumber;
   late String _verificationId;
-  late String _verificationCode;
   final int otpLength = 6;
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
-    _isOtpEntered = false;
     _enableResend = false;
     _secondsRemaining = 30;
     _phoneNumber = context.read<AuthBloc>().state.phoneNumber;
     _verificationId = '';
-    _verificationCode = '';
     verifyPhoneNumber();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (_secondsRemaining > 1) {
@@ -168,46 +164,14 @@ class _OtpScreenState extends State<OtpScreen>
                     height: height * 0.05,
                   ),
                   Pinput(
-                    length: otpLength,
-                    androidSmsAutofillMethod:
-                        AndroidSmsAutofillMethod.smsRetrieverApi,
-                    onCompleted: (value) {
-                      setState(() {
-                        _isOtpEntered = true;
-                        _verificationCode = value;
-                      });
-                    },
-                    onChanged: (value) {
-                      if (value.length < otpLength) {
-                        setState(() {
-                          _isOtpEntered = false;
-                          _verificationCode = '';
-                        });
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: height * 0.05,
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          var credential = PhoneAuthProvider.credential(
-                              verificationId: _verificationId,
-                              smsCode: _verificationCode);
-                          await signInWithCredential(credential);
-                        },
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                _isOtpEntered ? Colors.black : Colors.grey),
-                            foregroundColor: MaterialStateProperty.all(
-                                _isOtpEntered ? Colors.white : Colors.black),
-                            fixedSize: MaterialStateProperty.all(
-                              Size.fromWidth(width),
-                            )),
-                        child: Text('${context.l10n?.verify}')),
-                  ),
+                      length: otpLength,
+                      androidSmsAutofillMethod:
+                          AndroidSmsAutofillMethod.smsRetrieverApi,
+                      onCompleted: (value) async {
+                        var credential = PhoneAuthProvider.credential(
+                            verificationId: _verificationId, smsCode: value);
+                        await signInWithCredential(credential);
+                      }),
                   SizedBox(
                     height: height * 0.02,
                   ),
