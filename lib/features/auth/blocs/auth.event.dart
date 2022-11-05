@@ -25,15 +25,6 @@ class ChangePhoneNumber extends AuthEvent {
       ];
 }
 
-class ChangeVerificationId extends AuthEvent {
-  final String verificationId;
-  const ChangeVerificationId(this.verificationId);
-  @override
-  List<Object> get props => [
-        {verificationId: verificationId}
-      ];
-}
-
 class ChangeDisplayName extends AuthEvent {
   final String displayName;
   const ChangeDisplayName(this.displayName);

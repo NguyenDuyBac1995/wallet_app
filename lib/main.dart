@@ -1,3 +1,4 @@
+import 'package:big_wallet/core/routes/app.route.dart';
 import 'package:big_wallet/core/routes/generator.route.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
@@ -34,6 +35,7 @@ class MainScreen extends StatelessWidget {
             buildWhen: (previous, current) => previous.locale != current.locale,
             builder: ((context, state) {
               return MaterialApp(
+                  navigatorKey: AppRoute.navigatorKey,
                   useInheritedMediaQuery: true,
                   title: 'Big Wallet',
                   localizationsDelegates: const [

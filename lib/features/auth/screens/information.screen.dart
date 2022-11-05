@@ -1,6 +1,5 @@
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/utilities/assets.dart';
-import 'package:big_wallet/utilities/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:big_wallet/utilities/localization.dart';
@@ -13,17 +12,20 @@ class AuthInformationScreen extends StatefulWidget {
 
 class _AuthInformationScreenState extends State<AuthInformationScreen>
     with SingleTickerProviderStateMixin {
-  late bool _isFormValid;
   late bool _passwordVisible;
   late bool _isPasswordLengthValid;
   late bool _isPasswordContainsAlphanumeric;
-  late bool _isPasswordSpecialCharacterValid;
+  late bool _isPasswordContainsSpecialCharacter;
+  late bool _isLoading;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    _isFormValid = false;
     _passwordVisible = false;
+    _isPasswordLengthValid = false;
+    _isPasswordContainsAlphanumeric = false;
+    _isPasswordContainsSpecialCharacter = false;
+    _isLoading = false;
     super.initState();
   }
 
@@ -52,21 +54,20 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop(context);
-                              },
-                              icon: const Icon(Icons.arrow_back_ios)),
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('${context.l10n?.signUp}',
-                              style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.w600)),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop(context);
+                                  },
+                                  icon: const Icon(Icons.arrow_back_ios)),
+                              Text('${context.l10n?.signUp}',
+                                  style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -113,9 +114,7 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         TextFormField(
                           validator: ((value) {
                             if (value == null || value.isEmpty) {
-                              Toast.show(
-                                  context, 'Tên hiển thị là trường bắt buộc');
-                              return null;
+                              return 'Tên hiển thị là trường bắt buộc';
                             }
                             return null;
                           }),
@@ -147,22 +146,41 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         ),
                         TextFormField(
                           validator: (value) {
-                            var pattern =
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!&@]).{8,}$';
-                            var regExp = RegExp(pattern);
+                            var regExp = RegExp(
+                                r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!&@]).{8,}$');
                             if (value == null || value.isEmpty) {
-                              Toast.show(
-                                  context, 'Mật khẩu là trường bắt buộc');
-                              return null;
+                              return 'Mật khẩu là trường bắt buộc';
                             }
                             if (!regExp.hasMatch(value)) {
-                              Toast.show(context, 'Mật khẩu không hợp lệ');
-                              return null;
+                              return 'Mật khẩu không hợp lệ';
                             }
                             return null;
                           },
                           obscureText: _passwordVisible,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            var containsAlphanumericRegExp =
+                                RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9]).{1,}$');
+                            var containsSpecialCharacterRegExp =
+                                RegExp(r'^(?=.*?[#?!&@]).{1,}$');
+                            setState(() {
+                              if (value.length >= 8 && value.length <= 20) {
+                                _isPasswordLengthValid = true;
+                              } else {
+                                _isPasswordLengthValid = false;
+                              }
+                              if (value.contains(containsAlphanumericRegExp)) {
+                                _isPasswordContainsAlphanumeric = true;
+                              } else {
+                                _isPasswordContainsAlphanumeric = false;
+                              }
+                              if (value
+                                  .contains(containsSpecialCharacterRegExp)) {
+                                _isPasswordContainsSpecialCharacter = true;
+                              } else {
+                                _isPasswordContainsSpecialCharacter = false;
+                              }
+                            });
+                          },
                           decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.key),
                               prefixIconColor: const Color(0xFFD9DBE9),
@@ -215,7 +233,12 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         ),
                         Row(
                           children: [
-                            const Icon(Icons.check_circle_outline),
+                            Icon(
+                              Icons.check_circle_outline,
+                              color: _isPasswordLengthValid
+                                  ? Colors.green
+                                  : Colors.blueGrey,
+                            ),
                             SizedBox(
                               width: width * 0.02,
                             ),
@@ -231,9 +254,11 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         ),
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.check_circle_outline,
-                              color: Colors.green,
+                              color: _isPasswordContainsAlphanumeric
+                                  ? Colors.green
+                                  : Colors.blueGrey,
                             ),
                             SizedBox(
                               width: width * 0.02,
@@ -250,7 +275,12 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         ),
                         Row(
                           children: [
-                            const Icon(Icons.check_circle_outline),
+                            Icon(
+                              Icons.check_circle_outline,
+                              color: _isPasswordContainsSpecialCharacter
+                                  ? Colors.green
+                                  : Colors.blueGrey,
+                            ),
                             SizedBox(
                               width: width * 0.02,
                             ),
@@ -267,19 +297,51 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         Align(
                           alignment: Alignment.topCenter,
                           child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {}
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    _isFormValid ? Colors.black : Colors.grey),
-                                foregroundColor: MaterialStateProperty.all(
-                                    _isFormValid ? Colors.white : Colors.black),
-                                fixedSize: MaterialStateProperty.all(
-                                  Size.fromWidth(width),
-                                ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate() &&
+                                  !_isLoading) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                              }
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  _isLoading
+                                      ? const Color(0xFFD9DBE9)
+                                      : Colors.black),
+                              foregroundColor: MaterialStateProperty.all(
+                                  _isLoading
+                                      ? const Color(0xFF4E4B66)
+                                      : Colors.white),
+                              fixedSize: MaterialStateProperty.all(
+                                Size.fromWidth(width),
                               ),
-                              child: Text('${context.l10n?.signUp}')),
+                            ),
+                            child: _isLoading
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: width * 0.04,
+                                        width: width * 0.04,
+                                        child: const CircularProgressIndicator(
+                                          valueColor: AlwaysStoppedAnimation(
+                                              Colors.white),
+                                          backgroundColor: Colors.grey,
+                                          strokeWidth: 3,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.05,
+                                      ),
+                                      Text('${context.l10n?.signUp}'),
+                                    ],
+                                  )
+                                : Text('${context.l10n?.signUp}'),
+                          ),
                         ),
                       ],
                     ),

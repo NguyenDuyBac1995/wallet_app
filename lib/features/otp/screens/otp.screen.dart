@@ -95,11 +95,10 @@ class _OtpScreenState extends State<OtpScreen>
       // Handle Errors here.
       switch (onError.code) {
         case 'invalid-verification-code':
-          Toast.show(context, '${context.l10n?.wrongOtpEntered}');
+          Toast.show('${context.l10n?.wrongOtpEntered}');
           break;
         default:
-          Toast.show(
-              context, '${context.l10n?.somethingWentWrong} ${onError.code}');
+          Toast.show('${context.l10n?.somethingWentWrong} ${onError.code}');
           break;
       }
     });
@@ -137,24 +136,22 @@ class _OtpScreenState extends State<OtpScreen>
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .pop(context);
-                        },
-                        icon: const Icon(Icons.arrow_back_ios)),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pop(context);
+                            },
+                            icon: const Icon(Icons.arrow_back_ios)),
+                        Text('${context.l10n?.otpVerification}',
+                            style: const TextStyle(
+                                fontSize: 26, fontWeight: FontWeight.w500)),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: height * 0.02,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('${context.l10n?.otpVerification}',
-                        style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(
-                    height: height * 0.05,
                   ),
                   Align(
                       alignment: Alignment.center,

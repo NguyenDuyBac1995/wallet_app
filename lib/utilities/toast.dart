@@ -1,8 +1,9 @@
+import 'package:big_wallet/core/routes/app.route.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Toast {
-  static show(BuildContext context, String message,
+  static show(String message,
       {IconData? icon,
       Color backgroundColor = const Color(0xFFC14545),
       Color messageColor = Colors.white,
@@ -10,7 +11,7 @@ class Toast {
       Duration duration = const Duration(seconds: 2),
       Widget Function(BuildContext, Widget)? positionedToastBuilder}) {
     var fToast = FToast();
-    fToast.init(context);
+    fToast.init(AppRoute.navigatorKey.currentContext!);
     fToast.showToast(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
