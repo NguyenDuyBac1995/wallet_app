@@ -1,16 +1,18 @@
-import 'dart:async';
-
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
+import 'package:big_wallet/core/routes/app.route.dart';
 import 'package:big_wallet/utilities/api.dart';
+import 'package:big_wallet/utilities/toast.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 enum RequestType { get, post, delete, put }
 
 class Repository {
   final Dio _dio = Dio();
   Options? _options;
-  Future<T> requestAsync<T>(String path, RequestType type,
+  Future<T?> requestAsync<T>(
+      BuildContext context, String path, RequestType type,
       {dynamic data}) async {
     late Response<dynamic> response;
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
@@ -32,11 +34,25 @@ class Repository {
           break;
       }
     } on DioError catch (e) {
-      if (e.response?.data != null) {
-      } else {}
+      Toast.show(context, 'Không thể kết nối tới máy chủ');
+      if (e.response!.data is Map<String, dynamic>) {
+        if (T == CollectionResponse) {
+          return CollectionResponse.fromJson(e.response!.data) as T;
+        } else {
+          return SingleResponse.fromJson(e.response!.data) as T;
+        }
+      } else {
+        Toast.show(AppRoute.navigatorKey.currentContext!, 'aaaaaaaaaa');
+        if (T == CollectionResponse) {
+          return CollectionResponse(
+              message: e.message, statusCode: e.response!.statusCode) as T;
+        } else {
+          return SingleResponse(
+              message: e.message, statusCode: e.response!.statusCode) as T;
+        }
+      }
     }
-    final test = fromJson<T>(response.data);
-    return test;
+    return fromJson<T>(response.data);
   }
 
   T fromJson<T>(Map<String, dynamic> json) {

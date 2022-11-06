@@ -124,7 +124,6 @@ class _SignUpScreenState extends State<SignUpScreen>
                           alignment: Alignment.topCenter,
                           child: ElevatedButton(
                               onPressed: () {
-                                Toast.show('${context.l10n?.wrongOtpEntered}');
                                 if (_formKey.currentState!.validate()) {
                                   context.read<AuthBloc>().add(
                                       ChangePhoneNumber(

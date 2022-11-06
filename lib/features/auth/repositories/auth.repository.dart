@@ -8,7 +8,7 @@ class AuthRepository extends Repository {
     const url = Api.signup;
     final apiResponse =
         await requestAsync<SingleResponse>(url, RequestType.post);
-    final result = SignUp.fromJson(apiResponse.payload);
+    final result = SignUp.fromJson(apiResponse?.payload);
     return result;
   }
 }
