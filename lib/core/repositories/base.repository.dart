@@ -1,6 +1,5 @@
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
-import 'package:big_wallet/core/routes/app.route.dart';
 import 'package:big_wallet/utilities/api.dart';
 import 'package:big_wallet/utilities/toast.dart';
 import 'package:dio/dio.dart';
@@ -42,7 +41,6 @@ class Repository {
           return SingleResponse.fromJson(e.response!.data) as T;
         }
       } else {
-        Toast.show(AppRoute.navigatorKey.currentContext!, 'aaaaaaaaaa');
         if (T == CollectionResponse) {
           return CollectionResponse(
               message: e.message, statusCode: e.response!.statusCode) as T;

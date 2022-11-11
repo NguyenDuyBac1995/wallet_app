@@ -17,7 +17,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    context.read<AppBloc>().add(const LoadConfiguration(<Configuration>[]));
+    context
+        .read<AppBloc>()
+        .add(LoadConfiguration(context, const <Configuration>[]));
     super.initState();
   }
 

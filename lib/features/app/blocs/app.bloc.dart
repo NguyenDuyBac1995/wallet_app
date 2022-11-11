@@ -20,7 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   void onLoadConfiguration(
       LoadConfiguration event, Emitter<AppState> emit) async {
     List<Configuration> configurations =
-        await configurationRepository.getConfigurationsAsync();
+        await configurationRepository.getConfigurationsAsync(event.context);
     emit(state.copyWith(configurations: configurations));
     emit(state.copyWith(loadingPercent: 0.2));
   }

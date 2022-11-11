@@ -7,8 +7,9 @@ abstract class AppEvent extends Equatable {
 }
 
 class LoadConfiguration extends AppEvent {
+  final BuildContext context;
   final List<Configuration> configurations;
-  const LoadConfiguration(this.configurations);
+  const LoadConfiguration(this.context, this.configurations);
   @override
   List<Object> get props => [
         {configurations}
