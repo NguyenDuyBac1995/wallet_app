@@ -61,5 +61,29 @@
                 "example": "trường"
             }
         }
-    }
+    },
+    "includeAtLeastMessage": "{field} phải bao gồm ít nhất:",
+    "@includeAtLeastMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "field"
+            }
+        }
+    },
+    "strRangeMessage": "{minLength} ký tự (tối đa {maxLength} ký tự)",
+    "@strRangeMessage":{
+        "placeholders": {
+            "minLength": {
+                "type": "String",
+                "example": "8"
+            },
+            "maxLength": {
+                "type": "String",
+                "example": "20"
+            }
+        }
+    },
+    "containsAlphanumericMessage": "Chứa 1 chữ cái và 1 số",
+    "containsSpecialCharacterMessage": "Chứa một ký tự đặc biệt (Ví dụ: # ? ! & @)"
 }

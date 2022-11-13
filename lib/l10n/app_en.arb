@@ -61,5 +61,29 @@
                 "example": "field"
             }
         }
-    }
+    },
+    "includeAtLeastMessage": "{field} must be at least:",
+    "@includeAtLeastMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "field"
+            }
+        }
+    },
+    "strRangeMessage": "{minLength} characters (up to {maxLength} characters)",
+    "@strRangeMessage":{
+        "placeholders": {
+            "minLength": {
+                "type": "String",
+                "example": "8"
+            },
+            "maxLength": {
+                "type": "String",
+                "example": "20"
+            }
+        }
+    },
+    "containsAlphanumericMessage": "Contains 1 letter and 1 number",
+    "containsSpecialCharacterMessage": "Contains 1 special character (Example: # ? ! & @)"
 }

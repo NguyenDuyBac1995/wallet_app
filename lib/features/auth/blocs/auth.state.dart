@@ -3,24 +3,12 @@ part of 'auth.bloc.dart';
 class AuthState extends Equatable {
   final String uid;
   final String phoneNumber;
-  final String displayName;
-  final String password;
-  const AuthState(
-      {this.uid = '',
-      this.phoneNumber = '',
-      this.displayName = '',
-      this.password = ''});
+  const AuthState({this.uid = '', this.phoneNumber = ''});
 
-  AuthState copyWith(
-      {String uid = '',
-      String phoneNumber = '',
-      String displayName = '',
-      String password = ''}) {
+  AuthState copyWith({String uid = '', String phoneNumber = ''}) {
     return AuthState(
         uid: uid.isEmpty ? this.uid : uid,
-        phoneNumber: phoneNumber.isEmpty ? this.phoneNumber : phoneNumber,
-        displayName: displayName.isEmpty ? this.displayName : displayName,
-        password: password.isEmpty ? this.password : password);
+        phoneNumber: phoneNumber.isEmpty ? this.phoneNumber : phoneNumber);
   }
 
   @override

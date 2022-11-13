@@ -1,4 +1,5 @@
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,9 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
   late bool _isPasswordContainsSpecialCharacter;
   late bool _isLoading;
   final _formKey = GlobalKey<FormState>();
+  final _displayNameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final authRepository = AuthRepository();
 
   @override
   void initState() {
@@ -112,6 +116,7 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                           height: height * 0.02,
                         ),
                         TextFormField(
+                          controller: _displayNameController,
                           validator: ((value) {
                             if (value == null || value.isEmpty) {
                               return '${context.l10n?.requiredMessage('${context.l10n?.displayName}')} ';
@@ -145,6 +150,7 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                           height: height * 0.02,
                         ),
                         TextFormField(
+                          controller: _passwordController,
                           validator: (value) {
                             var regExp = RegExp(
                                 r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!&@]).{8,}$');
@@ -218,11 +224,11 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Mật khẩu của bạn phải bao gồm ít nhất:',
-                            style: TextStyle(
+                            '${context.l10n?.includeAtLeastMessage('${context.l10n?.password}')} ',
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500),
@@ -242,10 +248,10 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                             SizedBox(
                               width: width * 0.02,
                             ),
-                            const Text(
-                              '8 ký tự (tối đa 20 ký tự)',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                            Text(
+                              '${context.l10n?.strRangeMessage('8', '20')} ',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
                             ),
                           ],
                         ),
@@ -263,10 +269,10 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                             SizedBox(
                               width: width * 0.02,
                             ),
-                            const Text(
-                              'Chứa 1 chữ cái và 1 số',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                            Text(
+                              '${context.l10n?.containsAlphanumericMessage} ',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
                             ),
                           ],
                         ),
@@ -284,10 +290,10 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                             SizedBox(
                               width: width * 0.02,
                             ),
-                            const Text(
-                              'Chứa 1 ký tự đặc biệt (Ví dụ: # ? ! & @)',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                            Text(
+                              '${context.l10n?.containsSpecialCharacterMessage} ',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
                             ),
                           ],
                         ),
@@ -302,6 +308,13 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                                   !_isLoading) {
                                 setState(() {
                                   _isLoading = true;
+                                  var response =
+                                      authRepository.signupAsync(context, {
+                                    _displayNameController.text,
+                                    _passwordController.text,
+                                    context.read<AuthBloc>().state.phoneNumber
+                                  });
+                                  _isLoading = false;
                                 });
                               }
                             },

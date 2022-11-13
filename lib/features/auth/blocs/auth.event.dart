@@ -24,21 +24,3 @@ class ChangePhoneNumber extends AuthEvent {
         {phoneNumber: phoneNumber}
       ];
 }
-
-class ChangeDisplayName extends AuthEvent {
-  final String displayName;
-  const ChangeDisplayName(this.displayName);
-  @override
-  List<Object> get props => [
-        {displayName: displayName}
-      ];
-}
-
-class ChangePassword extends AuthEvent {
-  final String password;
-  const ChangePassword(this.password);
-  @override
-  List<Object> get props => [
-        {password: password}
-      ];
-}
