@@ -1,6 +1,7 @@
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/utilities/api.dart';
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,8 @@ class Repository {
           break;
       }
     } on DioError catch (e) {
-      Toast.show(context, 'Không thể kết nối tới máy chủ');
+      Toast.show(context, '${context.l10n?.couldNotConnect}',
+          duration: const Duration(seconds: 5));
       if (e.response!.data is Map<String, dynamic>) {
         if (T == CollectionResponse) {
           return CollectionResponse.fromJson(e.response!.data) as T;

@@ -23,6 +23,7 @@
     "otpVerification": "Verify OTP",
     "otpSentTo": "A verification code has been sent to",
     "sendOtp": "Send OTP",
+    "code": "code",
     "verify": "Verify",
     "dontReceiveOtp": "Don't receive the OTP ?",
     "resendOtp": "Resend OTP",
@@ -32,7 +33,6 @@
             "count": {}
         }
     },
-    "wrongOtpEntered": "You have entered a wrong code. Please try again",
     "somethingWentWrong": "Opps! sorry, something went wrong.",
     "agreeMessage": "By tapping \"{button}\" you agree to",
     "@agreeMessage":{
@@ -40,6 +40,25 @@
             "button": {
                 "type": "String",
                 "example": "Sign Up"
+            }
+        }
+    },
+    "couldNotConnect": "Could not connect to server. Please try again.",
+    "requiredMessage": "{field} is required",
+    "@requiredMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "This field"
+            }
+        }
+    },
+    "invalidMessage": "You have entered an invalid {field}. Please try again.",
+    "@invalidMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "field"
             }
         }
     }

@@ -2,7 +2,6 @@ import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
-import 'package:big_wallet/utilities/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -85,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Số điện thoại là bắt buộc';
+                              return '${context.l10n?.requiredMessage('${context.l10n?.phoneNumber}')} ';
                             }
                             if (!_isPhoneNumberValid) {
                               return 'Số điện thoại không hợp lệ';

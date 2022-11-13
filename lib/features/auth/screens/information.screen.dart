@@ -114,7 +114,7 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         TextFormField(
                           validator: ((value) {
                             if (value == null || value.isEmpty) {
-                              return 'Tên hiển thị là trường bắt buộc';
+                              return '${context.l10n?.requiredMessage('${context.l10n?.displayName}')} ';
                             }
                             return null;
                           }),
@@ -149,10 +149,10 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                             var regExp = RegExp(
                                 r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!&@]).{8,}$');
                             if (value == null || value.isEmpty) {
-                              return 'Mật khẩu là trường bắt buộc';
+                              return '${context.l10n?.requiredMessage('${context.l10n?.password}')} ';
                             }
                             if (!regExp.hasMatch(value)) {
-                              return 'Mật khẩu không hợp lệ';
+                              return '${context.l10n?.invalidMessage('${context.l10n?.password}')} ';
                             }
                             return null;
                           },

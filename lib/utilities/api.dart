@@ -4,6 +4,6 @@ class Api {
   static const configurationBaseUrl = 'msa-configuration';
   static const identityBaseUrl = 'msa-identity';
   static const getConfigurations =
-      '$configurationBaseUrl/odata/Configurations1?\$count=true';
+      '$configurationBaseUrl/odata/Configurations?\$count=true';
   static const signup = '$identityBaseUrl/odata/signup';
 }

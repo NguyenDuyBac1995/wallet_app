@@ -95,7 +95,8 @@ class _OtpScreenState extends State<OtpScreen>
       // Handle Errors here.
       switch (onError.code) {
         case 'invalid-verification-code':
-          Toast.show(context, '${context.l10n?.wrongOtpEntered}');
+          Toast.show(context,
+              '${context.l10n?.invalidMessage('${context.l10n?.code}')} ');
           break;
         default:
           Toast.show(

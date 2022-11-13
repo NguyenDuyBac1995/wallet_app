@@ -24,6 +24,7 @@
     "otpSentTo": "Mã xác thực đã được gửi tới",
     "sendOtp": "Nhận mã OTP",
     "verify": "Xác nhận",
+    "code": "mã",
     "dontReceiveOtp": "Không nhận được OTP ?",
     "resendOtp": "Gửi lại mã",
     "seconds": "{count,plural, =0{giây}=1{giây}other{giây}}",
@@ -32,7 +33,6 @@
             "count": {}
         }
     },
-    "wrongOtpEntered": "Bạn đã nhập sai mã. Vui lòng nhập lại",
     "somethingWentWrong": "Xin lỗi, đã gặp lỗi hệ thống.",
     "agreeMessage": "Bởi ấn nút \"{button}\" bạn đã đồng ý với",
     "@agreeMessage":{
@@ -40,6 +40,25 @@
             "button": {
                 "type": "String",
                 "example": "Đăng ký"
+            }
+        }
+    },
+    "couldNotConnect": "Không thể kết nối tới máy chủ. Vui lòng thử lại.",
+    "requiredMessage": "{field} là trường bắt buộc",
+    "@requiredMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "Đây"
+            }
+        }
+    },
+    "invalidMessage": "Bạn đã nhập sai {field}. Vui lòng thử lại.",
+    "@invalidMessage":{
+        "placeholders": {
+            "field": {
+                "type": "String",
+                "example": "trường"
             }
         }
     }
