@@ -1,3 +1,4 @@
+import 'package:big_wallet/core/responses/base.response.dart';
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/utilities/api.dart';
@@ -11,8 +12,7 @@ enum RequestType { get, post, delete, put }
 class Repository {
   final Dio _dio = Dio();
   Options? _options;
-  Future<T?> requestAsync<T>(
-      BuildContext context, String path, RequestType type,
+  Future<T> requestAsync<T>(BuildContext context, String path, RequestType type,
       {dynamic data}) async {
     late Response<dynamic> response;
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
@@ -34,22 +34,13 @@ class Repository {
           break;
       }
     } on DioError catch (e) {
-      Toast.show(context, '${context.l10n?.couldNotConnect}',
-          duration: const Duration(seconds: 5));
       if (e.response!.data is Map<String, dynamic>) {
-        if (T == CollectionResponse) {
-          return CollectionResponse.fromJson(e.response!.data) as T;
-        } else {
-          return SingleResponse.fromJson(e.response!.data) as T;
-        }
+        Toast.show(context, '${context.l10n?.couldNotConnect}',
+            duration: const Duration(seconds: 5));
+        return ApiResponse.fromJson(e.response!.data) as T;
       } else {
-        if (T == CollectionResponse) {
-          return CollectionResponse(
-              message: e.message, statusCode: e.response!.statusCode) as T;
-        } else {
-          return SingleResponse(
-              message: e.message, statusCode: e.response!.statusCode) as T;
-        }
+        Toast.show(context, '${context.l10n?.couldNotConnect}',
+            duration: const Duration(seconds: 5));
       }
     }
     return fromJson<T>(response.data);

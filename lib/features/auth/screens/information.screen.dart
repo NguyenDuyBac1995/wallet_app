@@ -1,5 +1,6 @@
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
+import 'package:big_wallet/features/auth/repositories/requests/signup.request.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -308,12 +309,16 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                                   !_isLoading) {
                                 setState(() {
                                   _isLoading = true;
-                                  var response =
-                                      authRepository.signupAsync(context, {
-                                    _displayNameController.text,
-                                    _passwordController.text,
-                                    context.read<AuthBloc>().state.phoneNumber
-                                  });
+                                  var response = authRepository.signupAsync(
+                                      context,
+                                      SignUpRequest(
+                                          displayName:
+                                              _displayNameController.text,
+                                          user: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .phoneNumber,
+                                          password: _passwordController.text));
                                   _isLoading = false;
                                 });
                               }

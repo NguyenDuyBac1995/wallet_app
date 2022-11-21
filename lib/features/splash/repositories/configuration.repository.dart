@@ -11,7 +11,7 @@ class ConfigurationRepository extends Repository {
     final apiResponse =
         await requestAsync<CollectionResponse>(context, url, RequestType.get);
     final result = <Configuration>[];
-    apiResponse?.payload?.forEach((element) {
+    apiResponse.payload?.forEach((element) {
       result.add(Configuration.fromJson(element));
     });
     return result;
