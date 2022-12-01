@@ -85,5 +85,15 @@
         }
     },
     "containsAlphanumericMessage": "Contains 1 letter and 1 number",
-    "containsSpecialCharacterMessage": "Contains 1 special character (Example: # ? ! & @)"
+    "containsSpecialCharacterMessage": "Contains 1 special character (Example: # ? ! & @)",
+    "entityAlreadyExistsException": "{entity} already exists",
+    "@entityAlreadyExistsException":{
+        "placeholders": {
+            "entity": {
+                "type": "String",
+                "example": "Entity"
+            }
+        }
+    },
+    "account": "Account"
 }

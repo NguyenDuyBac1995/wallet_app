@@ -85,5 +85,15 @@
         }
     },
     "containsAlphanumericMessage": "Chứa 1 chữ cái và 1 số",
-    "containsSpecialCharacterMessage": "Chứa một ký tự đặc biệt (Ví dụ: # ? ! & @)"
+    "containsSpecialCharacterMessage": "Chứa một ký tự đặc biệt (Ví dụ: # ? ! & @)",
+    "entityAlreadyExistsException": "{entity} đã tồn tại",
+    "@entityAlreadyExistsException":{
+        "placeholders": {
+            "entity": {
+                "type": "String",
+                "example": "Dữ liệu"
+            }
+        }
+    },
+    "account": "Tài khoản"
 }

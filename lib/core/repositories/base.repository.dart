@@ -1,6 +1,7 @@
-import 'package:big_wallet/core/responses/base.response.dart';
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
+import 'package:big_wallet/enums/context.enum.dart';
+import 'package:big_wallet/models/translate.model.dart';
 import 'package:big_wallet/utilities/api.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/toast.dart';
@@ -12,7 +13,8 @@ enum RequestType { get, post, delete, put }
 class Repository {
   final Dio _dio = Dio();
   Options? _options;
-  Future<T> requestAsync<T>(BuildContext context, String path, RequestType type,
+  Future<T> requestAsync<T>(
+      Context context, BuildContext buildContext, String path, RequestType type,
       {dynamic data}) async {
     late Response<dynamic> response;
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
@@ -35,12 +37,16 @@ class Repository {
       }
     } on DioError catch (e) {
       if (e.response!.data is Map<String, dynamic>) {
-        Toast.show(context, '${context.l10n?.couldNotConnect}',
+        var singleResponse = SingleResponse.fromJson(e.response!.data);
+        var translate = Translate.fromJson(singleResponse.payload);
+        Toast.show(buildContext,
+            '${buildContext.l10n?.get(context, translate, '${singleResponse.message}')}',
             duration: const Duration(seconds: 5));
-        return ApiResponse.fromJson(e.response!.data) as T;
+        return singleResponse as T;
       } else {
-        Toast.show(context, '${context.l10n?.couldNotConnect}',
+        Toast.show(buildContext, '${buildContext.l10n?.couldNotConnect}',
             duration: const Duration(seconds: 5));
+        return SingleResponse.fromJson(e.response!.data) as T;
       }
     }
     return fromJson<T>(response.data);

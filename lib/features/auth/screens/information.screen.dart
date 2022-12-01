@@ -304,21 +304,23 @@ class _AuthInformationScreenState extends State<AuthInformationScreen>
                         Align(
                           alignment: Alignment.topCenter,
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate() &&
                                   !_isLoading) {
                                 setState(() {
                                   _isLoading = true;
-                                  var response = authRepository.signupAsync(
-                                      context,
-                                      SignUpRequest(
-                                          displayName:
-                                              _displayNameController.text,
-                                          user: context
-                                              .read<AuthBloc>()
-                                              .state
-                                              .phoneNumber,
-                                          password: _passwordController.text));
+                                });
+                                var response = await authRepository.signupAsync(
+                                    context,
+                                    SignUpRequest(
+                                        displayName:
+                                            _displayNameController.text,
+                                        user: context
+                                            .read<AuthBloc>()
+                                            .state
+                                            .phoneNumber,
+                                        password: _passwordController.text));
+                                setState(() {
                                   _isLoading = false;
                                 });
                               }
