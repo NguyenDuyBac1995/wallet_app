@@ -1,14 +1,20 @@
 part of 'signup.bloc.dart';
 
 class SignUpState extends Equatable {
-  final String uid;
-  final String phoneNumber;
-  const SignUpState({this.uid = '', this.phoneNumber = ''});
+  final bool verificationRequired;
+  final String token;
+  final FormSubmissionStatus formtatus;
+  const SignUpState(
+      {this.verificationRequired = true,
+      this.token = '',
+      this.formtatus = const InitialFormStatus()});
 
-  SignUpState copyWith({String uid = '', String phoneNumber = ''}) {
+  SignUpState copyWith(
+      {bool verificationRequired = true,
+      String token = '',
+      FormSubmissionStatus status = const InitialFormStatus()}) {
     return SignUpState(
-        uid: uid.isEmpty ? this.uid : uid,
-        phoneNumber: phoneNumber.isEmpty ? this.phoneNumber : phoneNumber);
+        verificationRequired: verificationRequired, token: token);
   }
 
   @override
