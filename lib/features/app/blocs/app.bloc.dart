@@ -13,8 +13,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     this.configurationRepository,
   ) : super(const AppState()) {
     on<LoadConfiguration>(onLoadConfiguration);
-    on<ChangeLoadingPercent>(onChangeLoadingPercent);
-    on<ChangeLanguage>(onChangeLanguage);
+    on<LoadingPercentChanged>(onChangeLoadingPercent);
+    on<LanguageChanged>(onChangeLanguage);
   }
 
   void onLoadConfiguration(
@@ -26,11 +26,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   void onChangeLoadingPercent(
-      ChangeLoadingPercent event, Emitter<AppState> emit) {
+      LoadingPercentChanged event, Emitter<AppState> emit) {
     emit(state.copyWith(loadingPercent: event.loadingPercent));
   }
 
-  void onChangeLanguage(ChangeLanguage event, Emitter<AppState> emit) {
+  void onChangeLanguage(LanguageChanged event, Emitter<AppState> emit) {
     emit(state.copyWith(locale: event.locale));
   }
 }

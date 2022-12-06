@@ -89,7 +89,7 @@ class _OtpScreenState extends State<OtpScreen>
       PhoneAuthCredential phoneAuthCredential) async {
     await auth.signInWithCredential(phoneAuthCredential).then((value) {
       Logger().i('signInWithCredential $value');
-      context.read<AuthBloc>().add(ChangeUid(value.user!.uid));
+      context.read<AuthBloc>().add(UidChanged(value.user!.uid));
       widget.callback(value);
     }).catchError((onError) {
       // Handle Errors here.

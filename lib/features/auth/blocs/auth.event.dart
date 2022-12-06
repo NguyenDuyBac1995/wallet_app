@@ -7,18 +7,18 @@ class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ChangeUid extends AuthEvent {
+class UidChanged extends AuthEvent {
   final String uid;
-  const ChangeUid(this.uid);
+  const UidChanged(this.uid);
   @override
   List<Object> get props => [
         {uid: uid}
       ];
 }
 
-class ChangePhoneNumber extends AuthEvent {
+class PhoneNumberChanged extends AuthEvent {
   final String phoneNumber;
-  const ChangePhoneNumber(this.phoneNumber);
+  const PhoneNumberChanged(this.phoneNumber);
   @override
   List<Object> get props => [
         {phoneNumber: phoneNumber}

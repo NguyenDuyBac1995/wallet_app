@@ -6,15 +6,15 @@ part 'auth.state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState()) {
-    on<ChangeUid>(onChangeUid);
-    on<ChangePhoneNumber>(onChangePhoneNumber);
+    on<UidChanged>(onChangeUid);
+    on<PhoneNumberChanged>(onChangePhoneNumber);
   }
 
-  void onChangeUid(ChangeUid event, Emitter<AuthState> emit) {
+  void onChangeUid(UidChanged event, Emitter<AuthState> emit) {
     emit(state.copyWith(uid: event.uid));
   }
 
-  void onChangePhoneNumber(ChangePhoneNumber event, Emitter<AuthState> emit) {
+  void onChangePhoneNumber(PhoneNumberChanged event, Emitter<AuthState> emit) {
     emit(state.copyWith(phoneNumber: event.phoneNumber));
   }
 }

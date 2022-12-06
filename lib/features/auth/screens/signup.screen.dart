@@ -125,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   context.read<AuthBloc>().add(
-                                      ChangePhoneNumber(
+                                      PhoneNumberChanged(
                                           '${_phoneNumber.phoneNumber}'));
                                   Navigator.pushNamed(context, Routes.otpScreen,
                                       arguments: ((value) {

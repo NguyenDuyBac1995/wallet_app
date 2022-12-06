@@ -54,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen>
                           onChange: (value) {
                             context
                                 .read<AppBloc>()
-                                .add(ChangeLanguage(Locale(value)));
+                                .add(LanguageChanged(Locale(value)));
                           },
                         ),
                       ],

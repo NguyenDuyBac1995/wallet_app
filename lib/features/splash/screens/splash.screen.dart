@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   var loadingPercent = state.loadingPercent + 0.5;
                   context
                       .read<AppBloc>()
-                      .add(ChangeLoadingPercent(loadingPercent));
+                      .add(LoadingPercentChanged(loadingPercent));
                 });
               }
               if (state.loadingPercent >= 1) {
