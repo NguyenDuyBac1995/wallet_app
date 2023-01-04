@@ -64,6 +64,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  country_picker:
+    dependency: "direct main"
+    description:
+      name: country_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.19"
+  country_pickers:
+    dependency: "direct main"
+    description:
+      name: country_pickers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -71,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  currency_picker:
+    dependency: "direct main"
+    description:
+      name: currency_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.13"
   device_frame:
     dependency: transitive
     description:
@@ -162,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.3"
+  fl_country_code_picker:
+    dependency: "direct main"
+    description:
+      name: fl_country_code_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -371,6 +399,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  pin_code_text_field:
+    dependency: "direct main"
+    description:
+      name: pin_code_text_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.0"
   pinput:
     dependency: "direct main"
     description:
@@ -406,6 +441,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.3"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
   shared_preferences:
     dependency: transitive
     description:

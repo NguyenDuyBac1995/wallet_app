@@ -1,6 +1,7 @@
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
+import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
@@ -60,40 +61,32 @@ class _AuthScreenState extends State<AuthScreen>
                       ],
                     )),
               ),
-              SizedBox(
-                height: height * 0.1,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Routes.signInScreen);
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0xFF262338)),
-                          fixedSize:
-                              MaterialStateProperty.all(Size.fromWidth(width))),
-                      child: Text('${context.l10n?.signIn}')),
-                ),
+              Row(
+                  children: [
+                    Expanded(child:  ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.signInScreen);
+                        },
+                        style: CustomStyle.primaryButtonStyle,
+                        child: Padding(
+                          padding:const EdgeInsets.symmetric(vertical: 16),
+                          child: Text('${context.l10n?.signIn}'),
+                        )),)
+                  ],
               ),
-              SizedBox(
-                height: height * 0.1,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: ElevatedButton(
+              const SizedBox(height: 20,),
+              Row(
+                children: [
+                  Expanded(child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, Routes.signUpScreen);
                       },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          fixedSize: MaterialStateProperty.all(
-                            Size.fromWidth(width),
-                          )),
-                      child: Text('${context.l10n?.signUp}')),
-                ),
+                      style: CustomStyle.defaultButtonStyle,
+                      child: Padding(
+                        padding:const EdgeInsets.symmetric(vertical: 16),
+                        child: Text('${context.l10n?.signUp}'),
+                      )))
+                ],
               ),
               SizedBox(
                 height: height * 0.1,

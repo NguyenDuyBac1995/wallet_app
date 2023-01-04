@@ -1,30 +1,50 @@
 import 'package:big_wallet/core/routes/routes.dart';
-import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/screens/widgets/custom.country.select.dart';
+import 'package:big_wallet/models/bundle.model.dart';
 import 'package:big_wallet/utilities/assets.dart';
+import 'package:big_wallet/utilities/custom_color.dart';
+import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:big_wallet/utilities/localization.dart';
+import 'package:big_wallet/utilities/styled.dart';
+import 'package:big_wallet/utilities/text_styled.dart';
+import 'package:big_wallet/utilities/widgets/common.dart';
+import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:country_pickers/country_pickers.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreen();
 }
 
-class _SignUpScreenState extends State<SignUpScreen>
+class _SignUpScreen extends State<SignUpScreen>
     with SingleTickerProviderStateMixin {
+  late bool _passwordVisible = false;
+  late bool _isFormValid = false;
   late PhoneNumber _phoneNumber;
   late bool _isPhoneNumberValid;
-  late TextEditingController _phoneNumberController;
+  final TextEditingController _controllerUserName = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+  final  Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('vn');
+  final RegExp _regexPassword =
+  RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!&@#]).{8,}$');
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    _passwordVisible = false;
+    _isFormValid = false;
     _phoneNumber = PhoneNumber(isoCode: 'VN');
     _isPhoneNumberValid = false;
-    _phoneNumberController = TextEditingController();
     super.initState();
+  }
+
+  void _togglePasswordStatus() {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
   }
 
   @override
@@ -32,161 +52,171 @@ class _SignUpScreenState extends State<SignUpScreen>
     super.dispose();
   }
 
+  onChange() {
+    if (!_isPhoneNumberValid || _phoneNumber.phoneNumber!.isEmpty) {
+      setState(() {
+        _isFormValid = false;
+      });
+      return;
+    }
+    // if (_passwordController.text.isEmpty) {
+    //   setState(() {
+    //     _isFormValid = false;
+    //   });
+    //   return;
+    // }
+    // if (!_regexPassword.hasMatch(_passwordController.text)) {
+    //   setState(() {
+    //     _isFormValid = false;
+    //   });
+    //   return;
+    // }
+    setState(() {
+      _isFormValid = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(Images.authBackground), fit: BoxFit.fill)),
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(right: width * 0.05, left: width * 0.05),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: height * 0.05,
+    return Scaffold(
+      body: Container(
+          width: width,
+          height: height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.sigInBackground), fit: BoxFit.fill)),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 85,
+                      ),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: CustomIcon(
+                          IconConstant.pigIcon,
+                          size: 82,
                         ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop(context);
-                                  },
-                                  icon: const Icon(Icons.arrow_back_ios)),
-                              Text('${context.l10n?.welcome}',
-                                  style: const TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w500)),
-                            ],
+                      ),
+                      const SizedBox(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                          child: Text(
+                            'Big Wallet',
+                            style: TextStyles.textSize30Bold700,
                           ),
                         ),
-                        SizedBox(
-                          height: height * 0.05,
-                        ),
-                        InternationalPhoneNumberInput(
-                          textFieldController: _phoneNumberController,
-                          onInputChanged: (value) {
-                            if (_phoneNumber.phoneNumber != value.phoneNumber) {
-                              _phoneNumber = value;
-                            }
-                          },
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return '${context.l10n?.requiredMessage('${context.l10n?.phoneNumber}')} ';
-                            }
-                            if (!_isPhoneNumberValid) {
-                              return 'Số điện thoại không hợp lệ';
-                            }
-                            return null;
-                          },
-                          onInputValidated: (value) {
-                            _isPhoneNumberValid = value;
-                          },
-                          selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                              trailingSpace: false),
-                          inputDecoration: InputDecoration(
-                              filled: true,
-                              fillColor: const Color(0xFFEFF0F7),
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              hintText: context.l10n?.phoneNumber),
-                          selectorTextStyle:
-                              const TextStyle(color: Colors.black),
-                          initialValue: _phoneNumber,
-                          formatInput: false,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: true, decimal: true),
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<AuthBloc>().add(
-                                      PhoneNumberChanged(
-                                          '${_phoneNumber.phoneNumber}'));
-                                  Navigator.pushNamed(context, Routes.otpScreen,
-                                      arguments: ((value) {
-                                    Navigator.pushNamed(
-                                        context, Routes.authInformation);
-                                  }));
-                                }
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  foregroundColor:
-                                      MaterialStateProperty.all(Colors.white),
-                                  fixedSize: MaterialStateProperty.all(
-                                    Size.fromWidth(width),
-                                  )),
-                              child: Text('${context.l10n?.signUp}')),
-                        ),
-                        SizedBox(
-                          height: height * 0.04,
-                        ),
-                        Row(children: [
-                          const Expanded(
-                              child: Divider(
-                            color: Colors.black,
-                          )),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: width * 0.05, right: width * 0.05),
-                            child: Text(
-                                '${context.l10n?.orLabel} ${context.l10n?.signUp.toLowerCase()} ${context.l10n?.withLabel}'),
-                          ),
-                          const Expanded(
-                              child: Divider(
-                            color: Colors.black,
-                          )),
-                        ]),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: Image.asset(Images.facebookIcon),
-                              iconSize: height * 0.1,
-                              onPressed: () {},
+                      ),
+                      const Text('Fill information to sign up',style: TextStyles.textSubHeader),
+                      const SizedBox(height: 20,),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                              flex: 1,
+                              child: CustomCountrySelect(
+                                country: _selectedCountry,
+                                onSelectCountry: () {
+
+                                },
+                              )),
+                          Flexible(
+                            flex: 3,
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                              decoration: CustomStyled.boxShadowDecoration,
+                              child: TextFormField(
+                                controller: _controllerUserName,
+                                keyboardType: TextInputType.phone,
+                                decoration:
+                                CustomStyled.inputDecorationBorderNone(
+                                    placeholder: "Phone Number"),
+                                validator: (value) {
+                                  // if (value == null || value.isEmpty) {
+                                  //   return StringApp.VALIDATE_EMPTY_FIELD;
+                                  // } else {
+                                  //   RegExp regex =
+                                  //   RegExp(Common.regexPhoneNumber);
+                                  //   if (!regex.hasMatch(value)) {
+                                  //     return StringApp.VALIDATE_PHONE_FIELD;
+                                  //   }
+                                  //   return null;
+                                  // }
+                                },
+                              ),
                             ),
-                            IconButton(
-                              icon: Image.asset(Images.googleIcon),
-                              iconSize: height * 0.1,
-                              onPressed: () {},
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  BundleData data = BundleData(
+                                    verifyCase: 'register'
+                                  );
+                                  Navigator.pushNamed(
+                                      context, Routes.verifyOtpScreen, arguments:data);
+                                },
+                                style: CustomStyle.primaryButtonStyle,
+                                child:const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  child: Text('Send OTP'),
+                                )),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+
+                      Row(children: const <Widget>[
+                        Expanded(
+                            child: Divider(
+                              color: Colors.black12,
+                              height: 2,
+                            )),
+                        Text("Or Sign In with"),
+                        Expanded(
+                            child: Divider(
+                              color: Colors.black12,
+                              height: 2,
+                            )),
+                      ]),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          Image(
+                              image: AssetImage(
+                                Images.facebookImage,
+                              )),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Image(image: AssetImage(Images.googleImage)),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-              );
-            },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
           )),
     );
   }

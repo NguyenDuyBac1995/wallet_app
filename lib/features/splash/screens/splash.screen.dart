@@ -32,7 +32,15 @@ class _SplashScreenState extends State<SplashScreen> {
             listenWhen: (previous, current) =>
                 previous.loadingPercent != current.loadingPercent,
             listener: ((context, state) {
-              if (state.configurations.isNotEmpty && state.loadingPercent < 1) {
+              // if (state.configurations.isNotEmpty && state.loadingPercent < 1) {
+              //   Future.delayed(const Duration(seconds: 1), () {
+              //     var loadingPercent = state.loadingPercent + 0.5;
+              //     context
+              //         .read<AppBloc>()
+              //         .add(LoadingPercentChanged(loadingPercent));
+              //   });
+              // }
+              if (state.loadingPercent < 1) {
                 Future.delayed(const Duration(seconds: 1), () {
                   var loadingPercent = state.loadingPercent + 0.5;
                   context
