@@ -1,9 +1,10 @@
+import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_color.dart';
 
 class TextStyles {
-  static const TextStyle  textSize30Bold700 = TextStyle(
+  static const TextStyle textSize30Bold700 = TextStyle(
     fontSize: 30,
     color: CustomColors.primaryColor,
     fontWeight: FontWeight.w700,
@@ -36,4 +37,26 @@ class TextStyles {
     fontWeight: FontWeight.w600,
     color: Color(0xFFF19465),
   );
+
+  static TextStyle h1 = TextStyle(
+      fontFamily: FontFamily.Poppins,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: CustomColors.blackTitle);
+  static TextStyle h2 = TextStyle(
+      fontFamily: FontFamily.Poppins,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: CustomColors.blackTitle);
+
+  static TextStyle textMenuItem = TextStyle(
+      fontFamily: FontFamily.Poppins,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: CustomColors.blackTitle);
+  static TextStyle text = TextStyle(
+      fontFamily: FontFamily.Poppins,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: CustomColors.blackText);
 }

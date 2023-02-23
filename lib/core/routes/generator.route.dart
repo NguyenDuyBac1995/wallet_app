@@ -3,6 +3,8 @@ import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/screens/auth.screen.dart';
 import 'package:big_wallet/features/auth/screens/forgot.new.password.screen.dart';
 import 'package:big_wallet/features/auth/screens/information.screen.dart';
+import 'package:big_wallet/features/bottom_bar/screens/bottom_bar.screen.dart';
+import 'package:big_wallet/features/settings/screens/setting.screen.dart';
 import 'package:big_wallet/features/auth/screens/signin.screen.dart';
 import 'package:big_wallet/features/auth/screens/signup.information.screen.dart';
 import 'package:big_wallet/features/auth/screens/signup.screen.dart';
@@ -55,6 +57,12 @@ class RouteGenerator {
       case Routes.signupInformationScreen:
         return GeneratePageRoute(
             widget: const SignupInformationScreen(), routeName: settings.name);
+      case Routes.bottomBarScreen:
+        return GeneratePageRoute(
+            widget: const BottomBarScreen(), routeName: settings.name);
+      case Routes.settingScreen:
+        return GeneratePageRoute(
+            widget: const SettingsScreen(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

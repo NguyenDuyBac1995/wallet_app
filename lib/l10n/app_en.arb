@@ -95,5 +95,13 @@
             }
         }
     },
-    "account": "Account"
+    "account": "Account",
+    "titleCoffee": "Buy me a coffee",
+    "descCoffee": "Watch ads to support us, thanks.",
+    "editPersona": "Edit personal information",
+    "manageProfile": "Manage profiles",
+    "updatePassword": "Update password",
+    "generalSetting": "General setting",
+    "rateUs": "Rate us",
+    "logout": "Logout"
 }

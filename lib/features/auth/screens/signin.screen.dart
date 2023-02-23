@@ -26,7 +26,7 @@ class _SignInScreenState extends State<SignInScreen>
   late bool _isPhoneNumberValid;
   final TextEditingController _controllerUserName = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final  Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('vn');
+  final Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('vn');
   final RegExp _regexPassword =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!&@#]).{8,}$');
   final _formKey = GlobalKey<FormState>();
@@ -119,14 +119,13 @@ class _SignInScreenState extends State<SignInScreen>
                               flex: 1,
                               child: CustomCountrySelect(
                                 country: _selectedCountry,
-                                onSelectCountry: () {
-
-                                },
+                                onSelectCountry: () {},
                               )),
                           Flexible(
                             flex: 3,
                             child: Container(
-                              margin: const EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                              margin: const EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 15),
                               decoration: CustomStyled.boxShadowDecoration,
                               child: TextFormField(
                                 controller: _controllerUserName,
@@ -200,7 +199,7 @@ class _SignInScreenState extends State<SignInScreen>
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, Routes.signInScreen);
+                                      context, Routes.bottomBarScreen);
                                 },
                                 style: CustomStyle.primaryButtonStyle,
                                 child: Padding(
@@ -218,7 +217,8 @@ class _SignInScreenState extends State<SignInScreen>
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.forgotPasswordPhoneScreen);
+                            Navigator.pushNamed(
+                                context, Routes.forgotPasswordPhoneScreen);
                           },
                           child: const Text(
                             'Forgot Password?',

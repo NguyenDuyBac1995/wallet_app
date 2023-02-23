@@ -95,5 +95,13 @@
             }
         }
     },
-    "account": "Tài khoản"
+    "account": "Tài khoản",
+    "titleCoffee": "Một tách cafe",
+    "descCoffee": "Xem quảng cáo để ủng hộ chúng tôi, cảm ơn.",
+    "editPersona": "Chỉnh sửa thông tin cá nhân",
+    "manageProfile": "Quản lý hồ sơ",
+    "updatePassword": "Cập nhật mật khẩu",
+    "generalSetting": "Cài đặt chung",
+    "rateUs": "Đánh giá phần mềm",
+    "logout": "Đăng xuất"
 }

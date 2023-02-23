@@ -9,4 +9,6 @@ class Routes {
   static const verifyOtpScreen = 'VerifyOtpScreen';
   static const forgotNewPasswordScreen = 'ForgotNewPasswordScreen';
   static const signupInformationScreen = 'SignupInformationScreen';
+  static const bottomBarScreen = 'bottomBarScreen';
+  static const settingScreen = 'settingScreen';
 }
