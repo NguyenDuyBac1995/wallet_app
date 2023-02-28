@@ -19,7 +19,8 @@ class ForgotNewPasswordScreen extends StatefulWidget {
 class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controllerPassword = TextEditingController();
-  final TextEditingController _controllerConfirmPassword = TextEditingController();
+  final TextEditingController _controllerConfirmPassword =
+      TextEditingController();
   late bool _passwordVisible = false;
   late bool _confirmPasswordVisible = false;
 
@@ -28,6 +29,7 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
       _passwordVisible = !_passwordVisible;
     });
   }
+
   void _toggleConfirmPasswordStatus() {
     setState(() {
       _confirmPasswordVisible = !_confirmPasswordVisible;
@@ -83,7 +85,6 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
               const SizedBox(
                 height: 20,
               ),
-
               SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -188,7 +189,6 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                           )
                         ],
                       ),
-
                     ],
                   ),
                 ),

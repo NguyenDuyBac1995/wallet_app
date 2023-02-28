@@ -13,13 +13,13 @@ class ForgotPasswordPhoneScreen extends StatefulWidget {
   const ForgotPasswordPhoneScreen({super.key});
 
   @override
-  State<ForgotPasswordPhoneScreen> createState() => _ForgotPasswordPhoneScreen();
-
+  State<ForgotPasswordPhoneScreen> createState() =>
+      _ForgotPasswordPhoneScreen();
 }
 
 class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
   final _formKey = GlobalKey<FormState>();
-  final  Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('vn');
+  final Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('vn');
   final TextEditingController _controllerUserName = TextEditingController();
 
   @override
@@ -35,7 +35,7 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
             image: DecorationImage(
                 image: AssetImage(Images.sigInBackground), fit: BoxFit.fill)),
         child: SafeArea(
-          child:  Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -49,11 +49,25 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30,),
-              const Text('Forgot password' ,style: TextStyles.textHeader, textAlign: TextAlign.start,),
-              const SizedBox(height: 20,),
-              const Text('We will send OTP to your phone number' ,style: TextStyles.textSubHeader, textAlign: TextAlign.start,),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Forgot password',
+                style: TextStyles.textHeader,
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                '77777777777777776777777777777send OTP to your phone number 1212',
+                style: TextStyles.textSubHeader,
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -65,21 +79,20 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
                               flex: 1,
                               child: CustomCountrySelect(
                                 country: _selectedCountry,
-                                onSelectCountry: () {
-
-                                },
+                                onSelectCountry: () {},
                               )),
                           Flexible(
                             flex: 3,
                             child: Container(
-                              margin: const EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                              margin: const EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 15),
                               decoration: CustomStyled.boxShadowDecoration,
                               child: TextFormField(
                                 controller: _controllerUserName,
                                 keyboardType: TextInputType.phone,
                                 decoration:
-                                CustomStyled.inputDecorationBorderNone(
-                                    placeholder: "Phone Number"),
+                                    CustomStyled.inputDecorationBorderNone(
+                                        placeholder: "Phone Number"),
                                 validator: (value) {
                                   // if (value == null || value.isEmpty) {
                                   //   return StringApp.VALIDATE_EMPTY_FIELD;
@@ -97,7 +110,9 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -107,7 +122,7 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
                                       context, Routes.verifyOtpScreen);
                                 },
                                 style: CustomStyle.primaryButtonStyle,
-                                child:const Padding(
+                                child: const Padding(
                                   padding: EdgeInsets.symmetric(vertical: 16),
                                   child: Text('Submit'),
                                 )),

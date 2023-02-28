@@ -66,23 +66,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Column(
                 children: [
                   ListTile(
-                    leading: const CustomContainerListTitleWidget(
-                        urlImage: IconSetting.websiteIcon),
-                    title: Text(context.l10n?.editPersona ?? '',
-                        style: TextStyles.textMenuItem),
-                  ),
+                      leading: const CustomContainerListTitleWidget(
+                          urlImage: IconSetting.websiteIcon),
+                      title: Text(context.l10n?.editPersona ?? '',
+                          style: TextStyles.textMenuItem),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.editProfileScreen);
+                      }),
                   ListTile(
-                    leading: const CustomContainerListTitleWidget(
-                        urlImage: IconSetting.profileIcon),
-                    title: Text(context.l10n?.manageProfile ?? '',
-                        style: TextStyles.textMenuItem),
-                  ),
+                      leading: const CustomContainerListTitleWidget(
+                          urlImage: IconSetting.profileIcon),
+                      title: Text(context.l10n?.manageProfile ?? '',
+                          style: TextStyles.textMenuItem),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.recordsManagement);
+                      }),
                   ListTile(
-                    leading: const CustomContainerListTitleWidget(
-                        urlImage: IconSetting.passwordIcon),
-                    title: Text(context.l10n?.updatePassword ?? '',
-                        style: TextStyles.textMenuItem),
-                  )
+                      leading: const CustomContainerListTitleWidget(
+                          urlImage: IconSetting.passwordIcon),
+                      title: Text(context.l10n?.updatePassword ?? '',
+                          style: TextStyles.textMenuItem),
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, Routes.updatePassWordScreen);
+                      })
                 ],
               )),
               const SizedBox(height: 30),

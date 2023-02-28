@@ -11,4 +11,7 @@ class Routes {
   static const signupInformationScreen = 'SignupInformationScreen';
   static const bottomBarScreen = 'bottomBarScreen';
   static const settingScreen = 'settingScreen';
+  static const updatePassWordScreen = 'updatePassWord';
+  static const editProfileScreen = 'editProfileScreen';
+  static const recordsManagement = 'recordsManagement';
 }

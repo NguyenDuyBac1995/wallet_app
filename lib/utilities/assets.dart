@@ -14,6 +14,8 @@ class IconConstant {
   static const keyIcon = 'assets/icons/key_icon.svg';
   static const profileIcon = 'assets/icons/profile.svg';
   static const chartPie = 'assets/icons/Chart-pie.svg';
+  static const backArrow = 'assets/icons/back_arrow_icon.svg';
+  static const calendarIcon = 'assets/icons/calandar_icon.svg';
 }
 
 class IconSetting {

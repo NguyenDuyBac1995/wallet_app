@@ -35,4 +35,6 @@ class CustomStyle {
     blurRadius: 8,
     color: Color.fromRGBO(9, 0, 93, 0.06),
   );
+
+  static BorderRadius borderRadiusFormFieldStyle = BorderRadius.circular(10);
 }

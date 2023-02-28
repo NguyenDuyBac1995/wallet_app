@@ -53,17 +53,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         });
       },
       child: Container(
-        height: 84,
+        height: 60,
         width: MediaQuery.of(context).size.width / _iconList.length,
         decoration: const BoxDecoration(
-            color: CustomColors.backgroundNavBar,
-            boxShadow: [
-              BoxShadow(
-                color: CustomColors.colorBoxShadowBottomBar,
-                offset: Offset(0, -2),
-                blurRadius: 8,
-              )
-            ]),
+          color: CustomColors.backgroundNavBar,
+        ),
         child: CustomIcon(
           icon,
           color: index == _selectedIndex

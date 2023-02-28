@@ -59,4 +59,10 @@ class TextStyles {
       fontSize: 14,
       fontWeight: FontWeight.w400,
       color: CustomColors.blackText);
+  static TextStyle labelTextStyle = TextStyle(
+      fontFamily: FontFamily.Poppins,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      backgroundColor: const Color(0xFFFFFBFE),
+      color: CustomColors.blackTitle);
 }

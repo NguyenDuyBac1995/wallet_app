@@ -103,5 +103,15 @@
     "updatePassword": "Cập nhật mật khẩu",
     "generalSetting": "Cài đặt chung",
     "rateUs": "Đánh giá phần mềm",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "titleUpdatePassWord": "Cập nhật mật khẩu",
+    "labelTextDisplayName": "Tên hiển thị",
+    "labelTextPhoneNumber": "Số điện thoại",
+    "labelTextEmail": "Địa chỉ email",
+    "labelTextDOB": "Ngày sinh",
+    "labelTextCurrency": "Tiền tệ",
+    "btnUpdateProfile": "Cập nhật",
+    "hintTextCurrentPassword": "Mật khẩu cũ",
+    "hintTextNewPassword": "Mật khẩu mới",
+    "hintTextConfirmPassword": "Xác nhận mật khẩu mới"
 }

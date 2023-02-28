@@ -103,5 +103,15 @@
     "updatePassword": "Update password",
     "generalSetting": "General setting",
     "rateUs": "Rate us",
-    "logout": "Logout"
+    "logout": "Logout",
+    "titleUpdatePassWord": "Update password",
+    "labelTextDisplayName": "Display name",
+    "labelTextPhoneNumber": "Phone number",
+    "labelTextEmail": "Email address",
+    "labelTextDOB": "DOB",
+    "labelTextCurrency": "Currency",
+    "btnUpdateProfile": "Update",
+    "hintTextCurrentPassword": "Current password",
+    "hintTextNewPassword": "New password",
+    "hintTextConfirmPassword": "Confirm password"
 }

@@ -31,22 +31,30 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: CustomBottomNavigationBar(
-        iconList: const [
-          IconMenu.chartPieIcon,
-          IconMenu.walletIcon,
-          IconMenu.cashMoneyIcon,
-          IconMenu.newsIcon,
-          IconMenu.profileIcon,
-        ],
-        onChange: (val) {
-          setState(() {
-            _selectedIndex = val;
-          });
-        },
-        defaultSelectedIndex: 0,
-      ),
-    );
+        body: _widgetOptions[_selectedIndex],
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: CustomColors.colorBoxShadowBottomBar,
+              offset: Offset(0, -2),
+              blurRadius: 8,
+            )
+          ]),
+          child: CustomBottomNavigationBar(
+            iconList: const [
+              IconMenu.chartPieIcon,
+              IconMenu.walletIcon,
+              IconMenu.cashMoneyIcon,
+              IconMenu.newsIcon,
+              IconMenu.profileIcon,
+            ],
+            onChange: (val) {
+              setState(() {
+                _selectedIndex = val;
+              });
+            },
+            defaultSelectedIndex: 0,
+          ),
+        ));
   }
 }

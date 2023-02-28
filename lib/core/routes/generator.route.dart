@@ -4,12 +4,15 @@ import 'package:big_wallet/features/auth/screens/auth.screen.dart';
 import 'package:big_wallet/features/auth/screens/forgot.new.password.screen.dart';
 import 'package:big_wallet/features/auth/screens/information.screen.dart';
 import 'package:big_wallet/features/bottom_bar/screens/bottom_bar.screen.dart';
+import 'package:big_wallet/features/settings/screens/edit_profile.screen.dart';
+import 'package:big_wallet/features/settings/screens/records_management.screen.dart';
 import 'package:big_wallet/features/settings/screens/setting.screen.dart';
 import 'package:big_wallet/features/auth/screens/signin.screen.dart';
 import 'package:big_wallet/features/auth/screens/signup.information.screen.dart';
 import 'package:big_wallet/features/auth/screens/signup.screen.dart';
 import 'package:big_wallet/features/auth/screens/verify.otp.screen.dart';
 import 'package:big_wallet/features/otp/screens/otp.screen.dart';
+import 'package:big_wallet/features/settings/screens/update_password.screen.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:big_wallet/models/bundle.model.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +66,15 @@ class RouteGenerator {
       case Routes.settingScreen:
         return GeneratePageRoute(
             widget: const SettingsScreen(), routeName: settings.name);
+      case Routes.updatePassWordScreen:
+        return GeneratePageRoute(
+            widget: const UpdatePasswordScreen(), routeName: settings.name);
+      case Routes.editProfileScreen:
+        return GeneratePageRoute(
+            widget: const EditProfileScreen(), routeName: settings.name);
+      case Routes.recordsManagement:
+        return GeneratePageRoute(
+            widget: const RecordsManagement(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

@@ -12,4 +12,14 @@ class CustomColors {
   static const Color colorIconNavBarActive = Color(0xFFA8D930);
   static const Color colorBoxShadowBottomBar = Color.fromRGBO(9, 0, 93, 0.06);
   static const Color colorBoxShadowMenuItem = Color(0xFFF8FFF8);
+  static const LinearGradient linearGradientAppBar = LinearGradient(
+    colors: [
+      Color(0xFFA8D930),
+      Color.fromRGBO(168, 217, 48, 0.4),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    stops: [0, 1],
+  );
+  static const Color backgroundTextFormField = Color(0xFFFCFCFC);
 }
