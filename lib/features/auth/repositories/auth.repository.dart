@@ -5,10 +5,11 @@ import 'package:big_wallet/features/auth/model/signup.model.dart';
 import 'package:big_wallet/features/auth/repositories/requests/signup.request.dart';
 import 'package:big_wallet/utilities/api.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class AuthRepository extends Repository {
   Future<bool> signupAsync(BuildContext context, SignUpRequest data) async {
-    const url = Api.signup;
+    const url = Api.postSignUp;
     final apiResponse = await requestAsync<SingleResponse>(
         Context.signup, context, url, RequestType.post,
         data: data);

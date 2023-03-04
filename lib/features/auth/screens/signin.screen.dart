@@ -199,7 +199,7 @@ class _SignInScreenState extends State<SignInScreen>
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, Routes.bottomBarScreen);
+                                      context, Routes.authInformation);
                                 },
                                 style: CustomStyle.primaryButtonStyle,
                                 child: Padding(

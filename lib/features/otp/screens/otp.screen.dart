@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
@@ -31,7 +32,7 @@ class _OtpScreenState extends State<OtpScreen>
     _secondsRemaining = 30;
     _phoneNumber = context.read<AuthBloc>().state.phoneNumber;
     _verificationId = '';
-    verifyPhoneNumber();
+    verifyPhoneNumber(context, _phoneNumber);
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (_secondsRemaining > 1) {
         setState(() {
@@ -52,43 +53,47 @@ class _OtpScreenState extends State<OtpScreen>
     _timer.cancel();
   }
 
-  void verifyPhoneNumber() {
-    auth.verifyPhoneNumber(
-      timeout: const Duration(seconds: 30),
-      phoneNumber: _phoneNumber,
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
-        Logger().i('verificationCompleted: $phoneAuthCredential');
-        await signInWithCredential(phoneAuthCredential);
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        Logger().i('verificationFailed: $e');
-        setState(() {
-          _secondsRemaining = 0;
-          _enableResend = true;
-        });
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        Logger().i('codeSent: $verificationId');
-        setState(() {
-          _verificationId = verificationId;
-          _secondsRemaining = 30;
-          _enableResend = false;
-        });
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        Logger().i('codeAutoRetrievalTimeout: $verificationId');
-        setState(() {
-          _secondsRemaining = 0;
-          _enableResend = true;
-        });
-      },
-    );
+  void verifyPhoneNumber(BuildContext context, String phoneNumber) async {
+    try {
+      await auth.verifyPhoneNumber(
+        // timeout: const Duration(seconds: 30),
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+          Logger().i('verificationCompleted: $phoneAuthCredential');
+          await auth.signInWithCredential(phoneAuthCredential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          Logger().i('verificationFailed: $e');
+          setState(() {
+            _secondsRemaining = 0;
+            _enableResend = true;
+          });
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          Logger().i('codeSent: $verificationId');
+          setState(() {
+            _verificationId = verificationId;
+            _secondsRemaining = 30;
+            _enableResend = false;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          Logger().i('codeAutoRetrievalTimeout: $verificationId');
+          setState(() {
+            _secondsRemaining = 0;
+            _enableResend = true;
+          });
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      Logger().i('codeAutoRetrievalTimeout: ${e.message.toString()}');
+    }
   }
 
   Future<void> signInWithCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     await auth.signInWithCredential(phoneAuthCredential).then((value) {
-      Logger().i('signInWithCredential $value');
+      Logger().i('signInWithCredential1 -> ${value.user!.uid}');
       context.read<AuthBloc>().add(UidChanged(value.user!.uid));
       widget.callback(value);
     }).catchError((onError) {
@@ -107,7 +112,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   void resend() {
-    verifyPhoneNumber();
+    verifyPhoneNumber(context, _phoneNumber);
   }
 
   @override

@@ -1,4 +1,7 @@
 import 'package:big_wallet/core/routes/routes.dart';
+import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
+import 'package:big_wallet/features/auth/repositories/requests/signup.request.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/custom_style.dart';
@@ -9,6 +12,7 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 class SignupInformationScreen extends StatefulWidget {
@@ -23,8 +27,35 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerFullName = TextEditingController();
   final TextEditingController _controllerCurrency = TextEditingController();
+  final authRepository = AuthRepository();
+  late String _uidFirebase;
+  late String _phoneNumber;
   late bool _passwordVisible = false;
-  Currency _currency = Currency(code: 'VND', name: 'Viet Nam Dong', symbol: '₫', flag: 'VND', number: 704, decimalDigits: 0, namePlural: 'Vietnamese dong', symbolOnLeft: false, decimalSeparator: '.', thousandsSeparator: '.', spaceBetweenAmountAndSymbol: true);
+  late bool _isLoading = false;
+  late List<dynamic>? configurations;
+  late String _accessSystem;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = false;
+    _accessSystem = 'big-wallet';
+    _uidFirebase = context.read<AuthBloc>().state.uid;
+    _phoneNumber = context.read<AuthBloc>().state.phoneNumber;
+  }
+
+  Currency _currency = Currency(
+      code: 'VND',
+      name: 'Viet Nam Dong',
+      symbol: '₫',
+      flag: 'VND',
+      number: 704,
+      decimalDigits: 0,
+      namePlural: 'Vietnamese dong',
+      symbolOnLeft: false,
+      decimalSeparator: '.',
+      thousandsSeparator: '.',
+      spaceBetweenAmountAndSymbol: true);
   late Country _country = CountryPickerUtils.getCountryByIsoCode('vn');
 
   void _togglePasswordStatus() {
@@ -33,31 +64,32 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
     });
   }
 
-   void onHandleShowCurrency() => showCurrencyPicker(
-      context: context,
-      showFlag: true,
-      showCurrencyName: true,
-      showCurrencyCode: true,
-      onSelect: (Currency currency) {
-        setState(() {
-          _controllerCurrency.text = currency.name;
-          _currency = currency;
-          // _country = CountryPickerUtils.getCountryByIsoCode(currency.code);
-        });
+  void onHandleShowCurrency() => showCurrencyPicker(
+        context: context,
+        showFlag: true,
+        showCurrencyName: true,
+        showCurrencyCode: true,
+        onSelect: (Currency currency) {
+          setState(() {
+            _controllerCurrency.text = currency.name;
+            _currency = currency;
+            // _country = CountryPickerUtils.getCountryByIsoCode(currency.code);
+          });
 
-      print('Select currency: ${currency.name}');
-      print('Select namePlural: ${currency.namePlural}');
-      print('Select symbol: ${currency.symbol}');
-      print('Select code: ${currency.code}');
-        print('Select flag: ${currency.flag}');
-        print('Select number: ${currency.number}');
-        print('Select decimalDigits: ${currency.decimalDigits}');
-        print('Select decimalSeparator: ${currency.decimalSeparator}');
-        print('Select thousandsSeparator: ${currency.thousandsSeparator}');
-        print('Select symbolOnLeft: ${currency.symbolOnLeft}');
-        print('Select spaceBetweenAmountAndSymbol: ${currency.spaceBetweenAmountAndSymbol}');
-    },
-  );
+          print('Select currency: ${currency.name}');
+          print('Select namePlural: ${currency.namePlural}');
+          print('Select symbol: ${currency.symbol}');
+          print('Select code: ${currency.code}');
+          print('Select flag: ${currency.flag}');
+          print('Select number: ${currency.number}');
+          print('Select decimalDigits: ${currency.decimalDigits}');
+          print('Select decimalSeparator: ${currency.decimalSeparator}');
+          print('Select thousandsSeparator: ${currency.thousandsSeparator}');
+          print('Select symbolOnLeft: ${currency.symbolOnLeft}');
+          print(
+              'Select spaceBetweenAmountAndSymbol: ${currency.spaceBetweenAmountAndSymbol}');
+        },
+      );
 
   Widget _buildCupertinoSelectedItem(Country country) {
     return Row(
@@ -67,15 +99,6 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
         Text("${_currency.name} ${_currency.symbol}"),
       ],
     );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    // setState(() {
-    //   _controllerCurrency.text ='asdasdasdasd';
-    // });
-    super.initState();
   }
 
   @override
@@ -89,6 +112,7 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    print("_isLoading -> $_isLoading");
     return Scaffold(
       body: Container(
         width: width,
@@ -127,7 +151,6 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
               const SizedBox(
                 height: 20,
               ),
-
               SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -146,7 +169,6 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                             hintText: 'Display Name',
                             fillColor: CustomColors.gray,
                             filled: true,
-
                             prefixIcon: const CustomIcon(
                               IconConstant.profileIcon,
                               color: CustomColors.primaryColor,
@@ -204,45 +226,40 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: CustomStyled.boxShadowDecoration,
-                        child: GestureDetector(
-                          onTap: onHandleShowCurrency,
-                          child: TextFormField(
-                            enabled: false,
-                            controller: _controllerCurrency,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none, // No border
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: 'Display Name',
-
-                              filled: true,
-
-                              prefixIcon: GestureDetector(
-                                onTap: onHandleShowCurrency,
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: _buildCupertinoSelectedItem(_country),
-
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: CustomStyled.boxShadowDecoration,
+                          child: GestureDetector(
+                            onTap: onHandleShowCurrency,
+                            child: TextFormField(
+                              enabled: false,
+                              controller: _controllerCurrency,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none, // No border
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
+                                hintText: 'Display Name',
+                                filled: true,
+                                prefixIcon: GestureDetector(
+                                  onTap: onHandleShowCurrency,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child:
+                                        _buildCupertinoSelectedItem(_country),
+                                  ),
+                                ),
+                                suffixIcon: Icon(Icons.arrow_drop_down),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
                               ),
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              validator: (value) {
+                                // if (value == null || value.isEmpty) {
+                                //   return StringApp.VALIDATE_EMPTY_FIELD;
+                                // }
+                                // return null;
+                              },
                             ),
-                            validator: (value) {
-                              // if (value == null || value.isEmpty) {
-                              //   return StringApp.VALIDATE_EMPTY_FIELD;
-                              // }
-                              // return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       const SizedBox(
                         height: 20,
                       ),
@@ -250,46 +267,86 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                         // crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const <Widget>[
-                          Expanded(child:  Text.rich(TextSpan(
-                              text: 'By tapping "Sign Up" you agree to our',
-                              style: TextStyles.textSubHeader,
-                              children: <InlineSpan>[
-                                TextSpan(
-                                  text: ' Terms of Use',
-                                  style: TextStyles.textSubHeaderColorPink,
-                                ),
-                                TextSpan(
-                                  text: ' and',
-                                  style: TextStyles.textSubHeader,
-                                ),
-                                TextSpan(
-                                  text: ' Privacy Policy',
-                                  style: TextStyles.textSubHeaderColorPink,
-                                ),
-                              ])),)
+                          Expanded(
+                            child: Text.rich(TextSpan(
+                                text: 'By tapping "Sign Up" you agree to our',
+                                style: TextStyles.textSubHeader,
+                                children: <InlineSpan>[
+                                  TextSpan(
+                                    text: ' Terms of Use',
+                                    style: TextStyles.textSubHeaderColorPink,
+                                  ),
+                                  TextSpan(
+                                    text: ' and',
+                                    style: TextStyles.textSubHeader,
+                                  ),
+                                  TextSpan(
+                                    text: ' Privacy Policy',
+                                    style: TextStyles.textSubHeaderColorPink,
+                                  ),
+                                ])),
+                          )
                         ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-
                       Row(
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.signInScreen);
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate() &&
+                                      !_isLoading) {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    var response =
+                                        await authRepository.signupAsync(
+                                            context,
+                                            SignUpRequest(
+                                                displayName:
+                                                    _controllerFullName.text,
+                                                user: _phoneNumber,
+                                                password:
+                                                    _controllerPassword.text,
+                                                firebaseUid: _uidFirebase,
+                                                accessSystem: _accessSystem,
+                                                configurations: [
+                                                  ConfigurationsModel(
+                                                      value: _currency.code)
+                                                ]));
+                                    print("response -> $response");
+                                    print("firebaseUid -> $_uidFirebase");
+                                    print("_phoneNumber -> $_phoneNumber");
+                                    print(
+                                        "displayName -> $_controllerFullName.text");
+
+                                    if (response) {
+                                      Navigator.pushNamed(
+                                          context, Routes.signInScreen);
+                                    }
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+
+                                  // Navigator.pushNamed(
+                                  //     context, Routes.signInScreen);
                                 },
                                 style: CustomStyle.primaryButtonStyle,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  child: Text('Confirm'),
-                                )),
+                                child: _isLoading
+                                    ? const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 16),
+                                        child: Text('Loading'))
+                                    : const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 16),
+                                        child: Text('Confirm'))),
                           )
                         ],
                       ),
-
                     ],
                   ),
                 ),

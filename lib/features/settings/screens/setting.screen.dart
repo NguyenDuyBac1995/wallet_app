@@ -28,7 +28,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     const user = UserPreferences.myUser;
-    print('${context.l10n?.signUp}');
     return Scaffold(
       body: Container(
           width: width,
