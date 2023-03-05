@@ -3,9 +3,11 @@ import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/splash/screens/widgets/splash.progress.dart';
 import 'package:big_wallet/models/configuration.model.dart';
 import 'package:big_wallet/utilities/assets.dart';
+import 'package:big_wallet/utilities/constants.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String? token;
   @override
   void initState() {
     context
@@ -49,6 +52,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 });
               }
               if (state.loadingPercent >= 1) {
+                getUserCredentials().then((token) {
+                  if (token != null) {
+                    Navigator.pushReplacementNamed(
+                        context, Routes.bottomBarScreen);
+                  }
+                });
                 Navigator.pushReplacementNamed(context, Routes.authScreen);
               }
             }),
@@ -91,4 +100,15 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             )));
   }
+
+  void getAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString(Constants.BIG_WALLET);
+  }
+}
+
+Future<String?> getUserCredentials() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString(Constants.BIG_WALLET);
+  return token;
 }

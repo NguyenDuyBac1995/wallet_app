@@ -22,4 +22,5 @@ class CustomColors {
     stops: [0, 1],
   );
   static const Color backgroundTextFormField = Color(0xFFFCFCFC);
+  static const Color backgroundBtnLoading = Color(0xFFD9DBE9);
 }

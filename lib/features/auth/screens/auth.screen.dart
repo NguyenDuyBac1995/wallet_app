@@ -62,30 +62,35 @@ class _AuthScreenState extends State<AuthScreen>
                     )),
               ),
               Row(
-                  children: [
-                    Expanded(child:  ElevatedButton(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.signInScreen);
                         },
                         style: CustomStyle.primaryButtonStyle,
                         child: Padding(
-                          padding:const EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Text('${context.l10n?.signIn}'),
-                        )),)
-                  ],
+                        )),
+                  )
+                ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
-                  Expanded(child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Routes.signUpScreen);
-                      },
-                      style: CustomStyle.defaultButtonStyle,
-                      child: Padding(
-                        padding:const EdgeInsets.symmetric(vertical: 16),
-                        child: Text('${context.l10n?.signUp}'),
-                      )))
+                  Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.signUpScreen);
+                          },
+                          style: CustomStyle.defaultButtonStyle,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: Text('${context.l10n?.signUp}'),
+                          )))
                 ],
               ),
               SizedBox(

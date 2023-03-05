@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:big_wallet/core/routes/routes.dart';
+import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
+import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
 import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
 import 'package:big_wallet/features/settings/screens/widgets/profile.widget.dart';
 // import 'package:big_wallet/features/settings/screens/widgets/profile_menu.widget.dart';
 import 'package:big_wallet/utilities/assets.dart';
+import 'package:big_wallet/utilities/constants.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:big_wallet/utilities/localization.dart';
@@ -14,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -23,12 +29,19 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final authRepository = AuthRepository();
+
+  void _onLogout(context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(Constants.BIG_WALLET);
+    Navigator.pushNamed(context, Routes.splashScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     const user = UserPreferences.myUser;
-    print('${context.l10n?.signUp}');
     return Scaffold(
       body: Container(
           width: width,
@@ -113,8 +126,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         urlImage: IconSetting.logoutIcon),
                     title: Text(context.l10n?.logout ?? '',
                         style: TextStyles.textMenuItem),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.splashScreen);
+                    onTap: () async {
+                      _onLogout(context);
                     },
                   )
                 ],

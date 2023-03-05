@@ -26,7 +26,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final double height = MediaQuery.of(context).size.height;
     const user = UserPreferences.myUser;
     TextEditingController _date = TextEditingController();
-    print("QuangKhanh ${_date}");
     return Scaffold(
       body: Container(
           width: width,
