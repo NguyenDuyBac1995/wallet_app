@@ -37,4 +37,12 @@ class CustomStyle {
   );
 
   static BorderRadius borderRadiusFormFieldStyle = BorderRadius.circular(10);
+
+  static ButtonStyle primaryButtonLoading = ElevatedButton.styleFrom(
+    textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    backgroundColor: CustomColors.backgroundBtnLoading,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10), // <-- Radius
+    ),
+  );
 }

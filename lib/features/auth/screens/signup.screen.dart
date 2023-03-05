@@ -119,14 +119,18 @@ class _SignUpScreen extends State<SignUpScreen>
                             selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                             trailingSpace: false),
                         inputDecoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 10),
                             filled: true,
                             fillColor: CustomColors.gray,
                             enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             hintText: context.l10n?.phoneNumber),
@@ -208,13 +212,13 @@ class _SignUpScreen extends State<SignUpScreen>
                               fit: BoxFit.cover,
                               image: AssetImage(Images.googleImage)),
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
               ),
             ],
           ));

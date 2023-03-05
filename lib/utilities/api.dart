@@ -9,4 +9,6 @@ class Api {
   static const baseURLink = "https://api.megiservices.com";
 
   static const postSignUp = "$identityBaseUrl/odata/auth/signup";
+  static const postSignIn = "$identityBaseUrl/odata/auth/signin";
+  static const postRevokeToken = "$identityBaseUrl/odata/auth/RevokeToken";
 }

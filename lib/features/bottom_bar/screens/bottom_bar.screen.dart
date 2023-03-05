@@ -1,9 +1,11 @@
 import 'package:big_wallet/features/bottom_bar/screens/widgets/custom_bottom.navigation.dart';
 import 'package:big_wallet/utilities/assets.dart';
+import 'package:big_wallet/utilities/constants.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../settings/screens/setting.screen.dart';
 
@@ -26,6 +28,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   void _onItemTapped(int index) {
     _selectedIndex = index;
+  }
+
+  @override
+  void initState() {
+    getAllData();
+    super.initState();
   }
 
   @override
@@ -56,5 +64,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             defaultSelectedIndex: 0,
           ),
         ));
+  }
+
+  void getAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String test = prefs.getString(Constants.BIG_WALLET) ?? "";
   }
 }

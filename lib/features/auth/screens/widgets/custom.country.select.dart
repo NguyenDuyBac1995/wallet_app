@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:country_pickers/country_pickers.dart';
 
 class CustomCountrySelect extends StatefulWidget {
-  const CustomCountrySelect({super.key,required this.country, required this.onSelectCountry });
+  const CustomCountrySelect(
+      {super.key, required this.country, required this.onSelectCountry});
   final Country country;
   final Function() onSelectCountry;
   @override
@@ -23,6 +24,7 @@ class _CustomCountrySelect extends State<CustomCountrySelect> {
     });
     super.initState();
   }
+
   void _openFilteredCountryPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(

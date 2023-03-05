@@ -73,21 +73,7 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
           setState(() {
             _controllerCurrency.text = currency.name;
             _currency = currency;
-            // _country = CountryPickerUtils.getCountryByIsoCode(currency.code);
           });
-
-          print('Select currency: ${currency.name}');
-          print('Select namePlural: ${currency.namePlural}');
-          print('Select symbol: ${currency.symbol}');
-          print('Select code: ${currency.code}');
-          print('Select flag: ${currency.flag}');
-          print('Select number: ${currency.number}');
-          print('Select decimalDigits: ${currency.decimalDigits}');
-          print('Select decimalSeparator: ${currency.decimalSeparator}');
-          print('Select thousandsSeparator: ${currency.thousandsSeparator}');
-          print('Select symbolOnLeft: ${currency.symbolOnLeft}');
-          print(
-              'Select spaceBetweenAmountAndSymbol: ${currency.spaceBetweenAmountAndSymbol}');
         },
       );
 
@@ -108,11 +94,33 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
     super.dispose();
   }
 
+  void _onSignUp(context) async {
+    if (_formKey.currentState!.validate() && !_isLoading) {
+      setState(() {
+        _isLoading = true;
+      });
+      var response = await authRepository.signupAsync(
+          context,
+          SignUpRequest(
+              displayName: _controllerFullName.text,
+              user: _phoneNumber,
+              password: _controllerPassword.text,
+              firebaseUid: _uidFirebase,
+              accessSystem: _accessSystem,
+              configurations: [ConfigurationsModel(value: _currency.code)]));
+      if (response) {
+        Navigator.pushNamed(context, Routes.signInScreen);
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    print("_isLoading -> $_isLoading");
     return Scaffold(
       body: Container(
         width: width,
@@ -296,40 +304,7 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                           Expanded(
                             child: ElevatedButton(
                                 onPressed: () async {
-                                  if (_formKey.currentState!.validate() &&
-                                      !_isLoading) {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    var response =
-                                        await authRepository.signupAsync(
-                                            context,
-                                            SignUpRequest(
-                                                displayName:
-                                                    _controllerFullName.text,
-                                                user: _phoneNumber,
-                                                password:
-                                                    _controllerPassword.text,
-                                                firebaseUid: _uidFirebase,
-                                                accessSystem: _accessSystem,
-                                                configurations: [
-                                                  ConfigurationsModel(
-                                                      value: _currency.code)
-                                                ]));
-                                    print("response -> $response");
-                                    print("firebaseUid -> $_uidFirebase");
-                                    print("_phoneNumber -> $_phoneNumber");
-                                    print(
-                                        "displayName -> $_controllerFullName.text");
-
-                                    if (response) {
-                                      Navigator.pushNamed(
-                                          context, Routes.signInScreen);
-                                    }
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
+                                  _onSignUp(context);
 
                                   // Navigator.pushNamed(
                                   //     context, Routes.signInScreen);

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:587302009735:android:7f397e459cda3c61487122",
+        "mobilesdk_app_id": "1:587302009735:android:545985c3a43ff844487122",
         "android_client_info": {
-          "package_name": "com.megiservices.bigWallet"
+          "package_name": "com.example.big_wallet"
         }
       },
       "oauth_client": [
@@ -29,6 +29,57 @@
             {
               "client_id": "587302009735-3epgd7td8k3lp9muuf428utu6rqhjdc2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "587302009735-245jq4dp5ufbdppl2at092f6bn79665t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.megiservices.bigWallet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587302009735:android:7f397e459cda3c61487122",
+        "android_client_info": {
+          "package_name": "com.megiservices.bigWallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587302009735-fgrdf4je0214mou5daoagmgonreoju4i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.megiservices.bigWallet",
+            "certificate_hash": "dcedb77646dc7ee61d59a6270f5401db1c057f42"
+          }
+        },
+        {
+          "client_id": "587302009735-3epgd7td8k3lp9muuf428utu6rqhjdc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsznUVG0NNGx7_u5BPJBfVqUO27a4xJEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587302009735-3epgd7td8k3lp9muuf428utu6rqhjdc2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "587302009735-245jq4dp5ufbdppl2at092f6bn79665t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.megiservices.bigWallet"
+              }
             }
           ]
         }
