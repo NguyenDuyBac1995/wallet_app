@@ -1,8 +1,10 @@
+import 'package:big_wallet/core/repositories/config_services.dart';
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/enums/context.enum.dart';
 import 'package:big_wallet/models/translate.model.dart';
 import 'package:big_wallet/utilities/api.dart';
+import 'package:big_wallet/utilities/auth_utils.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/toast.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +15,21 @@ enum RequestType { get, post, delete, put }
 class Repository {
   final Dio _dio = Dio();
   Options? _options;
+
+  Future _getToken({bool? useProfileId, bool? primaryId = false}) async {
+    var _token = await AuthUtils.instance.getToken();
+
+    if (useProfileId != null && useProfileId) {
+      if (primaryId != null && primaryId) {
+        _options = ConfigServices.getHeaders(token: _token);
+      } else {
+        _options = ConfigServices.getHeaders(token: _token);
+      }
+    } else {
+      _options = ConfigServices.getHeaders(token: _token);
+    }
+  }
+
   Future<T> requestAsync<T>(
       Context context, BuildContext buildContext, String path, RequestType type,
       {dynamic data}) async {

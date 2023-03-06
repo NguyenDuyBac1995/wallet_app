@@ -51,4 +51,17 @@ class AuthRepository extends Repository {
     }
     return apiResponse.isSuccess;
   }
+
+  Future<bool> refreshTokenAsync(
+      BuildContext context, RefreshTokenRequest data) async {
+    const url = Api.postRevokeToken;
+
+    final apiResponse = await requestAsync<SingleResponse>(
+        Context.general, context, url, RequestType.post,
+        data: data);
+    if (apiResponse.isSuccess) {
+      var refreshToken = SignUp.fromJson(apiResponse.payload);
+    }
+    return apiResponse.isSuccess;
+  }
 }

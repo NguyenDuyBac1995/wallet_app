@@ -10,6 +10,8 @@
     "phoneNumber": "Số điện thoại",
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
+    "forgotPasswordTitle": "Quên mật khẩu",
+    "forgotPasswordDesc": "Chúng tôi sẽ gửi OTP đến số điện thoại của bạn",
     "orLabel": "hoặc",
     "ofLabel": "của",
     "andLabel": "và",

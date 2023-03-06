@@ -52,16 +52,16 @@ class _ForgotPasswordPhoneScreen extends State<ForgotPasswordPhoneScreen> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                'Forgot password',
+              Text(
+                '${context.l10n?.forgotPasswordTitle}',
                 style: TextStyles.textHeader,
                 textAlign: TextAlign.start,
               ),
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                '77777777777777776777777777777send OTP to your phone number 1212',
+              Text(
+                '${context.l10n?.forgotPasswordDesc}',
                 style: TextStyles.textSubHeader,
                 textAlign: TextAlign.start,
               ),

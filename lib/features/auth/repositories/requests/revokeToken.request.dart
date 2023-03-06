@@ -1,8 +1,20 @@
 class RevokeTokenRequest {
   String? refreshToken;
+
+  RevokeTokenRequest({this.refreshToken});
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['refreshToken'] = refreshToken;
+    return data;
+  }
+}
+
+class RefreshTokenRequest {
+  String? refreshToken;
   String? accessSystem;
 
-  RevokeTokenRequest({this.accessSystem = 'megiservices', this.refreshToken});
+  RefreshTokenRequest({this.accessSystem = 'megiservices', this.refreshToken});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

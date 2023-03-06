@@ -10,6 +10,8 @@
     "phoneNumber": "Phone number",
     "password": "Password",
     "forgotPassword": "Forgot Password?",
+    "forgotPasswordTitle": "Forgot password",
+    "forgotPasswordDesc": "We will send OTP to your phone number",
     "orLabel": "or",
     "ofLabel": "of",
     "andLabel": "and",

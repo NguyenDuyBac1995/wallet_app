@@ -33,6 +33,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _onLogout(context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
+    String? dataUser = pref.getString(Constants.BIG_WALLET);
+    // if (dataUser != null) {
+    //   Map<String, dynamic> revokeToken = json.decode(dataUser);
+    //   await authRepository.revokeTokenAsync(context,
+    //       RevokeTokenRequest(refreshToken: revokeToken['RefreshToken']));
+    // }
     pref.remove(Constants.BIG_WALLET);
     Navigator.pushNamed(context, Routes.splashScreen);
   }
