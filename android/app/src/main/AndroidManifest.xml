@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.big_wallet">
+    package="com.megiservices.bigWallet">
    <application
         android:label="big_wallet"
         android:name="${applicationName}"

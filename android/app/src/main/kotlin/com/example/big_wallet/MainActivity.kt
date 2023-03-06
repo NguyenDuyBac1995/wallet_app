@@ -1,4 +1,4 @@
-package com.example.big_wallet
+package com.megiservices.bigWallet
 
 import io.flutter.embedding.android.FlutterActivity
 
