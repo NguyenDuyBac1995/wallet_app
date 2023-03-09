@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:big_wallet/core/routes/routes.dart';
+import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
 import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:big_wallet/features/localization/widgets/switch.language.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -30,17 +32,24 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final authRepository = AuthRepository();
+  late double _uidFirebase;
 
   void _onLogout(context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? dataUser = pref.getString(Constants.BIG_WALLET);
-    // if (dataUser != null) {
-    //   Map<String, dynamic> revokeToken = json.decode(dataUser);
-    //   await authRepository.revokeTokenAsync(context,
-    //       RevokeTokenRequest(refreshToken: revokeToken['RefreshToken']));
-    // }
+    if (dataUser != null) {
+      Map<String, dynamic> revokeToken = json.decode(dataUser);
+      await authRepository.revokeTokenAsync(context,
+          RevokeTokenRequest(refreshToken: revokeToken['RefreshToken']));
+    }
     pref.remove(Constants.BIG_WALLET);
     Navigator.pushNamed(context, Routes.splashScreen);
+  }
+
+  @override
+  void initState() {
+    _uidFirebase = context.read<AppBloc>().state.loadingPercent;
+    super.initState();
   }
 
   @override

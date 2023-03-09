@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:big_wallet/core/repositories/base.repository.dart';
+import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/enums/context.enum.dart';
+import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/auth/model/signin.model.dart';
 import 'package:big_wallet/features/auth/model/signup.model.dart';
 import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
@@ -45,10 +48,7 @@ class AuthRepository extends Repository {
 
     final apiResponse = await requestAsync<SingleResponse>(
         Context.general, context, url, RequestType.post,
-        data: data);
-    if (apiResponse.isSuccess) {
-      var refreshToken = SignUp.fromJson(apiResponse.payload);
-    }
+        data: data, useToken: true);
     return apiResponse.isSuccess;
   }
 
@@ -62,6 +62,23 @@ class AuthRepository extends Repository {
     if (apiResponse.isSuccess) {
       var refreshToken = SignUp.fromJson(apiResponse.payload);
     }
+    return apiResponse.isSuccess;
+  }
+
+  Future<PrimaryModel> getPrimaryAsync(BuildContext context) async {
+    const url = Api.getPrimary;
+    final apiResponse = await requestAsync<SingleResponse>(
+        Context.general, context, url, RequestType.get,
+        useToken: true);
+    return PrimaryModel.fromJson(apiResponse.payload);
+  }
+
+  Future<bool> getExchangeRatesAsync(BuildContext context) async {
+    const url = Api.getExchangeRates;
+    final apiResponse = await requestAsync<SingleResponse>(
+        Context.general, context, url, RequestType.get,
+        useToken: true);
+    if (apiResponse.isSuccess) {}
     return apiResponse.isSuccess;
   }
 }

@@ -117,17 +117,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           labelStyle: TextStyles.labelTextStyle),
                       onSaved: (value) {},
                       onTap: () async {
-                        DateTime? pickeddate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101));
-                        if (pickeddate != null) {
-                          setState(() {
-                            _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate!);
-                          });
-                        }
+                        // DateTime? pickeddate = await showDatePicker(
+                        //     context: context,
+                        //     initialDate: DateTime.now(),
+                        //     firstDate: DateTime(2000),
+                        //     lastDate: DateTime(2101));
+                        // if (pickeddate != null) {
+                        //   setState(() {
+                        //     _date.text =
+                        //         DateFormat('yyyy-MM-dd').format(pickeddate!);
+                        //   });
+                        // }
                       },
                     ),
                     const SizedBox(height: 20),

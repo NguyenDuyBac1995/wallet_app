@@ -15,4 +15,7 @@ class Api {
   static const postForgotPassword =
       "$identityBaseUrl/odata/auth/ForgotPassword";
   static const postResetPassword = "$identityBaseUrl/odata/auth/ResetPassword";
+  static const getPrimary = "/msa-user-profile/odata/me/primary()";
+  static const getExchangeRates =
+      "/msa-finance/odata/ExchangeRates/Latest(source='USD',symbols=['VND','CNY'])";
 }

@@ -1,3 +1,5 @@
+import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
+import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/bottom_bar/screens/widgets/custom_bottom.navigation.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/constants.dart';
@@ -18,6 +20,7 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
+  final PrimaryBloc _primaryBloc = PrimaryBloc();
   static final List<Widget> _widgetOptions = [
     const Text("Page 1"),
     const Text("Page 2"),
@@ -32,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   void initState() {
-    getAllData();
+    _primaryBloc.add(GetPrimary(context, PrimaryModel()));
     super.initState();
   }
 
@@ -64,10 +67,5 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             defaultSelectedIndex: 0,
           ),
         ));
-  }
-
-  void getAllData() async {
-    final prefs = await SharedPreferences.getInstance();
-    String test = prefs.getString(Constants.BIG_WALLET) ?? "";
   }
 }

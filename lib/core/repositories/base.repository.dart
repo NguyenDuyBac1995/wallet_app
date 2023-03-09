@@ -18,7 +18,6 @@ class Repository {
 
   Future _getToken({bool? useProfileId, bool? primaryId = false}) async {
     var _token = await AuthUtils.instance.getToken();
-
     if (useProfileId != null && useProfileId) {
       if (primaryId != null && primaryId) {
         _options = ConfigServices.getHeaders(token: _token);
@@ -31,11 +30,21 @@ class Repository {
   }
 
   Future<T> requestAsync<T>(
-      Context context, BuildContext buildContext, String path, RequestType type,
-      {dynamic data}) async {
+    Context context,
+    BuildContext buildContext,
+    String path,
+    RequestType type, {
+    dynamic data,
+    bool? useToken = false,
+  }) async {
     late Response<dynamic> response;
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
     final url = Uri.decodeFull(uri.toString());
+    if (useToken != null && useToken) {
+      await _getToken();
+    } else {
+      _options = ConfigServices.getHeaders();
+    }
     try {
       switch (type) {
         case RequestType.post:

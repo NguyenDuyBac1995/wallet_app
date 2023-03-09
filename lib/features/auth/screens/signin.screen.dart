@@ -105,7 +105,8 @@ class _SignInScreenState extends State<SignInScreen>
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
+        body: SingleChildScrollView(
+      child: Container(
           width: width,
           height: height,
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -332,6 +333,6 @@ class _SignInScreenState extends State<SignInScreen>
                   ))
             ],
           )),
-    );
+    ));
   }
 }

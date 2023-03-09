@@ -65,162 +65,174 @@ class _SignUpScreen extends State<SignUpScreen>
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.sigInBackground), fit: BoxFit.fill)),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 85,
-                      ),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: CustomIcon(
-                          IconConstant.pigIcon,
-                          size: 82,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(Icons.arrow_back),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 20),
-                          child: Text(
-                            'Big Wallet',
-                            style: TextStyles.textSize30Bold700,
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Align(
+                          alignment: Alignment.center,
+                          child: CustomIcon(
+                            IconConstant.pigIcon,
+                            size: 82,
                           ),
                         ),
-                      ),
-                      const Text('Fill information to sign up',
-                          style: TextStyles.textSubHeader),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InternationalPhoneNumberInput(
-                        textFieldController: _phoneNumberController,
-                        onInputChanged: (value) {
-                          if (_phoneNumber.phoneNumber != value.phoneNumber) {
-                            _phoneNumber = value;
-                          }
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return '${context.l10n?.requiredMessage('${context.l10n?.phoneNumber}')} ';
-                          }
-                          if (!_isPhoneNumberValid) {
-                            return 'Số điện thoại không hợp lệ';
-                          }
-                          return null;
-                        },
-                        onInputValidated: (value) {
-                          _isPhoneNumberValid = value;
-                        },
-                        selectorConfig: const SelectorConfig(
-                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                            trailingSpace: false),
-                        inputDecoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 10),
-                            filled: true,
-                            fillColor: CustomColors.gray,
-                            enabledBorder: const OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            focusedBorder: const OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            hintText: context.l10n?.phoneNumber),
-                        selectorTextStyle:
-                            const TextStyle(color: Color(0xFF6E7191)),
-                        initialValue: _phoneNumber,
-                        formatInput: false,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
+                        const SizedBox(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, bottom: 20),
+                            child: Text(
+                              'Big Wallet',
+                              style: TextStyles.textSize30Bold700,
+                            ),
+                          ),
+                        ),
+                        const Text('Fill information to sign up',
+                            style: TextStyles.textSubHeader),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        InternationalPhoneNumberInput(
+                          textFieldController: _phoneNumberController,
+                          onInputChanged: (value) {
+                            if (_phoneNumber.phoneNumber != value.phoneNumber) {
+                              _phoneNumber = value;
+                            }
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return '${context.l10n?.requiredMessage('${context.l10n?.phoneNumber}')} ';
+                            }
+                            if (!_isPhoneNumberValid) {
+                              return 'Số điện thoại không hợp lệ';
+                            }
+                            return null;
+                          },
+                          onInputValidated: (value) {
+                            _isPhoneNumberValid = value;
+                          },
+                          selectorConfig: const SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                              trailingSpace: false),
+                          inputDecoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 10),
+                              filled: true,
+                              fillColor: CustomColors.gray,
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              hintText: context.l10n?.phoneNumber),
+                          selectorTextStyle:
+                              const TextStyle(color: Color(0xFF6E7191)),
+                          initialValue: _phoneNumber,
+                          formatInput: false,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: true, decimal: true),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    // BundleData data =
+                                    //     BundleData(verifyCase: '01023912');
+                                    // Navigator.pushNamed(
+                                    //     context, Routes.verifyOtpScreen,
+                                    //     arguments: data);
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<AuthBloc>().add(
+                                          PhoneNumberChanged(
+                                              '${_phoneNumber.phoneNumber}'));
+                                      Navigator.pushNamed(
+                                          context, Routes.otpScreen,
+                                          arguments: ((value) {
+                                        Navigator.pushNamed(context,
+                                            Routes.signupInformationScreen);
+                                      }));
+                                    }
+                                  },
+                                  style: CustomStyle.primaryButtonStyle,
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 16),
+                                    child: Text('Send OTP'),
+                                  )),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Row(children: const <Widget>[
                           Expanded(
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  // BundleData data =
-                                  //     BundleData(verifyCase: '01023912');
-                                  // Navigator.pushNamed(
-                                  //     context, Routes.verifyOtpScreen,
-                                  //     arguments: data);
-                                  if (_formKey.currentState!.validate()) {
-                                    context.read<AuthBloc>().add(
-                                        PhoneNumberChanged(
-                                            '${_phoneNumber.phoneNumber}'));
-                                    Navigator.pushNamed(
-                                        context, Routes.otpScreen,
-                                        arguments: ((value) {
-                                      Navigator.pushNamed(context,
-                                          Routes.signupInformationScreen);
-                                    }));
-                                  }
-                                },
-                                style: CustomStyle.primaryButtonStyle,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  child: Text('Send OTP'),
+                              child: Divider(
+                            color: Colors.black12,
+                            height: 2,
+                          )),
+                          Text("Or Sign In with"),
+                          Expanded(
+                              child: Divider(
+                            color: Colors.black12,
+                            height: 2,
+                          )),
+                        ]),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Image(
+                                width: 48,
+                                height: 48,
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  Images.facebookImage,
                                 )),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Row(children: const <Widget>[
-                        Expanded(
-                            child: Divider(
-                          color: Colors.black12,
-                          height: 2,
-                        )),
-                        Text("Or Sign In with"),
-                        Expanded(
-                            child: Divider(
-                          color: Colors.black12,
-                          height: 2,
-                        )),
-                      ]),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          Image(
-                              width: 48,
-                              height: 48,
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                Images.facebookImage,
-                              )),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Image(
-                              width: 48,
-                              height: 48,
-                              fit: BoxFit.cover,
-                              image: AssetImage(Images.googleImage)),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Image(
+                                width: 48,
+                                height: 48,
+                                fit: BoxFit.cover,
+                                image: AssetImage(Images.googleImage)),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ));
     }));
   }
