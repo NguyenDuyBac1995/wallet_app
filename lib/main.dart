@@ -2,6 +2,7 @@ import 'package:big_wallet/core/routes/app.route.dart';
 import 'package:big_wallet/core/routes/generator.route.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/blocs/finance/finance.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
 import 'package:big_wallet/features/splash/repositories/configuration.repository.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
@@ -30,14 +31,15 @@ class MainScreen extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) => AppBloc(ConfigurationRepository()),
+          ),
+          BlocProvider(
             create: (context) => AuthBloc(),
           ),
           BlocProvider(
             create: (context) => PrimaryBloc(),
           ),
-          BlocProvider(
-            create: (context) => AppBloc(ConfigurationRepository()),
-          ),
+          BlocProvider(create: (context) => FinanceBloc())
         ],
         child: BlocBuilder<AppBloc, AppState>(
             buildWhen: (previous, current) => previous.locale != current.locale,

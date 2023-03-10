@@ -7,13 +7,13 @@ part 'primary.state.dart';
 part 'primary.event.dart';
 
 class PrimaryBloc extends Bloc<PrimaryEvent, PrimaryState> {
-  PrimaryBloc() : super(PrimaryInitial()) {
+  PrimaryBloc() : super(PrimaryState(primaryData: PrimaryModel())) {
     on<GetPrimary>(onChangePrimary);
   }
 
   void onChangePrimary(GetPrimary event, Emitter<PrimaryState> emit) async {
     final AuthRepository apiRepository = AuthRepository();
     final dataPrimary = await apiRepository.getPrimaryAsync(event.context);
-    emit(PrimaryLoader(dataPrimary));
+    emit(PrimaryState(primaryData: dataPrimary));
   }
 }

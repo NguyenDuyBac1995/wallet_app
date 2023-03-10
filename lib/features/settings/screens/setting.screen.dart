@@ -2,24 +2,18 @@ import 'dart:convert';
 
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
+import 'package:big_wallet/features/auth/blocs/finance/finance.bloc.dart';
+import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
 import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
 import 'package:big_wallet/features/settings/screens/widgets/profile.widget.dart';
-// import 'package:big_wallet/features/settings/screens/widgets/profile_menu.widget.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/constants.dart';
-import 'package:big_wallet/utilities/custom_color.dart';
-import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/user_preferences.dart';
-import 'package:big_wallet/utilities/widgets/common.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:big_wallet/features/localization/widgets/switch.language.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -71,11 +65,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 30),
               ProfileWidget(imagePath: user.imagePath, onClicked: () async {}),
               const SizedBox(height: 15),
-              Text(
-                user.name,
-                style: TextStyles.h2,
-                textAlign: TextAlign.center,
-              ),
+              BlocBuilder<PrimaryBloc, PrimaryState>(builder: (context, state) {
+                return Text(
+                  '${state.primaryData.displayName}',
+                  style: TextStyles.h2,
+                  textAlign: TextAlign.center,
+                );
+              }),
               const SizedBox(height: 15),
               CustomContainerWidget(
                 child: ListTile(

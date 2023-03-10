@@ -8,10 +8,9 @@ abstract class PrimaryEvent extends Equatable {
 
 class GetPrimary extends PrimaryEvent {
   final BuildContext context;
-  final PrimaryModel primaryData;
-  const GetPrimary(this.context, this.primaryData);
+  const GetPrimary(
+    this.context,
+  );
   @override
-  List<Object> get props => [
-        {primaryData}
-      ];
+  List<Object> get props => [];
 }

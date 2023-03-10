@@ -5,6 +5,7 @@ import 'package:big_wallet/core/repositories/base.repository.dart';
 import 'package:big_wallet/core/responses/collection.response.dart';
 import 'package:big_wallet/core/responses/single.response.dart';
 import 'package:big_wallet/enums/context.enum.dart';
+import 'package:big_wallet/features/auth/model/exchangeRates.model.dart';
 import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/auth/model/signin.model.dart';
 import 'package:big_wallet/features/auth/model/signup.model.dart';
@@ -73,12 +74,13 @@ class AuthRepository extends Repository {
     return PrimaryModel.fromJson(apiResponse.payload);
   }
 
-  Future<bool> getExchangeRatesAsync(BuildContext context) async {
+  Future<ExchangeRates> getExchangeRatesAsync(BuildContext context) async {
     const url = Api.getExchangeRates;
     final apiResponse = await requestAsync<SingleResponse>(
         Context.general, context, url, RequestType.get,
         useToken: true);
-    if (apiResponse.isSuccess) {}
-    return apiResponse.isSuccess;
+    Logger().d('apiResponse:$apiResponse');
+    final result = ExchangeRates.fromJson(apiResponse.payload);
+    return result;
   }
 }

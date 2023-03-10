@@ -1,24 +1,24 @@
-class ExchangeRatesModal {
+class ExchangeRates {
   String? id;
   String? date;
   String? baseRate;
   String? syncedTime;
-  dynamic? rates;
+  // dynamic? rates;
 
-  ExchangeRatesModal({
+  ExchangeRates({
     this.baseRate,
     this.id,
     this.date,
     this.syncedTime,
-    this.rates,
+    // this.rates,
   });
 
-  ExchangeRatesModal.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+  ExchangeRates.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
     baseRate = json['Base'];
     date = json['Date'];
     syncedTime = json['SyncedTime'];
-    rates = json['Rates'];
+    // rates = json['Rates'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,7 @@ class ExchangeRatesModal {
     data['Date'] = date;
     data['Base'] = baseRate;
     data['SyncedTime'] = syncedTime;
-    data['Rates'] = rates;
+    // data['Rates'] = rates;
 
     return data;
   }

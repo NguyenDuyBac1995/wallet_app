@@ -1,14 +1,11 @@
+import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/blocs/finance/finance.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
-import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/bottom_bar/screens/widgets/custom_bottom.navigation.dart';
 import 'package:big_wallet/utilities/assets.dart';
-import 'package:big_wallet/utilities/constants.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../settings/screens/setting.screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -20,7 +17,6 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
-  final PrimaryBloc _primaryBloc = PrimaryBloc();
   static final List<Widget> _widgetOptions = [
     const Text("Page 1"),
     const Text("Page 2"),
@@ -35,7 +31,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   void initState() {
-    _primaryBloc.add(GetPrimary(context, PrimaryModel()));
+    context.read<PrimaryBloc>().add(GetPrimary(context));
+    context.read<FinanceBloc>().add(GetFinance(context, []));
     super.initState();
   }
 
