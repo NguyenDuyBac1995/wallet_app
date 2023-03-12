@@ -86,3 +86,5 @@ class Repository {
     }
   }
 }
+
+class NetworkError extends Error {}
