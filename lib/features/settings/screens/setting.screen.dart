@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
-import 'package:big_wallet/features/auth/blocs/finance/finance.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
+import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
+import 'package:big_wallet/features/settings/blocs/profiles_blocs/profiles.bloc.dart';
 import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
 import 'package:big_wallet/features/settings/screens/widgets/profile.widget.dart';
 import 'package:big_wallet/utilities/assets.dart';
@@ -27,7 +28,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final authRepository = AuthRepository();
   late double _uidFirebase;
-
   void _onLogout(context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? dataUser = pref.getString(Constants.BIG_WALLET);
@@ -86,36 +86,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-              CustomContainerWidget(
-                  child: Column(
-                children: [
-                  ListTile(
-                      leading: const CustomContainerListTitleWidget(
-                          urlImage: IconSetting.websiteIcon),
-                      title: Text(context.l10n?.editPersona ?? '',
-                          style: TextStyles.textMenuItem),
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.editProfileScreen);
-                      }),
-                  ListTile(
-                      leading: const CustomContainerListTitleWidget(
-                          urlImage: IconSetting.profileIcon),
-                      title: Text(context.l10n?.manageProfile ?? '',
-                          style: TextStyles.textMenuItem),
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.recordsManagement);
-                      }),
-                  ListTile(
-                      leading: const CustomContainerListTitleWidget(
-                          urlImage: IconSetting.passwordIcon),
-                      title: Text(context.l10n?.updatePassword ?? '',
-                          style: TextStyles.textMenuItem),
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, Routes.updatePassWordScreen);
-                      })
-                ],
-              )),
+              BlocBuilder<PrimaryBloc, PrimaryState>(builder: (context, state) {
+                return CustomContainerWidget(
+                    child: Column(
+                  children: [
+                    ListTile(
+                        leading: const CustomContainerListTitleWidget(
+                            urlImage: IconSetting.websiteIcon),
+                        title: Text(context.l10n?.editPersona ?? '',
+                            style: TextStyles.textMenuItem),
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.editProfileScreen,
+                              arguments: "${state.primaryData.id}");
+                        }),
+                    ListTile(
+                        leading: const CustomContainerListTitleWidget(
+                            urlImage: IconSetting.profileIcon),
+                        title: Text(context.l10n?.manageProfile ?? '',
+                            style: TextStyles.textMenuItem),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, Routes.recordsManagement);
+                        }),
+                    ListTile(
+                        leading: const CustomContainerListTitleWidget(
+                            urlImage: IconSetting.passwordIcon),
+                        title: Text(context.l10n?.updatePassword ?? '',
+                            style: TextStyles.textMenuItem),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, Routes.updatePassWordScreen);
+                        })
+                  ],
+                ));
+              }),
               const SizedBox(height: 30),
               CustomContainerWidget(
                   child: Column(

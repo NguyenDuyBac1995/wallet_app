@@ -18,4 +18,6 @@ class Api {
   static const getPrimary = "/msa-user-profile/odata/me/primary()";
   static const getExchangeRates =
       "/msa-finance/odata/ExchangeRates/Latest(source='USD',symbols=['VND','CNY'])";
+
+  static const getByIdProfile = '/msa-user-profile/odata/me(%id%)';
 }

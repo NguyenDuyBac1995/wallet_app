@@ -70,6 +70,11 @@ class RouteGenerator {
         return GeneratePageRoute(
             widget: const UpdatePasswordScreen(), routeName: settings.name);
       case Routes.editProfileScreen:
+        if (args is String) {
+          return GeneratePageRoute(
+              widget: EditProfileScreen(idProfile: args),
+              routeName: settings.name);
+        }
         return GeneratePageRoute(
             widget: const EditProfileScreen(), routeName: settings.name);
       case Routes.recordsManagement:

@@ -1,6 +1,5 @@
 class BundleData {
   String? verifyCase;
 
-  BundleData(
-      {this.verifyCase});
+  BundleData({this.verifyCase});
 }
