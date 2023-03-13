@@ -1,12 +1,16 @@
 import 'package:big_wallet/core/routes/routes.dart';
+import 'package:big_wallet/features/auth/blocs/auth.bloc.dart';
+import 'package:big_wallet/features/auth/model/ForgotPassword.model.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/custom_style.dart';
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/styled.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/widgets/common.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 class ForgotNewPasswordScreen extends StatefulWidget {
@@ -23,7 +27,9 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
       TextEditingController();
   late bool _passwordVisible = false;
   late bool _confirmPasswordVisible = false;
+  late String token;
 
+  late AuthBloc passwordBloc;
   void _togglePasswordStatus() {
     setState(() {
       _passwordVisible = !_passwordVisible;
@@ -37,7 +43,15 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
   }
 
   @override
+  void initState() {
+    passwordBloc = AuthBloc();
+    // token = context.read<AuthBloc>().state.token;
+    super.initState();
+  }
+
+  @override
   void dispose() {
+    passwordBloc.close();
     _controllerPassword.dispose();
     _controllerConfirmPassword.dispose();
     super.dispose();
@@ -74,9 +88,9 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                 height: 30,
               ),
               Row(
-                children: const <Widget>[
+                children: [
                   Text(
-                    'New Password',
+                    '${context.l10n?.newPassword}',
                     style: TextStyles.textHeader,
                     textAlign: TextAlign.start,
                   ),
@@ -101,7 +115,7 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                               borderSide: BorderSide.none, // No border
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            hintText: 'New Password',
+                            hintText: '${context.l10n?.newPassword}',
                             fillColor: CustomColors.gray,
                             filled: true,
                             suffixIcon: IconButton(
@@ -123,10 +137,15 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                            // if (value == null || value.isEmpty) {
-                            //   return StringApp.VALIDATE_EMPTY_FIELD;
-                            // }
-                            // return null;
+                            RegExp passwordRegExp = RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                            if (value == null || value.isEmpty) {
+                              return '${context.l10n?.requiredMessage('${context.l10n?.password}')} ';
+                            }
+                            if (!passwordRegExp.hasMatch(value)) {
+                              return '${context.l10n?.invalidMessage('${context.l10n?.password}')} ';
+                            }
+                            return null;
                           },
                         ),
                       ),
@@ -163,10 +182,13 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                            // if (value == null || value.isEmpty) {
-                            //   return StringApp.VALIDATE_EMPTY_FIELD;
-                            // }
-                            // return null;
+                            if (value!.isEmpty || value == null) {
+                              return '${context.l10n?.requiredMessage('${context.l10n?.password}')} ';
+                            }
+                            if (value != _controllerPassword.text) {
+                              return "${context.l10n?.validatePassWordConfirm}";
+                            }
+                            return null;
                           },
                         ),
                       ),
@@ -178,8 +200,19 @@ class _ForgotNewPasswordScreen extends State<ForgotNewPasswordScreen> {
                           Expanded(
                             child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.signInScreen);
+                                  if (_formKey.currentState!.validate()) {
+                                    context.read<AuthBloc>().add(ResetPassword(
+                                        ResetPasswordModal(
+                                          token: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .token,
+                                          newPassword: _controllerPassword.text,
+                                        ),
+                                        context));
+                                  }
+                                  // Navigator.pushNamed(
+                                  //     context, Routes.signInScreen);
                                 },
                                 style: CustomStyle.primaryButtonStyle,
                                 child: const Padding(

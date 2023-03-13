@@ -24,3 +24,22 @@ class PhoneNumberChanged extends AuthEvent {
         {phoneNumber: phoneNumber}
       ];
 }
+
+class TokenChanged extends AuthEvent {
+  final String token;
+  const TokenChanged(this.token);
+  @override
+  List<Object> get props => [
+        {token: token}
+      ];
+}
+
+class ResetPassword extends AuthEvent {
+  final BuildContext context;
+  final ResetPasswordModal newPassword;
+  const ResetPassword(this.newPassword, this.context);
+  @override
+  List<Object> get props => [
+        {newPassword: newPassword}
+      ];
+}

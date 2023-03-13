@@ -47,13 +47,17 @@ class RouteGenerator {
             widget: const ForgotPasswordPhoneScreen(),
             routeName: settings.name);
       case Routes.verifyOtpScreen:
-        if (args is BundleData) {
-          return GeneratePageRoute(
-              widget: VerifyOtpScreen(verifyCase: args.verifyCase),
-              routeName: settings.name);
-        }
+        final callback = settings.arguments as Function(Object?);
         return GeneratePageRoute(
-            widget: const VerifyOtpScreen(), routeName: settings.name);
+            widget: VerifyOtpScreen(callback: callback),
+            routeName: settings.name);
+      // if (args is BundleData) {
+      //   return GeneratePageRoute(
+      //       widget: VerifyOtpScreen(verifyCase: args.verifyCase),
+      //       routeName: settings.name);
+      // }
+      // return GeneratePageRoute(
+      //     widget: const VerifyOtpScreen(), routeName: settings.name);
       case Routes.forgotNewPasswordScreen:
         return GeneratePageRoute(
             widget: const ForgotNewPasswordScreen(), routeName: settings.name);

@@ -23,3 +23,29 @@ class RefreshTokenRequest {
     return data;
   }
 }
+
+class ForgotPasswordRequest {
+  String? user;
+
+  ForgotPasswordRequest({this.user});
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['User'] = user;
+    return data;
+  }
+}
+
+class ResetPasswordRequest {
+  String? token;
+  String? newPassword;
+
+  ResetPasswordRequest({this.token, this.newPassword});
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Token'] = token;
+    data['NewPassword'] = newPassword;
+    return data;
+  }
+}

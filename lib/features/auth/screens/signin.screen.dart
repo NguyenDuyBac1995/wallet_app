@@ -259,6 +259,8 @@ class _SignInScreenState extends State<SignInScreen>
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
+                            // Navigator.pushNamed(
+                            //     context, Routes.forgotPasswordPhoneScreen);
                             Navigator.pushNamed(
                                 context, Routes.forgotPasswordPhoneScreen);
                           },
