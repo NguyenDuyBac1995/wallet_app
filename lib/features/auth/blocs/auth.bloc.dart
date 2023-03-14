@@ -1,3 +1,4 @@
+import 'package:big_wallet/core/repositories/base.repository.dart';
 import 'package:big_wallet/features/auth/model/ForgotPassword.model.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:equatable/equatable.dart';
@@ -38,12 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onChangeChangePassword(
       ChangePassword event, Emitter<AuthState> emit) async {
     try {
+      emit(AuthLoading());
       final AuthRepository apiRepository = AuthRepository();
       var changePassWord = await apiRepository.changePassword(
           event.context, event.changePassword);
-      emit(state.copyWith(changePassWord: true));
-    } catch (e) {
-      emit(state.copyWith(changePassWord: false));
+      emit(UpdatePasswordLoaded(success: changePassWord));
+    } on NetworkError {
+      print("Error");
     }
   }
 }

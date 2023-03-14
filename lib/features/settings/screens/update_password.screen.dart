@@ -166,6 +166,9 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                       if (value == null || value.isEmpty) {
                         return '${context.l10n?.requiredMessage('${context.l10n?.password}')} ';
                       }
+                      if (value == _controllerCurrentPassword) {
+                        return '${context.l10n?.requirePassword}';
+                      }
                       if (!passwordRegExp.hasMatch(value)) {
                         return '${context.l10n?.invalidMessage('${context.l10n?.password}')} ';
                       }
@@ -213,11 +216,21 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                BlocBuilder<AuthBloc, AuthState>(
-                  // buildWhen: (previous, current) =>
-                  //     previous.changePassWord != current.changePassWord,
-                  builder: (context, state) {
-                    return Row(
+                BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) async {
+                      if (state is UpdatePasswordLoaded) {
+                        if (state.success) {
+                          Toast.show(
+                              context, '${context.l10n?.messagePassWord}',
+                              backgroundColor: Colors.green);
+                          SharedPreferences pref =
+                              await SharedPreferences.getInstance();
+                          pref.remove(Constants.BIG_WALLET);
+                          Navigator.pushNamed(context, Routes.signInScreen);
+                        }
+                      }
+                    },
+                    child: Row(
                       children: [
                         Expanded(
                           child: ElevatedButton(
@@ -238,17 +251,6 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                                                         _controllerPassword
                                                             .text),
                                                 context));
-                                        if (state.changePassWord) {
-                                          Toast.show(context,
-                                              '${context.l10n?.messagePassWord}',
-                                              backgroundColor: Colors.green);
-                                          SharedPreferences pref =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          pref.remove(Constants.BIG_WALLET);
-                                          Navigator.pushNamed(
-                                              context, Routes.signInScreen);
-                                        }
                                         setState(() {
                                           _isLoading = false;
                                         });
@@ -272,9 +274,8 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                               )),
                         )
                       ],
-                    );
-                  },
-                )
+                    ) // Your widget code here
+                    ),
               ],
             ),
           ),

@@ -9,14 +9,14 @@ class AuthState extends Equatable {
     this.uid = '',
     this.phoneNumber = '',
     this.token = '',
-    this.changePassWord = true,
+    this.changePassWord = false,
   });
 
   AuthState copyWith({
     String uid = '',
     String phoneNumber = '',
     String token = '',
-    bool changePassWord = true,
+    bool changePassWord = false,
   }) {
     return AuthState(
         uid: uid.isEmpty ? this.uid : uid,
@@ -27,4 +27,15 @@ class AuthState extends Equatable {
 
   @override
   List<Object> get props => [phoneNumber, uid, token, changePassWord];
+}
+
+class AuthLoading extends AuthState {}
+
+class UpdatePasswordLoaded extends AuthState {
+  final bool success;
+
+  const UpdatePasswordLoaded({required this.success});
+
+  @override
+  List<Object> get props => [success];
 }
