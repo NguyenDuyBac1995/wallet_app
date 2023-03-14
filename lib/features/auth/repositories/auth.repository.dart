@@ -17,6 +17,7 @@ import 'package:big_wallet/features/auth/repositories/requests/signup.request.da
 import 'package:big_wallet/utilities/api.dart';
 import 'package:big_wallet/utilities/common.dart';
 import 'package:big_wallet/utilities/constants.dart';
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -117,7 +118,20 @@ class AuthRepository extends Repository {
       Toast.show(context, 'Cập nhật mật khẩu thành công! ');
       return apiResponse.isSuccess;
     }
+    return apiResponse.isSuccess;
+  }
 
+  Future<bool> changePassword(
+      BuildContext context, ChangePasswordModal data) async {
+    const url = Api.postChangePassword;
+    final apiResponse = await requestAsync<SingleResponse>(
+        Context.general, context, url, RequestType.post,
+        data: data, useToken: true);
+    Logger().d('apiResponse:$apiResponse');
+    if (apiResponse.isSuccess) {
+      final result = ExchangeRates.fromJson(apiResponse.payload);
+      return apiResponse.isSuccess;
+    }
     return apiResponse.isSuccess;
   }
 }

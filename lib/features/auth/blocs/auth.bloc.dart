@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<PhoneNumberChanged>(onChangePhoneNumber);
     on<TokenChanged>(onChangeToken);
     on<ResetPassword>(onChangeRestPassword);
+    on<ChangePassword>(onChangeChangePassword);
   }
 
   void onChangeUid(UidChanged event, Emitter<AuthState> emit) {
@@ -32,5 +33,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ResetPassword event, Emitter<AuthState> emit) async {
     final AuthRepository apiRepository = AuthRepository();
     await apiRepository.postResetPassword(event.context, event.newPassword);
+  }
+
+  void onChangeChangePassword(
+      ChangePassword event, Emitter<AuthState> emit) async {
+    try {
+      final AuthRepository apiRepository = AuthRepository();
+      var changePassWord = await apiRepository.changePassword(
+          event.context, event.changePassword);
+      emit(state.copyWith(changePassWord: true));
+    } catch (e) {
+      emit(state.copyWith(changePassWord: false));
+    }
   }
 }

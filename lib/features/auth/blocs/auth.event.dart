@@ -43,3 +43,13 @@ class ResetPassword extends AuthEvent {
         {newPassword: newPassword}
       ];
 }
+
+class ChangePassword extends AuthEvent {
+  final BuildContext context;
+  final ChangePasswordModal changePassword;
+  const ChangePassword(this.changePassword, this.context);
+  @override
+  List<Object> get props => [
+        {changePassword: changePassword}
+      ];
+}

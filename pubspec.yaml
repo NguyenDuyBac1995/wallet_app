@@ -49,7 +49,7 @@ dependencies:
   firebase_auth: ^3.11.2
   firebase_core: ^1.24.0
   fluttertoast: ^8.1.1
-  pinput: ^2.2.16
+  pinput: ^2.2.31
   country_picker: ^2.0.19
   fl_country_code_picker: ^0.0.4
   country_pickers: ^2.0.0

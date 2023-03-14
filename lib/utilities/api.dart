@@ -20,4 +20,5 @@ class Api {
       "/msa-finance/odata/ExchangeRates/Latest(source='USD',symbols=['VND','CNY'])";
 
   static const getByIdProfile = '/msa-user-profile/odata/me(%id%)';
+  static const postChangePassword = '/msa-identity/odata/me/changepassword';
 }

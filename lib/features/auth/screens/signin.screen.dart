@@ -9,6 +9,7 @@ import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/styled.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/widgets/common.dart';
+import 'package:big_wallet/utilities/widgets/loading_button.dart';
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -234,10 +235,9 @@ class _SignInScreenState extends State<SignInScreen>
                                 ? ElevatedButton(
                                     onPressed: () async {},
                                     style: CustomStyle.primaryButtonLoading,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: Text('${context.l10n?.loading}'),
+                                    child: LoadingButton(
+                                      text: Text(context.l10n?.loading ?? ''),
+                                      width: width,
                                     ))
                                 : ElevatedButton(
                                     onPressed: () async {

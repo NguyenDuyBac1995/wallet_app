@@ -16,6 +16,7 @@
     "validatePassWord":"Mật khẩu không được để trống",
     "validatePassWordReg":"Mật khẩu không đúng định dạng",
     "validatePassWordConfirm":"Mật khẩu không khớp",
+    "messagePassWord":"Cập nhật mật khẩu thành công!",
     "orLabel": "hoặc",
     "ofLabel": "của",
     "andLabel": "và",

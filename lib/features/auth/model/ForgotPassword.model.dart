@@ -32,3 +32,22 @@ class ResetPasswordModal {
     return data;
   }
 }
+
+class ChangePasswordModal {
+  String? currentPassword;
+  String? newPassword;
+
+  ChangePasswordModal({this.currentPassword, this.newPassword});
+
+  ChangePasswordModal.fromJson(Map<String, dynamic> json) {
+    currentPassword = json['CurrentPassword'];
+    newPassword = json['NewPassword'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['CurrentPassword'] = currentPassword;
+    data['NewPassword'] = newPassword;
+    return data;
+  }
+}
