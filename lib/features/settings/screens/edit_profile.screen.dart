@@ -10,9 +10,14 @@ import 'package:big_wallet/utilities/currency_code.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/custom_style.dart';
 import 'package:big_wallet/utilities/localization.dart';
+import 'package:big_wallet/utilities/styled.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/user_preferences.dart';
 import 'package:big_wallet/utilities/widgets/common.dart';
+import 'package:big_wallet/utilities/widgets/loanding_screens.dart';
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
+import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -33,6 +38,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _phoneNumber = TextEditingController();
   TextEditingController dateController = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _controllerCurrency = TextEditingController();
+  late Country _country = CountryPickerUtils.getCountryByIsoCode('vn');
+
   late DateTime dateTime;
   @override
   void initState() {
@@ -64,6 +72,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
   }
 
+  Currency _currency = Currency(
+      code: 'VND',
+      name: 'Viet Nam Dong',
+      symbol: '₫',
+      flag: 'VND',
+      number: 704,
+      decimalDigits: 0,
+      namePlural: 'Vietnamese dong',
+      symbolOnLeft: false,
+      decimalSeparator: '.',
+      thousandsSeparator: '.',
+      spaceBetweenAmountAndSymbol: true);
+  void onHandleShowCurrency() => showCurrencyPicker(
+        context: context,
+        showFlag: true,
+        showCurrencyName: true,
+        showCurrencyCode: true,
+        onSelect: (Currency currency) {
+          setState(() {
+            _controllerCurrency.text = currency.name;
+            _currency = currency;
+          });
+        },
+      );
+
+  Widget _buildCupertinoSelectedItem(Country country) {
+    return Row(
+      children: <Widget>[
+        // CountryPickerUtils.getDefaultFlagImage(country),
+        const SizedBox(width: 8.0),
+        Text("${_currency.name} ${_currency.symbol}"),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -86,176 +129,233 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   image: AssetImage(Images.sigInBackground), fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: SafeArea(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ],
-                ),
-                ProfileWidget(
-                    imagePath: user.imagePath, onClicked: () async {}),
-                const SizedBox(height: 50),
-                BlocBuilder<ProfilesBloc, ProfilesBlocsState>(
-                  builder: (context, state) {
-                    if (state is ProfilesInitial) {
-                      return _buildLoading();
-                    } else if (state is ProfilesLoading) {
-                      return _buildLoading();
-                    } else if (state is ProfilesLoaded) {
-                      dateController.text = DateFormat("yyyy-MM-dd").format(
-                          DateTime.parse(state.profileDetail.birthday!));
-                      return Column(
-                        children: [
-                          TextFormField(
-                            initialValue: state.profileDetail.displayName,
-                            decoration: InputDecoration(
-                                labelText:
-                                    context.l10n?.labelTextDisplayName ?? '',
-                                hintText:
-                                    context.l10n?.labelTextDisplayName ?? '',
-                                filled: true,
-                                fillColor: CustomColors.backgroundTextFormField,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        CustomStyle.borderRadiusFormFieldStyle),
-                                labelStyle: TextStyles.labelTextStyle),
-                            onSaved: (value) {},
-                          ),
-                          const SizedBox(height: 20),
-                          TextFormField(
-                            enabled: false,
-                            initialValue: state.profileDetail.phoneNumber,
-                            decoration: InputDecoration(
-                                labelText:
-                                    context.l10n?.labelTextPhoneNumber ?? '',
-                                hintText:
-                                    context.l10n?.labelTextPhoneNumber ?? '',
-                                filled: true,
-                                fillColor: CustomColors.backgroundTextFormField,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        CustomStyle.borderRadiusFormFieldStyle),
-                                labelStyle: TextStyles.labelTextStyle),
-                          ),
-                          const SizedBox(height: 20),
-                          TextFormField(
-                            initialValue: state.profileDetail.email,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                labelText: context.l10n?.labelTextEmail ?? '',
-                                hintText: context.l10n?.labelTextEmail ?? '',
-                                filled: true,
-                                fillColor: CustomColors.backgroundTextFormField,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        CustomStyle.borderRadiusFormFieldStyle),
-                                labelStyle: TextStyles.labelTextStyle),
-                            onSaved: (value) {},
-                          ),
-                          const SizedBox(height: 20),
-                          TextFormField(
-                            controller: dateController,
-                            decoration: InputDecoration(
-                                labelText: context.l10n?.labelTextDOB ?? '',
-                                hintText: context.l10n?.labelTextDOB ?? '',
-                                suffixIcon: const CustomIcon(
-                                  IconConstant.calendarIcon,
-                                  size: 24,
-                                ),
-                                filled: true,
-                                fillColor: CustomColors.backgroundTextFormField,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        CustomStyle.borderRadiusFormFieldStyle),
-                                labelStyle: TextStyles.labelTextStyle),
-                            readOnly: true,
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(0001),
-                                lastDate: DateTime.now(),
-                              );
-                              if (pickedDate != null) {
-                                String formattedDate =
-                                    DateFormat("yyyy-MM-dd").format(pickedDate);
-                                setState(() {
-                                  dateController.text =
-                                      formattedDate.toString();
-                                });
-                              } else {
-                                print("Not selected");
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          DropdownButtonFormField(
-                              isExpanded: true,
-                              decoration: InputDecoration(
-                                  labelText:
-                                      context.l10n?.labelTextCurrency ?? '',
-                                  hintText:
-                                      context.l10n?.labelTextCurrency ?? '',
-                                  filled: true,
-                                  fillColor:
-                                      CustomColors.backgroundTextFormField,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  border: OutlineInputBorder(
-                                      borderRadius: CustomStyle
-                                          .borderRadiusFormFieldStyle),
-                                  labelStyle: TextStyles.labelTextStyle),
-                              items: dropDownMenuItems,
-                              value:
-                                  state.profileDetail.configurations?[0].value,
-                              onChanged: (value) {}),
-                          const SizedBox(height: 20),
+              child: BlocBuilder<ProfilesBloc, ProfilesBlocsState>(
+                builder: (context, state) {
+                  if (state is ProfilesInitial) {
+                    return const LoadingScreens();
+                  } else if (state is ProfilesLoading) {
+                    return const LoadingScreens();
+                  } else if (state is ProfilesLoaded) {
+                    dateController.text = DateFormat("yyyy-MM-dd")
+                        .format(DateTime.parse(state.profileDetail.birthday!));
+                    return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
                           Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.signInScreen);
-                                    },
-                                    style: CustomStyle.primaryButtonStyle,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: Text(
-                                          context.l10n?.btnUpdateProfile ?? ''),
-                                    )),
-                              )
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Icon(Icons.arrow_back),
+                              ),
                             ],
                           ),
-                        ],
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
-                ),
-              ],
-            )),
+                          ProfileWidget(
+                              imagePath: user.imagePath,
+                              onClicked: () async {}),
+                          const SizedBox(height: 50),
+                          Column(
+                            children: [
+                              TextFormField(
+                                initialValue: state.profileDetail.displayName,
+                                decoration: InputDecoration(
+                                    labelText:
+                                        context.l10n?.labelTextDisplayName ??
+                                            '',
+                                    hintText:
+                                        context.l10n?.labelTextDisplayName ??
+                                            '',
+                                    filled: true,
+                                    fillColor:
+                                        CustomColors.backgroundTextFormField,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                        borderRadius: CustomStyle
+                                            .borderRadiusFormFieldStyle),
+                                    labelStyle: TextStyles.labelTextStyle),
+                                onSaved: (value) {},
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                enabled: false,
+                                initialValue: state.profileDetail.phoneNumber,
+                                decoration: InputDecoration(
+                                    labelText:
+                                        context.l10n?.labelTextPhoneNumber ??
+                                            '',
+                                    hintText:
+                                        context.l10n?.labelTextPhoneNumber ??
+                                            '',
+                                    filled: true,
+                                    fillColor:
+                                        CustomColors.backgroundTextFormField,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                        borderRadius: CustomStyle
+                                            .borderRadiusFormFieldStyle),
+                                    labelStyle: TextStyles.labelTextStyle),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                initialValue: state.profileDetail.email,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                    labelText:
+                                        context.l10n?.labelTextEmail ?? '',
+                                    hintText:
+                                        context.l10n?.labelTextEmail ?? '',
+                                    filled: true,
+                                    fillColor:
+                                        CustomColors.backgroundTextFormField,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                        borderRadius: CustomStyle
+                                            .borderRadiusFormFieldStyle),
+                                    labelStyle: TextStyles.labelTextStyle),
+                                onSaved: (value) {},
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                controller: dateController,
+                                decoration: InputDecoration(
+                                    labelText: context.l10n?.labelTextDOB ?? '',
+                                    hintText: context.l10n?.labelTextDOB ?? '',
+                                    suffixIcon: const CustomIcon(
+                                      IconConstant.calendarIcon,
+                                      size: 24,
+                                    ),
+                                    filled: true,
+                                    fillColor:
+                                        CustomColors.backgroundTextFormField,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                        borderRadius: CustomStyle
+                                            .borderRadiusFormFieldStyle),
+                                    labelStyle: TextStyles.labelTextStyle),
+                                readOnly: true,
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(0001),
+                                    lastDate: DateTime.now(),
+                                  );
+                                  if (pickedDate != null) {
+                                    String formattedDate =
+                                        DateFormat("yyyy-MM-dd")
+                                            .format(pickedDate);
+                                    setState(() {
+                                      dateController.text =
+                                          formattedDate.toString();
+                                    });
+                                  } else {
+                                    print("Not selected");
+                                  }
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: CustomStyled.boxShadowDecoration,
+                                  child: GestureDetector(
+                                    onTap: onHandleShowCurrency,
+                                    child: TextFormField(
+                                      enabled: false,
+                                      controller: _controllerCurrency,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: CustomColors
+                                            .backgroundTextFormField,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        border: OutlineInputBorder(
+                                            borderRadius: CustomStyle
+                                                .borderRadiusFormFieldStyle),
+                                        labelText:
+                                            context.l10n?.labelTextCurrency ??
+                                                '',
+                                        hintText:
+                                            context.l10n?.labelTextCurrency ??
+                                                '',
+                                        prefixIcon: GestureDetector(
+                                          onTap: onHandleShowCurrency,
+                                          child: Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: _buildCupertinoSelectedItem(
+                                                _country),
+                                          ),
+                                        ),
+                                        suffixIcon: Icon(Icons.arrow_drop_down),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 10),
+                                      ),
+                                      validator: (value) {
+                                        // if (value == null || value.isEmpty) {
+                                        //   return StringApp.VALIDATE_EMPTY_FIELD;
+                                        // }
+                                        // return null;
+                                      },
+                                    ),
+                                  )),
+                              DropdownButtonFormField(
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                      labelText:
+                                          context.l10n?.labelTextCurrency ?? '',
+                                      hintText:
+                                          context.l10n?.labelTextCurrency ?? '',
+                                      filled: true,
+                                      fillColor:
+                                          CustomColors.backgroundTextFormField,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      border: OutlineInputBorder(
+                                          borderRadius: CustomStyle
+                                              .borderRadiusFormFieldStyle),
+                                      labelStyle: TextStyles.labelTextStyle),
+                                  items: dropDownMenuItems,
+                                  value: state
+                                      .profileDetail.configurations?[0].value,
+                                  onChanged: (value) {}),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.signInScreen);
+                                        },
+                                        style: CustomStyle.primaryButtonStyle,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16),
+                                          child: Text(
+                                              context.l10n?.btnUpdateProfile ??
+                                                  ''),
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ]);
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ),
           )),
     );
   }
-
-  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
 }

@@ -5,6 +5,7 @@ import 'package:big_wallet/features/auth/repositories/requests/signup.request.da
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/custom_style.dart';
+import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/styled.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/widgets/common.dart';
@@ -174,7 +175,7 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                               borderSide: BorderSide.none, // No border
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            hintText: 'Display Name',
+                            hintText: '${context.l10n?.displayName}',
                             fillColor: CustomColors.gray,
                             filled: true,
                             prefixIcon: const CustomIcon(
@@ -186,10 +187,10 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                            // if (value == null || value.isEmpty) {
-                            //   return StringApp.VALIDATE_EMPTY_FIELD;
-                            // }
-                            // return null;
+                            if (value == null || value.isEmpty) {
+                              return '${context.l10n?.requiredMessage('${context.l10n?.displayName}')} ';
+                            }
+                            return null;
                           },
                         ),
                       ),
@@ -204,7 +205,7 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                               borderSide: BorderSide.none, // No border
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            hintText: 'Password',
+                            hintText: '${context.l10n?.password}',
                             fillColor: CustomColors.gray,
                             filled: true,
                             suffixIcon: IconButton(
@@ -226,10 +227,15 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                            // if (value == null || value.isEmpty) {
-                            //   return StringApp.VALIDATE_EMPTY_FIELD;
-                            // }
-                            // return null;
+                            RegExp passwordRegExp = RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                            if (value == null || value.isEmpty) {
+                              return '${context.l10n?.requiredMessage('${context.l10n?.password}')} ';
+                            }
+                            if (!passwordRegExp.hasMatch(value)) {
+                              return '${context.l10n?.invalidMessage('${context.l10n?.password}')} ';
+                            }
+                            return null;
                           },
                         ),
                       ),
