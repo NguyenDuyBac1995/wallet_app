@@ -19,3 +19,17 @@ class ProfilesLoaded extends ProfilesBlocsState {
   @override
   List<Object> get props => [profileDetail];
 }
+
+class ListProfilesLoaded extends ProfilesBlocsState {
+  final List<PrimaryModel> dataProfiles;
+  const ListProfilesLoaded({required this.dataProfiles});
+  @override
+  List<Object> get props => [dataProfiles];
+}
+
+class CreateProfileLoaded extends ProfilesBlocsState {
+  final bool isSuccess;
+  const CreateProfileLoaded({required this.isSuccess});
+  @override
+  List<Object> get props => [isSuccess];
+}

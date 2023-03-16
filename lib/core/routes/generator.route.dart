@@ -4,6 +4,7 @@ import 'package:big_wallet/features/auth/screens/auth.screen.dart';
 import 'package:big_wallet/features/auth/screens/forgot.new.password.screen.dart';
 import 'package:big_wallet/features/auth/screens/information.screen.dart';
 import 'package:big_wallet/features/bottom_bar/screens/bottom_bar.screen.dart';
+import 'package:big_wallet/features/settings/screens/create_management.dart';
 import 'package:big_wallet/features/settings/screens/edit_profile.screen.dart';
 import 'package:big_wallet/features/settings/screens/records_management.screen.dart';
 import 'package:big_wallet/features/settings/screens/setting.screen.dart';
@@ -84,6 +85,16 @@ class RouteGenerator {
       case Routes.recordsManagement:
         return GeneratePageRoute(
             widget: const RecordsManagement(), routeName: settings.name);
+      case Routes.createManagement:
+        if (args is String) {
+          return GeneratePageRoute(
+              widget: CreateManagement(
+                titleApp: args,
+              ),
+              routeName: settings.name);
+        }
+        return GeneratePageRoute(
+            widget: const CreateManagement(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

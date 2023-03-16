@@ -14,4 +14,5 @@ class Routes {
   static const updatePassWordScreen = 'updatePassWord';
   static const editProfileScreen = 'editProfileScreen';
   static const recordsManagement = 'recordsManagement';
+  static const createManagement = 'createManagement';
 }

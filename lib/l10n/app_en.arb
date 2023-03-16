@@ -111,6 +111,7 @@
     "descCoffee": "Watch ads to support us, thanks.",
     "editPersona": "Edit personal information",
     "manageProfile": "Manage profiles",
+    "createProfile": "Create a new profile",
     "updatePassword": "Update password",
     "generalSetting": "General setting",
     "rateUs": "Rate us",
@@ -118,11 +119,14 @@
     "titleUpdatePassWord": "Update password",
     "labelTextDisplayName": "Display name",
     "labelTextPhoneNumber": "Phone number",
+    "labelTextNote": "Note",
     "labelTextEmail": "Email address",
     "labelTextDOB": "DOB",
     "labelTextCurrency": "Currency",
     "btnUpdateProfile": "Update",
     "hintTextCurrentPassword": "Current password",
     "hintTextNewPassword": "New password",
-    "hintTextConfirmPassword": "Confirm password"
+    "hintTextConfirmPassword": "Confirm password",
+    "remove": "Remove",
+    "messageCreateProfile": "New profile created successfully!"
 }

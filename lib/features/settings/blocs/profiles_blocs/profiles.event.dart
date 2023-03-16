@@ -19,3 +19,18 @@ class IdProfile extends ProfilesBlocsEvent {
         {id: id}
       ];
 }
+
+class ListProfiles extends ProfilesBlocsEvent {
+  final BuildContext context;
+  const ListProfiles(this.context);
+  @override
+  List<Object> get props => [];
+}
+
+class CreateProfile extends ProfilesBlocsEvent {
+  final BuildContext context;
+  final CreateProfilesRequest data;
+  const CreateProfile(this.context, this.data);
+  @override
+  List<Object> get props => [data];
+}

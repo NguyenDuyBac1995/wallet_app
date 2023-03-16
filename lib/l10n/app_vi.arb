@@ -111,12 +111,14 @@
     "descCoffee": "Xem quảng cáo để ủng hộ chúng tôi, cảm ơn.",
     "editPersona": "Chỉnh sửa thông tin cá nhân",
     "manageProfile": "Quản lý hồ sơ",
+    "createProfile": "Tạo mới hồ sơ",
     "updatePassword": "Cập nhật mật khẩu",
     "generalSetting": "Cài đặt chung",
     "rateUs": "Đánh giá phần mềm",
     "logout": "Đăng xuất",
     "titleUpdatePassWord": "Cập nhật mật khẩu",
     "labelTextDisplayName": "Tên hiển thị",
+    "labelTextNote": "Ghi chú",
     "labelTextPhoneNumber": "Số điện thoại",
     "labelTextEmail": "Địa chỉ email",
     "labelTextDOB": "Ngày sinh",
@@ -124,5 +126,7 @@
     "btnUpdateProfile": "Cập nhật",
     "hintTextCurrentPassword": "Mật khẩu cũ",
     "hintTextNewPassword": "Mật khẩu mới",
-    "hintTextConfirmPassword": "Xác nhận mật khẩu mới"
+    "hintTextConfirmPassword": "Xác nhận mật khẩu mới",
+    "remove": "Gỡ",
+    "messageCreateProfile": "Tạo hồ sơ mới thành công!"
 }

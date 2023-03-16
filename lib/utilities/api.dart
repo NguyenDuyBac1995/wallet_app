@@ -18,7 +18,9 @@ class Api {
   static const getPrimary = "/msa-user-profile/odata/me/primary()";
   static const getExchangeRates =
       "/msa-finance/odata/ExchangeRates/Latest(source='USD',symbols=['VND','CNY'])";
-
+  static const getProfiles = '/msa-user-profile/odata/me';
+  static const createProfiles = '/msa-user-profile/odata/me';
+  static const editProfiles = '/msa-user-profile/odata/me(%id%)';
   static const getByIdProfile = '/msa-user-profile/odata/me(%id%)';
   static const postChangePassword = '/msa-identity/odata/me/changepassword';
 }

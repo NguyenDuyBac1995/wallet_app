@@ -40,11 +40,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _controllerCurrency = TextEditingController();
   late Country _country = CountryPickerUtils.getCountryByIsoCode('vn');
+  late String dataDrop;
 
   late DateTime dateTime;
   @override
   void initState() {
     // context.read<ProfilesBloc>().add(IdProfile(context, widget.idProfile));
+    dataDrop = 'VND';
     if (widget.idProfile != null) {
       context.read<ProfilesBloc>().add(IdProfile(context, widget.idProfile));
     } else {
@@ -129,16 +131,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   image: AssetImage(Images.sigInBackground), fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: SafeArea(
-              child: BlocBuilder<ProfilesBloc, ProfilesBlocsState>(
-                builder: (context, state) {
-                  if (state is ProfilesInitial) {
-                    return const LoadingScreens();
-                  } else if (state is ProfilesLoading) {
-                    return const LoadingScreens();
-                  } else if (state is ProfilesLoaded) {
-                    dateController.text = DateFormat("yyyy-MM-dd")
-                        .format(DateTime.parse(state.profileDetail.birthday!));
-                    return Column(
+                child: BlocListener<ProfilesBloc, ProfilesBlocsState>(
+                    listener: (context, state) {
+                      if (state is ProfilesLoaded) {
+                        _displayName.text = state.profileDetail.displayName!;
+                        _phoneNumber.text = state.profileDetail.phoneNumber!;
+                        _email.text = state.profileDetail.email!;
+                        dateController.text = DateFormat("yyyy-MM-dd").format(
+                            DateTime.parse(state.profileDetail.birthday!));
+
+                        dataDrop =
+                            state.profileDetail.configurations![0].value!;
+                      }
+                    },
+                    child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -159,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           Column(
                             children: [
                               TextFormField(
-                                initialValue: state.profileDetail.displayName,
+                                controller: _displayName,
                                 decoration: InputDecoration(
                                     labelText:
                                         context.l10n?.labelTextDisplayName ??
@@ -181,7 +187,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               const SizedBox(height: 20),
                               TextFormField(
                                 enabled: false,
-                                initialValue: state.profileDetail.phoneNumber,
+                                controller: _phoneNumber,
                                 decoration: InputDecoration(
                                     labelText:
                                         context.l10n?.labelTextPhoneNumber ??
@@ -201,8 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                               const SizedBox(height: 20),
                               TextFormField(
-                                initialValue: state.profileDetail.email,
-                                keyboardType: TextInputType.emailAddress,
+                                controller: _email,
                                 decoration: InputDecoration(
                                     labelText:
                                         context.l10n?.labelTextEmail ?? '',
@@ -323,8 +328,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               .borderRadiusFormFieldStyle),
                                       labelStyle: TextStyles.labelTextStyle),
                                   items: dropDownMenuItems,
-                                  value: state
-                                      .profileDetail.configurations?[0].value,
+                                  value: dataDrop,
                                   onChanged: (value) {}),
                               const SizedBox(height: 20),
                               Row(
@@ -348,13 +352,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                             ],
                           )
-                        ]);
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ),
+                        ]))),
           )),
     );
   }
