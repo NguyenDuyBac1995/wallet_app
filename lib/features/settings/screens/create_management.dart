@@ -16,6 +16,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
 
 class CreateManagement extends StatefulWidget {
   const CreateManagement({super.key, this.titleApp = ''});
@@ -31,7 +32,7 @@ class _CreateManagementState extends State<CreateManagement> {
   final TextEditingController _phoneNumber = TextEditingController();
   late bool _isLoading;
   TextEditingController dateController = TextEditingController();
-
+  late String? _filePath;
   @override
   void initState() {
     _isLoading = false;
@@ -50,8 +51,18 @@ class _CreateManagementState extends State<CreateManagement> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-
     const user = UserPreferences.myUser;
+    Future<void> _pickImage() async {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+      );
+      if (result != null) {
+        print(" result.files ->${result.files}");
+        setState(() {
+          _filePath = result.files.single.path;
+        });
+      }
+    }
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -70,7 +81,7 @@ class _CreateManagementState extends State<CreateManagement> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 39),
-            ProfileWidget(imagePath: user.imagePath, onClicked: () async {}),
+            ProfileWidget(imagePath: user.imagePath, onClicked: _pickImage),
             const SizedBox(height: 50),
             Column(
               children: [

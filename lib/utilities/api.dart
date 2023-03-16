@@ -23,4 +23,5 @@ class Api {
   static const editProfiles = '/msa-user-profile/odata/me(%id%)';
   static const getByIdProfile = '/msa-user-profile/odata/me(%id%)';
   static const postChangePassword = '/msa-identity/odata/me/changepassword';
+  static const postUpLoadFile = '/msa-storage/odata/storage/upload';
 }
