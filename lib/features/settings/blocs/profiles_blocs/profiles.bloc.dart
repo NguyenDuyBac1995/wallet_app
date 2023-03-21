@@ -14,6 +14,7 @@ class ProfilesBloc extends Bloc<ProfilesBlocsEvent, ProfilesBlocsState> {
     on<IdProfile>(onGetDetailProfile);
     on<ListProfiles>(onGetListProfiles);
     on<CreateProfile>(onCreateProfile);
+    on<EditProfile>(onEditProfile);
   }
 }
 
@@ -51,6 +52,18 @@ void onCreateProfile(
     final dataProfiles =
         await profileRepository.createProfileAsync(event.context, event.data);
     emit(CreateProfileLoaded(isSuccess: dataProfiles));
+  } on NetworkError {
+    print("Error");
+  }
+}
+
+void onEditProfile(EditProfile event, Emitter<ProfilesBlocsState> emit) async {
+  try {
+    final ProfileRepository profileRepository = ProfileRepository();
+    emit(ProfilesLoading());
+    final dataProfiles =
+        await profileRepository.editProfileAsync(event.context, event.data);
+    emit(EditProfileLoaded(isSuccess: dataProfiles));
   } on NetworkError {
     print("Error");
   }

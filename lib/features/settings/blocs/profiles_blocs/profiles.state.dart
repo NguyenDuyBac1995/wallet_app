@@ -33,3 +33,10 @@ class CreateProfileLoaded extends ProfilesBlocsState {
   @override
   List<Object> get props => [isSuccess];
 }
+
+class EditProfileLoaded extends ProfilesBlocsState {
+  final bool isSuccess;
+  const EditProfileLoaded({required this.isSuccess});
+  @override
+  List<Object> get props => [isSuccess];
+}

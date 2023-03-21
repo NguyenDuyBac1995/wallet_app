@@ -9,12 +9,14 @@ class ItemManagement extends StatelessWidget {
   final String imagePath;
   final String name;
   final VoidCallback onClicked;
+  final VoidCallback onClickedEdit;
   const ItemManagement(
       {super.key,
       this.imagePath =
           'https://ucarecdn.com/ecc5ff42-1dbd-4a5b-884f-2abb73446cb4/-/preview/3000x3000/',
       required this.onClicked,
-      required this.name});
+      required this.name,
+      required this.onClickedEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,15 @@ class ItemManagement extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 48.0,
-            height: 48.0,
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              foregroundColor: Colors.grey,
-              backgroundImage: NetworkImage(imagePath),
-            ),
-          ),
+              width: 48.0,
+              height: 48.0,
+              child: GestureDetector(
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.grey,
+                  backgroundImage: NetworkImage(imagePath),
+                ),
+              )),
           const SizedBox(
             width: 16,
           ),
@@ -45,10 +48,13 @@ class ItemManagement extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    name,
-                    style: TextStyles.h1
-                        .copyWith(fontSize: 15, letterSpacing: 0.75),
+                  GestureDetector(
+                    onTap: onClickedEdit,
+                    child: Text(
+                      name,
+                      style: TextStyles.h1
+                          .copyWith(fontSize: 15, letterSpacing: 0.75),
+                    ),
                   ),
                   TextButton(
                       style: ButtonStyle(

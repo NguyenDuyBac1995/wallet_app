@@ -13,6 +13,19 @@ class CustomStyle {
       borderRadius: BorderRadius.circular(10), // <-- Radius
     ),
   );
+  static ButtonStyle deleteButtonStyle = ElevatedButton.styleFrom(
+    textStyle: const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    ),
+    backgroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: const BorderSide(
+            color: Colors.red, width: 1, style: BorderStyle.solid) //
+        // <-- Radius
+        ),
+  );
 
   static ButtonStyle defaultButtonStyle = ElevatedButton.styleFrom(
     textStyle: const TextStyle(

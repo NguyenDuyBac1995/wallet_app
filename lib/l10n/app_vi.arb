@@ -124,9 +124,12 @@
     "labelTextDOB": "Ngày sinh",
     "labelTextCurrency": "Tiền tệ",
     "btnUpdateProfile": "Cập nhật",
+    "btnSaveProfile": "Lưu",
+    "btnDeleteProfile": "Xóa hồ sơ",
     "hintTextCurrentPassword": "Mật khẩu cũ",
     "hintTextNewPassword": "Mật khẩu mới",
     "hintTextConfirmPassword": "Xác nhận mật khẩu mới",
     "remove": "Gỡ",
-    "messageCreateProfile": "Tạo hồ sơ mới thành công!"
+    "messageCreateProfile": "Tạo hồ sơ mới thành công!",
+    "messageEditProfile": "Cập nhật hồ sơ mới thành công!"
 }

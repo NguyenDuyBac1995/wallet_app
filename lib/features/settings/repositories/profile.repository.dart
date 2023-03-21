@@ -34,15 +34,16 @@ class ProfileRepository extends Repository {
 
   Future<bool> createProfileAsync(
       BuildContext context, CreateProfilesRequest data) async {
-    var url = Api.getProfiles;
+    var url = Api.createProfiles;
     final apiResponse = await requestAsync<SingleResponse>(
         Context.general, context, url, RequestType.post,
         data: data, useToken: true);
     return apiResponse.isSuccess;
   }
 
-  Future<bool> editProfileAsync(BuildContext context, String data) async {
-    var url = Api.getProfiles;
+  Future<bool> editProfileAsync(
+      BuildContext context, CreateProfilesRequest data) async {
+    var url = Api.editProfiles.replaceAll("%id%", data.id!);
     final apiResponse = await requestAsync<SingleResponse>(
         Context.general, context, url, RequestType.put,
         data: data, useToken: true);

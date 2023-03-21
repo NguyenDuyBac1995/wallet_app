@@ -124,9 +124,12 @@
     "labelTextDOB": "DOB",
     "labelTextCurrency": "Currency",
     "btnUpdateProfile": "Update",
+    "btnSaveProfile": "Save",
+    "btnDeleteProfile": "Delete profile",
     "hintTextCurrentPassword": "Current password",
     "hintTextNewPassword": "New password",
     "hintTextConfirmPassword": "Confirm password",
     "remove": "Remove",
-    "messageCreateProfile": "New profile created successfully!"
+    "messageCreateProfile": "New profile created successfully!",
+    "messageEditProfile": "Edit profile created successfully!"
 }

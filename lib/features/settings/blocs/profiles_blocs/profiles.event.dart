@@ -34,3 +34,11 @@ class CreateProfile extends ProfilesBlocsEvent {
   @override
   List<Object> get props => [data];
 }
+
+class EditProfile extends ProfilesBlocsEvent {
+  final BuildContext context;
+  final CreateProfilesRequest data;
+  const EditProfile(this.context, this.data);
+  @override
+  List<Object> get props => [data];
+}

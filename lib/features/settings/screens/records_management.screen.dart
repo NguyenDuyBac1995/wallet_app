@@ -55,6 +55,10 @@ class _RecordsManagementState extends State<RecordsManagement> {
                   itemBuilder: (context, index) {
                     return ItemManagement(
                       name: "${state.dataProfiles[index].displayName}",
+                      onClickedEdit: () {
+                        Navigator.pushNamed(context, Routes.createManagement,
+                            arguments: "${state.dataProfiles[index].id}");
+                      },
                       onClicked: () {},
                       imagePath:
                           "https://ucarecdn.com/8f8ecee1-a569-4a35-afa0-8647f4244f6b/",
