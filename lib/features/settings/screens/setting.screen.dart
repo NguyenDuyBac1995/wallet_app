@@ -129,6 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         urlImage: IconSetting.deviceIcon),
                     title: Text(context.l10n?.generalSetting ?? '',
                         style: TextStyles.textMenuItem),
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.generalScreen);
+                    },
                   ),
                   ListTile(
                     leading: const CustomContainerListTitleWidget(

@@ -15,4 +15,8 @@ class Routes {
   static const editProfileScreen = 'editProfileScreen';
   static const recordsManagement = 'recordsManagement';
   static const createManagement = 'createManagement';
+  static const generalScreen = 'generalScreen';
+  static const languageScreen = 'languageScreen';
+  static const timeFormatScreen = 'timeFormatScreen';
+  static const currencySettingScreen = 'currencySettingScreen';
 }

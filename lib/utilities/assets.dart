@@ -27,6 +27,9 @@ class IconSetting {
   static const String starsIcon = '${imagePath}stars_icon.png';
   static const String websiteIcon = '${imagePath}website_icon.png';
   static const String passwordIcon = '${imagePath}password_icon.png';
+  static const String flagsEn = 'assets/images/flags/en.png';
+  static const String flagsVi = 'assets/images/flags/vi.png';
+  static const String flagsActive = 'assets/images/flags/symbols_done.png';
 }
 
 class IconMenu {

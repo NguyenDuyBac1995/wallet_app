@@ -2,7 +2,7 @@ import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:flutter/material.dart';
 
 class FontFamily {
-  static final Poppins = 'Poppins';
+  static final RobotoMono = 'Roboto Mono';
 }
 
 class CustomStyle {

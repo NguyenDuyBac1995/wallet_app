@@ -196,7 +196,7 @@ class _SignInScreenState extends State<SignInScreen>
                               borderSide: BorderSide.none, // No border
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            hintText: 'Mật khẩu',
+                            hintText: '${context.l10n?.password}',
                             fillColor: CustomColors.gray,
                             filled: true,
                             suffixIcon: IconButton(

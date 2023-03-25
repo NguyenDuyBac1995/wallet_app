@@ -131,5 +131,16 @@
     "hintTextConfirmPassword": "Confirm password",
     "remove": "Remove",
     "messageCreateProfile": "New profile created successfully!",
-    "messageEditProfile": "Edit profile created successfully!"
+    "messageEditProfile": "Edit profile created successfully!",
+    "titleGeneral": "General settings",
+    "titlelanguage": "Language",
+    "valueLanguage": "English",
+    "titleTimeFormat": "Time format",
+    "titleMainCurrency": "Main currency",
+    "titleCurrencySetting": "Currency setting",
+    "titleHideAmount": "Hide amount",
+    "display": "Display",
+    "titleNotification": "Notification",
+    "titleInputNotice": "Input notice",
+    "titleNotificationVersion": "Notification when a new version is available"
 }

@@ -33,3 +33,12 @@ class LanguageChanged extends AppEvent {
         {locale}
       ];
 }
+
+class TimeFormatChanged extends AppEvent {
+  final String valueDate;
+  const TimeFormatChanged(this.valueDate);
+  @override
+  List<Object> get props => [
+        {valueDate}
+      ];
+}

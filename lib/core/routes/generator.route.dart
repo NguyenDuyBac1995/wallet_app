@@ -2,10 +2,13 @@ import 'package:big_wallet/core/routes/page.route.dart';
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/auth/screens/auth.screen.dart';
 import 'package:big_wallet/features/auth/screens/forgot.new.password.screen.dart';
+import 'package:big_wallet/features/settings/screens/currency_setting.screen.dart';
+import 'package:big_wallet/features/settings/screens/general.screen.dart';
 import 'package:big_wallet/features/auth/screens/information.screen.dart';
 import 'package:big_wallet/features/bottom_bar/screens/bottom_bar.screen.dart';
 import 'package:big_wallet/features/settings/screens/create_management.dart';
 import 'package:big_wallet/features/settings/screens/edit_profile.screen.dart';
+import 'package:big_wallet/features/settings/screens/language.screen.dart';
 import 'package:big_wallet/features/settings/screens/records_management.screen.dart';
 import 'package:big_wallet/features/settings/screens/setting.screen.dart';
 import 'package:big_wallet/features/auth/screens/signin.screen.dart';
@@ -13,6 +16,7 @@ import 'package:big_wallet/features/auth/screens/signup.information.screen.dart'
 import 'package:big_wallet/features/auth/screens/signup.screen.dart';
 import 'package:big_wallet/features/auth/screens/verify.otp.screen.dart';
 import 'package:big_wallet/features/otp/screens/otp.screen.dart';
+import 'package:big_wallet/features/settings/screens/time_format.screent.dart';
 import 'package:big_wallet/features/settings/screens/update_password.screen.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:big_wallet/models/bundle.model.dart';
@@ -95,6 +99,18 @@ class RouteGenerator {
         }
         return GeneratePageRoute(
             widget: const CreateManagement(), routeName: settings.name);
+      case Routes.generalScreen:
+        return GeneratePageRoute(
+            widget: const GeneralScreen(), routeName: settings.name);
+      case Routes.languageScreen:
+        return GeneratePageRoute(
+            widget: const LanguageScreen(), routeName: settings.name);
+      case Routes.timeFormatScreen:
+        return GeneratePageRoute(
+            widget: const TimeFormatScreen(), routeName: settings.name);
+      case Routes.currencySettingScreen:
+        return GeneratePageRoute(
+            widget: const CurrencySettingScreen(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

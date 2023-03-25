@@ -108,8 +108,8 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/roboto/RobotoMono-Regular.ttf
+        - asset: assets/fonts/roboto/RobotoMono-Bold.ttf
           weight: 700
   #   - family: Trajan Pro
   #     fonts:

@@ -131,5 +131,17 @@
     "hintTextConfirmPassword": "Xác nhận mật khẩu mới",
     "remove": "Gỡ",
     "messageCreateProfile": "Tạo hồ sơ mới thành công!",
-    "messageEditProfile": "Cập nhật hồ sơ mới thành công!"
+    "messageEditProfile": "Cập nhật hồ sơ mới thành công!",
+    "titleGeneral": "Cài đặt chung",
+    "titlelanguage": "Ngôn ngữ",
+    "valueLanguage": "Tiếng việt",
+    "titleTimeFormat": "Định dạng thời gian",
+    "titleMainCurrency": "Đồng tiền chính",
+    "titleCurrencySetting": "Thiết lập tiền tệ",
+    "titleCurrencySetting": "Thiết lập tiền tệ",
+    "titleHideAmount": "Ẩn số tiền",
+    "display": "Hiển thị",
+    "titleNotification": "Thông báo",
+    "titleInputNotice": "Thông báo nhập liệu",
+    "titleNotificationVersion": "Thông báo khi có phiên bản mới"
 }

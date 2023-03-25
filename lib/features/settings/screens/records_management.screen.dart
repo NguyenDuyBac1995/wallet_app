@@ -50,6 +50,7 @@ class _RecordsManagementState extends State<RecordsManagement> {
                 return const LoadingScreens();
               } else if (state is ListProfilesLoaded) {
                 return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemExtent: 75,
                   itemCount: state.dataProfiles.length,
                   itemBuilder: (context, index) {

@@ -39,28 +39,28 @@ class TextStyles {
   );
 
   static TextStyle h1 = TextStyle(
-      fontFamily: FontFamily.Poppins,
+      fontFamily: FontFamily.RobotoMono,
       fontSize: 24,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w700,
       color: CustomColors.blackTitle);
   static TextStyle h2 = TextStyle(
-      fontFamily: FontFamily.Poppins,
+      fontFamily: FontFamily.RobotoMono,
       fontSize: 18,
       fontWeight: FontWeight.bold,
       color: CustomColors.blackTitle);
 
   static TextStyle textMenuItem = TextStyle(
-      fontFamily: FontFamily.Poppins,
+      fontFamily: FontFamily.RobotoMono,
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: CustomColors.blackTitle);
   static TextStyle text = TextStyle(
-      fontFamily: FontFamily.Poppins,
+      fontFamily: FontFamily.RobotoMono,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       color: CustomColors.blackText);
   static TextStyle labelTextStyle = TextStyle(
-      fontFamily: FontFamily.Poppins,
+      fontFamily: FontFamily.RobotoMono,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       backgroundColor: const Color(0xFFFFFBFE),

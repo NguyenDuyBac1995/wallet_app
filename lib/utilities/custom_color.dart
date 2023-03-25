@@ -23,4 +23,5 @@ class CustomColors {
   );
   static const Color backgroundTextFormField = Color(0xFFFCFCFC);
   static const Color backgroundBtnLoading = Color(0xFFD9DBE9);
+  static const Color colorOceanBlue = Color(0xFF008889);
 }

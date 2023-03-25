@@ -25,10 +25,11 @@ class CustomContainerWidget extends StatelessWidget {
 }
 
 class CustomContainerListTitleWidget extends StatelessWidget {
-  static const double width = 40;
-  static const double height = 40;
+  final double width;
+  final double height;
   final String urlImage;
-  const CustomContainerListTitleWidget({super.key, required this.urlImage});
+  const CustomContainerListTitleWidget(
+      {super.key, required this.urlImage, this.width = 40, this.height = 40});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,26 @@ class CustomContainerListTitleWidget extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(urlImage), fit: BoxFit.fill),
       ),
+    );
+  }
+}
+
+class CustomChildListRow extends StatelessWidget {
+  final Widget childRight;
+  final Widget childLeft;
+
+  const CustomChildListRow(
+      {super.key, required this.childRight, required this.childLeft});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: childLeft),
+        // const Spacer(),
+        childRight,
+      ],
     );
   }
 }

@@ -15,6 +15,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<LoadConfiguration>(onLoadConfiguration);
     on<LoadingPercentChanged>(onChangeLoadingPercent);
     on<LanguageChanged>(onChangeLanguage);
+    on<TimeFormatChanged>(onChangeTime);
   }
 
   void onLoadConfiguration(
@@ -32,5 +33,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void onChangeLanguage(LanguageChanged event, Emitter<AppState> emit) {
     emit(state.copyWith(locale: event.locale));
+  }
+
+  void onChangeTime(TimeFormatChanged event, Emitter<AppState> emit) {
+    emit(state.copyWith(valueDate: event.valueDate));
   }
 }
