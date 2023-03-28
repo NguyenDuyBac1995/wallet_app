@@ -1,9 +1,12 @@
+import 'package:big_wallet/features/auth/model/upload.model.dart';
+
 class CreateProfilesRequest {
   String? displayName;
   String? phoneNumber;
   String? birthday;
   String? id;
   String? email;
+  UploadModel? avatar;
   List<Configurations>? configurations;
 
   CreateProfilesRequest(
@@ -12,6 +15,7 @@ class CreateProfilesRequest {
       this.birthday,
       this.configurations,
       this.email,
+      this.avatar,
       this.id});
 
   CreateProfilesRequest.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,7 @@ class CreateProfilesRequest {
     birthday = json['Birthday'];
     id = json['id'];
     email = json['Email'];
+    avatar = json['Avatar'];
     if (json['Configurations'] != null) {
       configurations = <Configurations>[];
       json['Configurations'].forEach((v) {
@@ -37,6 +42,9 @@ class CreateProfilesRequest {
     data['Email'] = email;
     if (configurations != null) {
       data['Configurations'] = configurations!.map((v) => v.toJson()).toList();
+    }
+    if (avatar != null) {
+      data['Avatar'] = avatar;
     }
     return data;
   }

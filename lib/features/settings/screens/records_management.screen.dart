@@ -36,6 +36,7 @@ class _RecordsManagementState extends State<RecordsManagement> {
           context.l10n?.manageProfile ?? '',
           style: TextStyles.h1,
         ),
+        routerName: Routes.settingScreen,
       ),
       body: Container(
           width: width,
