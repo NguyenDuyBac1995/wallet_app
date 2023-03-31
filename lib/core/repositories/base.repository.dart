@@ -41,10 +41,8 @@ class Repository {
     final uri = Uri(scheme: Api.scheme, host: Api.baseUrl, path: path);
     final url = Uri.decodeFull(uri.toString());
     if (useToken != null && useToken) {
-      print("useToken -> ${useToken}");
       await _getToken();
     } else {
-      print("_options -> ${_options}");
       _options = ConfigServices.getHeaders();
     }
 
