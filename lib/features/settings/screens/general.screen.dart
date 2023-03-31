@@ -1,6 +1,6 @@
 import 'package:big_wallet/core/routes/routes.dart';
 import 'package:big_wallet/features/app/blocs/app.bloc.dart';
-import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
+import 'package:big_wallet/utilities/widgets/custom_container.widget.dart';
 import 'package:big_wallet/utilities/custom_appBar.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/localization.dart';

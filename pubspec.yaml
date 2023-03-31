@@ -58,6 +58,7 @@ dependencies:
   currency_picker: ^2.0.13
   shared_preferences: ^2.0.15
   flutter_spinkit: ^5.1.0
+  fl_chart: ^0.61.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -88,6 +89,8 @@ flutter:
     - assets/images/icons/
     - assets/icons/
     - assets/icons/icon_settings/
+    - assets/icons/icon_transaction/
+    - assets/icons/icon_wallet/
     - assets/icons/icon_menus/
     - assets/fonts/
     - assets/fonts/poppins/

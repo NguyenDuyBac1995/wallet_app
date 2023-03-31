@@ -280,6 +280,13 @@ class _CreateManagementState extends State<CreateManagement> {
                                     border: OutlineInputBorder(
                                         borderRadius: CustomStyle
                                             .borderRadiusFormFieldStyle),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderRadius: CustomStyle
+                                          .borderRadiusFormFieldStyle,
+                                      borderSide: const BorderSide(
+                                        color: Colors.black54,
+                                      ),
+                                    ),
                                     labelStyle: TextStyles.labelTextStyle,
                                     suffixIcon: GestureDetector(
                                       onTap: onHandleShowCurrency,

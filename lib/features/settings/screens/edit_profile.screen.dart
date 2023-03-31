@@ -198,13 +198,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           context.l10n?.labelTextPhoneNumber ??
                                               '',
                                       filled: true,
-                                      fillColor:
-                                          CustomColors.backgroundTextFormField,
+                                      fillColor: CustomColors.gray,
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
                                       border: OutlineInputBorder(
                                           borderRadius: CustomStyle
                                               .borderRadiusFormFieldStyle),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderRadius: CustomStyle
+                                            .borderRadiusFormFieldStyle,
+                                        borderSide: const BorderSide(
+                                          color: Colors.black54,
+                                        ),
+                                      ),
                                       labelStyle: TextStyles.labelTextStyle),
                                 ),
                                 const SizedBox(height: 20),
@@ -292,6 +298,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           border: OutlineInputBorder(
                                               borderRadius: CustomStyle
                                                   .borderRadiusFormFieldStyle),
+                                          disabledBorder: OutlineInputBorder(
+                                            borderRadius: CustomStyle
+                                                .borderRadiusFormFieldStyle,
+                                            borderSide: const BorderSide(
+                                              color: Colors.black54,
+                                            ),
+                                          ),
                                           labelStyle: TextStyles.labelTextStyle,
                                           suffixIcon: GestureDetector(
                                             onTap: onHandleShowCurrency,

@@ -3,6 +3,8 @@ import 'package:big_wallet/features/auth/blocs/finance/finance.bloc.dart';
 import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
 import 'package:big_wallet/features/bottom_bar/screens/widgets/custom_bottom.navigation.dart';
 import 'package:big_wallet/features/settings/blocs/profiles_blocs/profiles.bloc.dart';
+import 'package:big_wallet/features/transaction/screens/transaction.screen.dart';
+import 'package:big_wallet/features/wallet/screens/wallet.screen.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +22,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = [
     const Text("Page 1"),
-    const Text("Page 2"),
-    const Text("Page 3"),
+    const WalletScreen(),
+    const TransactionScreen(),
     const Text("Page 4"),
     const SettingsScreen()
   ];

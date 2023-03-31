@@ -19,4 +19,7 @@ class Routes {
   static const languageScreen = 'languageScreen';
   static const timeFormatScreen = 'timeFormatScreen';
   static const currencySettingScreen = 'currencySettingScreen';
+  static const addWalletScreen = 'addWalletScreen';
+  static const spendingScreen = 'spendingScreen';
+  static const addSpendingScreen = 'addSpendingScreen';
 }
