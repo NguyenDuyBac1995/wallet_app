@@ -77,8 +77,8 @@ class _RecordsManagementState extends State<RecordsManagement> {
           Navigator.pushNamed(context, Routes.createManagement,
               arguments: "new");
         },
-        child: const Icon(Icons.add),
         backgroundColor: CustomColors.primaryColor,
+        child: const Icon(Icons.add),
       ),
     );
   }

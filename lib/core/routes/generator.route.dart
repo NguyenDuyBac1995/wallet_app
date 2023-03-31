@@ -19,6 +19,9 @@ import 'package:big_wallet/features/otp/screens/otp.screen.dart';
 import 'package:big_wallet/features/settings/screens/time_format.screent.dart';
 import 'package:big_wallet/features/settings/screens/update_password.screen.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
+import 'package:big_wallet/features/transaction/screens/add_spending.screen.dart';
+import 'package:big_wallet/features/transaction/screens/spending.screen.dart';
+import 'package:big_wallet/features/wallet/screens/add_wallet.screen.dart';
 import 'package:big_wallet/models/bundle.model.dart';
 import 'package:flutter/material.dart';
 import 'package:big_wallet/features/auth/screens/forgot.password.phone.screen.dart';
@@ -111,6 +114,15 @@ class RouteGenerator {
       case Routes.currencySettingScreen:
         return GeneratePageRoute(
             widget: const CurrencySettingScreen(), routeName: settings.name);
+      case Routes.addWalletScreen:
+        return GeneratePageRoute(
+            widget: const AddWallet(), routeName: settings.name);
+      case Routes.spendingScreen:
+        return GeneratePageRoute(
+            widget: const SpendingScreen(), routeName: settings.name);
+      case Routes.addSpendingScreen:
+        return GeneratePageRoute(
+            widget: const AddSpendingScreen(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

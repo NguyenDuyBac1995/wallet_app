@@ -9,7 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'widgets/custom_container.widget.dart';
+import '../../../utilities/widgets/custom_container.widget.dart';
 
 class TimeFormatScreen extends StatefulWidget {
   const TimeFormatScreen({super.key});

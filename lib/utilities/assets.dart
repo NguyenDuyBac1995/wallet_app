@@ -16,6 +16,8 @@ class IconConstant {
   static const chartPie = 'assets/icons/Chart-pie.svg';
   static const backArrow = 'assets/icons/back_arrow_icon.svg';
   static const calendarIcon = 'assets/icons/calandar_icon.svg';
+  static const arrowGoingUpAlt = 'assets/icons/arrow_going_up_alt.svg';
+  static const calculator = 'assets/icons/calculator.svg';
 }
 
 class IconSetting {
@@ -30,6 +32,36 @@ class IconSetting {
   static const String flagsEn = 'assets/images/flags/en.png';
   static const String flagsVi = 'assets/images/flags/vi.png';
   static const String flagsActive = 'assets/images/flags/symbols_done.png';
+}
+
+class IconWallet {
+  static const String imagePath = 'assets/icons/icon_wallet/';
+  static const String bankDefault = '${imagePath}bank_default.png';
+  static const String cashDefault = '${imagePath}cash_default.png';
+  static const String eWalletDefault = '${imagePath}e-wallet_default.png';
+  static const String investDefault = '${imagePath}invest_default.png';
+  static const String otherDefault = '${imagePath}other_default.png';
+  static const String visaDefault = '${imagePath}visa_default.png';
+  static const String iconDelete = '${imagePath}delete.png';
+  static const String iconAddCard = '${imagePath}add_card_outline.png';
+  static const String iconExchange = '${imagePath}exchange_funds_fill.png';
+  static const String iconEdit = '${imagePath}edit.png';
+  static const String cashDrop = '${imagePath}cash_drop.png';
+  static const String bankAccountDrop = '${imagePath}bank_account_drop.png';
+  static const String creditCardDrop = '${imagePath}credit_card_drop.png';
+  static const String eWalletDrop = '${imagePath}e_wallet_drop.png';
+  static const String investmentDrop = '${imagePath}investment_drop.png';
+  static const String otherDrop = '${imagePath}other_drop.png';
+}
+
+class IconTransaction {
+  static const String imagePath = 'assets/icons/icon_transaction/';
+  static const String balance = '${imagePath}balance.png';
+  static const String budget = '${imagePath}budget.png';
+  static const String checked = '${imagePath}checked.png';
+  static const String debt = '${imagePath}debt.png';
+  static const String hand = '${imagePath}hand.png';
+  static const String petFood = '${imagePath}pet_food.png';
 }
 
 class IconMenu {

@@ -7,18 +7,22 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class CustomContainerWidget extends StatelessWidget {
   final Widget child;
-  const CustomContainerWidget({super.key, required this.child});
+  final Color colors;
+  const CustomContainerWidget(
+      {super.key,
+      required this.child,
+      this.colors = CustomColors.colorBoxShadowMenuItem});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.vertical(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(10),
             bottom: Radius.circular(10),
           ),
-          color: CustomColors.colorBoxShadowMenuItem,
-          boxShadow: [CustomStyle.boxShadowMenuStyle],
+          color: colors,
+          boxShadow: const [CustomStyle.boxShadowMenuStyle],
         ),
         child: child);
   }

@@ -9,6 +9,6 @@ class Common {
   }
 
   String formatData(String strDate) {
-    return DateFormat('yyyy-MM-dd').format(DateTime.parse(strDate));
+    return DateFormat('dd-MM-yyyy').format(DateTime.parse(strDate));
   }
 }

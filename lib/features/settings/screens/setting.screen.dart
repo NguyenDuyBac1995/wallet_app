@@ -7,7 +7,7 @@ import 'package:big_wallet/features/auth/model/primary.model.dart';
 import 'package:big_wallet/features/auth/repositories/auth.repository.dart';
 import 'package:big_wallet/features/auth/repositories/requests/revokeToken.request.dart';
 import 'package:big_wallet/features/settings/blocs/profiles_blocs/profiles.bloc.dart';
-import 'package:big_wallet/features/settings/screens/widgets/custom_container.widget.dart';
+import 'package:big_wallet/utilities/widgets/custom_container.widget.dart';
 import 'package:big_wallet/features/settings/screens/widgets/profile.widget.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/constants.dart';

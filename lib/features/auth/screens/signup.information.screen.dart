@@ -252,6 +252,13 @@ class _SignupInformationScreen extends State<SignupInformationScreen> {
                                   borderSide: BorderSide.none, // No border
                                   borderRadius: BorderRadius.circular(10),
                                 ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      CustomStyle.borderRadiusFormFieldStyle,
+                                  borderSide: const BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                                 hintText: 'Display Name',
                                 filled: true,
                                 prefixIcon: GestureDetector(
