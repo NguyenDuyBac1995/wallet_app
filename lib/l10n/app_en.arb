@@ -180,10 +180,25 @@
     "amount":"Amount",
     "dateSpending":"Date",
     "fromWallet":"From wallet",
-    "payee":"Payee"
-
-
-
-
-
+    "payee":"Payee",
+    "filter":"Filter",
+    "byTheTime":"By the time",
+    "since":"Since date",
+    "toDate":"To date",
+    "dateStart":"Date start",
+    "dateEnd":"Date end",
+    "byCategory":"By category",
+    "entertainment":"Entertainment",
+    "study":"Study",
+    "pet":"Pet",
+    "go":"Go",
+    "eatAndDrink":"Eat and drink",
+    "clothes":"Clothes",
+    "chopping":"Shopping",
+    "home":"Home",
+    "preventive":"Preventive",
+    "present":"Present",
+    "health":"Health",
+    "apply":"Apply",
+    "clearFilter":"Clear filter"
 }

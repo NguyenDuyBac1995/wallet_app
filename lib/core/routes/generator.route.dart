@@ -21,6 +21,7 @@ import 'package:big_wallet/features/settings/screens/update_password.screen.dart
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:big_wallet/features/transaction/screens/add_spending.screen.dart';
 import 'package:big_wallet/features/transaction/screens/spending.screen.dart';
+import 'package:big_wallet/features/transaction/screens/spending_filter.screen.dart';
 import 'package:big_wallet/features/wallet/screens/add_wallet.screen.dart';
 import 'package:big_wallet/models/bundle.model.dart';
 import 'package:flutter/material.dart';
@@ -123,6 +124,9 @@ class RouteGenerator {
       case Routes.addSpendingScreen:
         return GeneratePageRoute(
             widget: const AddSpendingScreen(), routeName: settings.name);
+      case Routes.spendingFilterScreen:
+        return GeneratePageRoute(
+            widget: const SpendingFilterScreen(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

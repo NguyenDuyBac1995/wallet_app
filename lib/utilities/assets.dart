@@ -61,7 +61,18 @@ class IconTransaction {
   static const String checked = '${imagePath}checked.png';
   static const String debt = '${imagePath}debt.png';
   static const String hand = '${imagePath}hand.png';
+  static const String symbolsFilter = '${imagePath}symbols_filter.svg';
   static const String petFood = '${imagePath}pet_food.png';
+  static const String healthinsurance = '${imagePath}healthinsurance.png';
+  static const String gift = '${imagePath}gift.png';
+  static const String contingency = '${imagePath}contingency.png';
+  static const String home = '${imagePath}home.png';
+  static const String groceryCart = '${imagePath}grocery_cart.png';
+  static const String clothesRack = '${imagePath}clothes_rack.png';
+  static const String fastFood = '${imagePath}fast_food.png';
+  static const String busStop = '${imagePath}bus_stop.png';
+  static const String book = '${imagePath}book.png';
+  static const String streamingApp = '${imagePath}streaming_app.png';
 }
 
 class IconMenu {
