@@ -7,6 +7,8 @@ import 'package:big_wallet/features/auth/blocs/primary/primary.bloc.dart';
 import 'package:big_wallet/features/settings/blocs/profiles_blocs/profiles.bloc.dart';
 import 'package:big_wallet/features/splash/repositories/configuration.repository.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
+import 'package:big_wallet/features/transaction/blocs/category_blocs/category_blocs_bloc.dart';
+import 'package:big_wallet/features/wallet/blocs/wallet_bloc/wallet_bloc.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,12 @@ class MainScreen extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ProfilesBloc(),
+          ),
+          BlocProvider(
+            create: (context) => WalletBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CategoriesBlocsBloc(),
           ),
           BlocProvider(create: (context) => FinanceBloc())
         ],

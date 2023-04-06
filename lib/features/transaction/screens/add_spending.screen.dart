@@ -80,6 +80,7 @@ class _AddSpendingScreenState extends State<AddSpendingScreen> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+                              icon: const Icon(Icons.expand_more),
                               isDense: true,
                               value: defaultValue,
                               isExpanded: true,
@@ -178,6 +179,7 @@ class _AddSpendingScreenState extends State<AddSpendingScreen> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+                              icon: const Icon(Icons.expand_more),
                               isDense: true,
                               value: defaultValue,
                               isExpanded: true,
@@ -218,6 +220,7 @@ class _AddSpendingScreenState extends State<AddSpendingScreen> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+                              icon: const Icon(Icons.expand_more),
                               isDense: true,
                               value: defaultValue,
                               isExpanded: true,

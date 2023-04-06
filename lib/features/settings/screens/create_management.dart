@@ -144,7 +144,11 @@ class _CreateManagementState extends State<CreateManagement> {
                   }
                 },
               ),
-        routerName: 'recordsManagement',
+        checkClickRouter: true,
+        onClickedRouter: () {
+          Navigator.pop(context);
+          context.read<ProfilesBloc>().add(ListProfiles(context));
+        },
       ),
       body: _isLoadingUpload
           ? const LoadingScreens()

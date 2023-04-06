@@ -1,5 +1,5 @@
 import 'package:big_wallet/core/routes/routes.dart';
-import 'package:big_wallet/features/transaction/screens/widgets/itemSpending.widgets.dart';
+import 'package:big_wallet/utilities/widgets/itemSpending.widgets.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/custom_appBar.dart';
 import 'package:big_wallet/utilities/custom_color.dart';

@@ -25,4 +25,15 @@ class Api {
   static const getByIdProfile = '/msa-user-profile/odata/me(%id%)';
   static const postChangePassword = '/msa-identity/odata/me/changepassword';
   static const postUpLoadFile = '/msa-storage/odata/storage/upload';
+  static const getCategoriesIcon =
+      '/msa-finance/odata/categories/icons(search=\'%id%\')';
+  static const getCategories = '/msa-finance/odata/categories?\$count=true';
+  static const postCategories = '/msa-finance/odata/categories';
+  static const getCategoriesId = '/msa-finance/odata/categories(%id%)';
+  static const putCategories = '/msa-finance/odata/categories(%id%)';
+  static const deleteCategories = '/msa-finance/odata/categories(%id%)';
+  static const createWallets = '/msa-wallet/odata/me';
+  static const getWallets = '/msa-wallet/odata/me?\$count=true';
+  static const updateWallets = '/msa-wallet/odata/me(%id%)';
+  static const getWalletsById = '/msa-wallet/odata/me(%id%)';
 }

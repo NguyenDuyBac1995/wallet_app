@@ -20,9 +20,16 @@ import 'package:big_wallet/features/settings/screens/time_format.screent.dart';
 import 'package:big_wallet/features/settings/screens/update_password.screen.dart';
 import 'package:big_wallet/features/splash/screens/splash.screen.dart';
 import 'package:big_wallet/features/transaction/screens/add_spending.screen.dart';
+import 'package:big_wallet/features/transaction/screens/categories.screen.dart';
+import 'package:big_wallet/features/transaction/screens/categories_detail.screen.dart';
 import 'package:big_wallet/features/transaction/screens/spending.screen.dart';
 import 'package:big_wallet/features/transaction/screens/spending_filter.screen.dart';
+import 'package:big_wallet/features/wallet/screens/add_saving.screen.dart';
 import 'package:big_wallet/features/wallet/screens/add_wallet.screen.dart';
+import 'package:big_wallet/features/wallet/screens/detail_wallet.screen.dart';
+import 'package:big_wallet/features/wallet/screens/filter_wallet.screen.dart';
+import 'package:big_wallet/features/wallet/screens/income.screen.dart';
+import 'package:big_wallet/features/wallet/screens/transfer.screen.dart';
 import 'package:big_wallet/models/bundle.model.dart';
 import 'package:flutter/material.dart';
 import 'package:big_wallet/features/auth/screens/forgot.password.phone.screen.dart';
@@ -116,8 +123,16 @@ class RouteGenerator {
         return GeneratePageRoute(
             widget: const CurrencySettingScreen(), routeName: settings.name);
       case Routes.addWalletScreen:
+        if (args is String) {
+          return GeneratePageRoute(
+              widget: AddWallet(
+                titleApp: args,
+              ),
+              routeName: settings.name);
+        }
         return GeneratePageRoute(
             widget: const AddWallet(), routeName: settings.name);
+        ;
       case Routes.spendingScreen:
         return GeneratePageRoute(
             widget: const SpendingScreen(), routeName: settings.name);
@@ -127,6 +142,34 @@ class RouteGenerator {
       case Routes.spendingFilterScreen:
         return GeneratePageRoute(
             widget: const SpendingFilterScreen(), routeName: settings.name);
+      case Routes.addSavingScreen:
+        return GeneratePageRoute(
+            widget: const AddSavingScreen(), routeName: settings.name);
+      case Routes.transferScreen:
+        return GeneratePageRoute(
+            widget: const TransferScreen(), routeName: settings.name);
+      case Routes.incomeScreen:
+        return GeneratePageRoute(
+            widget: const IncomeScreen(), routeName: settings.name);
+      case Routes.detailWalletScreen:
+        return GeneratePageRoute(
+            widget: const DetailWalletScreen(), routeName: settings.name);
+      case Routes.filterWalletScreen:
+        return GeneratePageRoute(
+            widget: const FilterWalletScreen(), routeName: settings.name);
+      case Routes.categoriesScreen:
+        return GeneratePageRoute(
+            widget: const CategoriesScreen(), routeName: settings.name);
+      case Routes.categoriesDetailScreen:
+        if (args is String) {
+          return GeneratePageRoute(
+              widget: CategoriesDetail(
+                titleApp: args,
+              ),
+              routeName: settings.name);
+        }
+        return GeneratePageRoute(
+            widget: const CategoriesDetail(), routeName: settings.name);
       default:
         return GeneratePageRoute(
             widget: Scaffold(

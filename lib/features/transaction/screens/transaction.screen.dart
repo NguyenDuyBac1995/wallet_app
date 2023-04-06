@@ -23,14 +23,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
     final List<ListItem> listData = [
       ListItem(IconTransaction.hand, "${context.l10n?.spendingTitle}",
           "${context.l10n?.spendingTitleSubTitle}", Routes.spendingScreen),
-      ListItem(IconTransaction.budget, "${context.l10n?.budgetTitle}",
-          "${context.l10n?.budgetTitleSubTitle}", "/ad"),
+      // ListItem(IconTransaction.budget, "${context.l10n?.budgetTitle}",
+      //     "${context.l10n?.budgetTitleSubTitle}", "/ad"),
       ListItem(IconTransaction.checked, "${context.l10n?.periodicNotesTitle}",
           "${context.l10n?.periodicNotesTitleSubTitle}", "/ad"),
       ListItem(IconTransaction.debt, "${context.l10n?.debtTitle}",
           "${context.l10n?.debtTitleSubTitle}", "/ad"),
       ListItem(IconTransaction.balance, "${context.l10n?.listExpensesTitle}",
-          "${context.l10n?.listExpensesSubTitle}", "/ad"),
+          "${context.l10n?.listExpensesSubTitle}", Routes.categoriesScreen),
     ];
     return Scaffold(
       body: Container(

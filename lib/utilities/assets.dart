@@ -18,6 +18,8 @@ class IconConstant {
   static const calendarIcon = 'assets/icons/calandar_icon.svg';
   static const arrowGoingUpAlt = 'assets/icons/arrow_going_up_alt.svg';
   static const calculator = 'assets/icons/calculator.svg';
+  static const attachFile = 'assets/icons/attach_file.svg';
+  static const icRound = 'assets/icons/ic_round-more-vert.svg';
 }
 
 class IconSetting {
@@ -42,6 +44,7 @@ class IconWallet {
   static const String investDefault = '${imagePath}invest_default.png';
   static const String otherDefault = '${imagePath}other_default.png';
   static const String visaDefault = '${imagePath}visa_default.png';
+  static const String symbolsFilterAlt = '${imagePath}symbols_filter-alt.png';
   static const String iconDelete = '${imagePath}delete.png';
   static const String iconAddCard = '${imagePath}add_card_outline.png';
   static const String iconExchange = '${imagePath}exchange_funds_fill.png';
@@ -52,6 +55,15 @@ class IconWallet {
   static const String eWalletDrop = '${imagePath}e_wallet_drop.png';
   static const String investmentDrop = '${imagePath}investment_drop.png';
   static const String otherDrop = '${imagePath}other_drop.png';
+  static const String accumulated = '${imagePath}accumulated.png';
+  static const String bankLocker = '${imagePath}bank_locker.png';
+  static const String costAndBenefit = '${imagePath}cost_and_benefit.png';
+  static const String profit = '${imagePath}Profit.png';
+  static const String payPerClick = '${imagePath}pay_per_click.png';
+  static const String homeIncome = '${imagePath}home_income.png';
+  static const String coupon = '${imagePath}Coupon.png';
+  static const String golCoins = '${imagePath}gol_coins.png';
+  static const String salary = '${imagePath}Salary.png';
 }
 
 class IconTransaction {

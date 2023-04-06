@@ -23,4 +23,11 @@ class Routes {
   static const spendingScreen = 'spendingScreen';
   static const addSpendingScreen = 'addSpendingScreen';
   static const spendingFilterScreen = 'spendingFilterScreen';
+  static const addSavingScreen = 'addSavingScreen';
+  static const transferScreen = 'transferScreen';
+  static const incomeScreen = 'incomeScreen';
+  static const detailWalletScreen = 'detailWalletScreen';
+  static const filterWalletScreen = 'filterWalletScreen';
+  static const categoriesScreen = 'categoriesScreen';
+  static const categoriesDetailScreen = 'categoriesDetailScreen';
 }

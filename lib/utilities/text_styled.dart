@@ -42,7 +42,8 @@ class TextStyles {
       fontFamily: FontFamily.RobotoMono,
       fontSize: 24,
       fontWeight: FontWeight.w700,
-      color: CustomColors.blackTitle);
+      color: CustomColors.blackTitle
+  );
   static TextStyle h2 = TextStyle(
       fontFamily: FontFamily.RobotoMono,
       fontSize: 18,

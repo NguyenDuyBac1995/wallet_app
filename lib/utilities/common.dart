@@ -11,4 +11,13 @@ class Common {
   String formatData(String strDate) {
     return DateFormat('dd-MM-yyyy').format(DateTime.parse(strDate));
   }
+
+  String getValueByKey(List<dynamic> list, String key) {
+    for (var item in list) {
+      if (item["Key"] == key) {
+        return item["Value"];
+      }
+    }
+    return '';
+  }
 }

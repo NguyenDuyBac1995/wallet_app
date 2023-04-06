@@ -9,35 +9,40 @@ import 'package:intl/intl.dart';
 
 class CustomListTitleWallet extends StatelessWidget {
   final VoidCallback onClicked;
-  final String isCheckImage;
+  final VoidCallback onClickedDetail;
+  final int isCheckImage;
   final String title;
   final double subtitle;
 
   const CustomListTitleWallet(
       {super.key,
       required this.onClicked,
-      this.isCheckImage = 'other',
+      this.isCheckImage = 6,
       required this.title,
-      required this.subtitle});
+      required this.subtitle,
+      required this.onClickedDetail});
 
   @override
   Widget build(BuildContext context) {
     String urlImage;
     switch (isCheckImage) {
-      case 'bank':
+      case 1:
         urlImage = IconWallet.bankDefault;
         break;
-      case 'cash':
+      case 2:
+        urlImage = IconWallet.visaDefault;
+        break;
+      case 3:
         urlImage = IconWallet.cashDefault;
         break;
-      case 'wallet':
-        urlImage = IconWallet.eWalletDefault;
-        break;
-      case 'invest':
+      case 4:
         urlImage = IconWallet.investDefault;
         break;
-      case 'visa':
-        urlImage = IconWallet.visaDefault;
+      case 5:
+        urlImage = IconWallet.eWalletDefault;
+        break;
+      case 6:
+        urlImage = IconWallet.otherDefault;
         break;
       default:
         urlImage = IconWallet.otherDefault;
@@ -55,7 +60,10 @@ class CustomListTitleWallet extends StatelessWidget {
           colors: CustomColors.backgroundColorItemWallet,
           child: ListTile(
             leading: CustomContainerListTitleWidget(urlImage: urlImage),
-            title: Text(title, style: TextStyles.textMenuItem),
+            title: GestureDetector(
+              onTap: onClickedDetail,
+              child: Text(title, style: TextStyles.textMenuItem),
+            ),
             subtitle: Text(
               currencyFormat.format(subtitle),
               style: TextStyles.text.copyWith(fontSize: 12),

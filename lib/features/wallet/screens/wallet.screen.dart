@@ -1,11 +1,15 @@
 import 'package:big_wallet/core/routes/routes.dart';
+import 'package:big_wallet/features/wallet/blocs/wallet_bloc/wallet_bloc.dart';
+import 'package:big_wallet/features/wallet/screens/widgets/customItemAccumulation.dart';
 import 'package:big_wallet/utilities/custom_color.dart';
 import 'package:big_wallet/utilities/widgets/custom_container.widget.dart';
 import 'package:big_wallet/utilities/assets.dart';
 import 'package:big_wallet/utilities/localization.dart';
 import 'package:big_wallet/utilities/text_styled.dart';
 import 'package:big_wallet/utilities/widgets/common.dart';
+import 'package:big_wallet/utilities/widgets/loanding_screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'widgets/CustomListTileWallet.dart';
@@ -18,6 +22,23 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
+  late bool _isActive;
+  double _value = 0.0;
+  BuildContext? _bottomSheetContext;
+
+  @override
+  void initState() {
+    context.read<WalletBloc>().add(GetListWalletEvent(context, ''));
+    _isActive = false;
+    super.initState();
+  }
+
+  void _onChanged(double value) {
+    setState(() {
+      _value = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -62,23 +83,52 @@ class _WalletScreenState extends State<WalletScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            currencyFormat.format(10000000),
-                            style: TextStyles.h1,
-                          ),
-                        ),
-                        Text(
-                          '+13.47%',
-                          style: TextStyles.text.copyWith(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF008A00)),
-                        ),
-                      ],
+                    child: BlocBuilder<WalletBloc, WalletState>(
+                      buildWhen: (previous, current) {
+                        return current is WalletLoaded;
+                      },
+                      builder: (context, state) {
+                        if (state is WalletLoaded) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currencyFormat.format(
+                                      state.responseWallet.totalBalance),
+                                  style: TextStyles.h1,
+                                ),
+                              ),
+                              Text(
+                                '+13.47%',
+                                style: TextStyles.text.copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF008A00)),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currencyFormat.format(0),
+                                  style: TextStyles.h1,
+                                ),
+                              ),
+                              Text(
+                                '+13.47%',
+                                style: TextStyles.text.copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF008A00)),
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -88,39 +138,78 @@ class _WalletScreenState extends State<WalletScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "${context.l10n?.walletYour}",
-                            style: TextStyles.text.copyWith(
-                                fontSize: 18, color: const Color(0xFF1A202C)),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _isActive = !_isActive;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            alignment: Alignment.center,
+                            decoration: !_isActive
+                                ? const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFFA8D930),
+                                        Color.fromRGBO(95, 201, 67, 0.7),
+                                      ],
+                                      stops: [0.0, 1.0],
+                                      tileMode: TileMode.clamp,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                    ),
+                                  )
+                                : null,
+                            child: Text(
+                              "${context.l10n?.walletYour}",
+                              style: TextStyles.text.copyWith(
+                                  fontSize: 18,
+                                  color: !_isActive
+                                      ? Colors.white
+                                      : const Color(0xFF1A202C)),
+                            ),
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFFA8D930),
-                                Color.fromRGBO(95, 201, 67, 0.7),
-                              ],
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _isActive = !_isActive;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            alignment: Alignment.center,
+                            decoration: _isActive
+                                ? const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFFA8D930),
+                                        Color.fromRGBO(95, 201, 67, 0.7),
+                                      ],
+                                      stops: [0.0, 1.0],
+                                      tileMode: TileMode.clamp,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(10),
+                                    ),
+                                  )
+                                : null,
+                            child: Text(
+                              "${context.l10n?.accumulation}",
+                              style: TextStyles.text.copyWith(
+                                  fontSize: 18,
+                                  color: _isActive
+                                      ? Colors.white
+                                      : const Color(0xFF1A202C)),
                             ),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            "${context.l10n?.accumulation}",
-                            style: TextStyles.text
-                                .copyWith(fontSize: 18, color: Colors.white),
                           ),
                         ),
                       ),
@@ -132,30 +221,77 @@ class _WalletScreenState extends State<WalletScreen> {
             const SizedBox(
               height: 30,
             ),
-            CustomListTitleWallet(
-              title: 'Cash Wallet',
-              subtitle: 500000,
-              isCheckImage: 'bank',
-              onClicked: showBottomSheet,
-            ),
-            CustomListTitleWallet(
-              title: 'TP card',
-              subtitle: 5000000,
-              isCheckImage: 'cash',
-              onClicked: showBottomSheet,
-            ),
-            CustomListTitleWallet(
-              title: 'Cash visa',
-              subtitle: 500000,
-              isCheckImage: 'visa',
-              onClicked: showBottomSheet,
-            ),
+            _isActive
+                ? Column(
+                    children: [
+                      CustomItemAccumulation(
+                        onClickedEdit: (p0) {
+                          setState(() {
+                            _value = p0;
+                          });
+                        },
+                        valueNumber: _value,
+                        title: 'Buy Like',
+                        startDate: '2023-03-30T02:35:00+00:00',
+                        endDate: '2024-03-30T02:35:00+00:00',
+                      ),
+                      CustomItemAccumulation(
+                        onClickedEdit: (p0) {
+                          setState(() {
+                            _value = p0;
+                          });
+                        },
+                        title: 'O to',
+                        valueNumber: _value,
+                        startDate: '2023-03-30T02:35:00+00:00',
+                        endDate: '2024-03-30T02:35:00+00:00',
+                      )
+                    ],
+                  )
+                : BlocBuilder<WalletBloc, WalletState>(
+                    buildWhen: (previous, current) {
+                      return current is WalletLoaded;
+                    },
+                    builder: (context, state) {
+                      if (state is WalletInitial) {
+                        return const LoadingScreens();
+                      } else if (state is WalletLoading) {
+                        return const LoadingScreens();
+                      } else if (state is WalletLoaded) {
+                        return Column(
+                          children: state.responseWallet.result != null
+                              ? state.responseWallet.result!
+                                  .map((wallet) => CustomListTitleWallet(
+                                        title: wallet.name != null
+                                            ? wallet.name!
+                                            : '',
+                                        subtitle: wallet.balance!.toDouble(),
+                                        isCheckImage: wallet.type!,
+                                        onClicked: () {
+                                          showBottomSheet(wallet.id!);
+                                        },
+                                        onClickedDetail: () {
+                                          Navigator.pushNamed(context,
+                                              Routes.detailWalletScreen);
+                                        },
+                                      ))
+                                  .toList()
+                              : [],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.addWalletScreen);
+          !_isActive
+              ? Navigator.pushNamed(context, Routes.addWalletScreen,
+                  arguments: "new")
+              : Navigator.pushNamed(context, Routes.addSavingScreen);
         },
         backgroundColor: CustomColors.primaryColor,
         child: const Icon(Icons.add),
@@ -163,7 +299,7 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  void showBottomSheet() => showModalBottomSheet(
+  void showBottomSheet(String id) => showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -186,7 +322,11 @@ class _WalletScreenState extends State<WalletScreen> {
                   dense: true,
                   shape: const Border(
                       bottom: BorderSide(width: 0.5, color: Colors.grey)),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, Routes.addWalletScreen,
+                        arguments: "${id}");
+                  },
                 ),
                 ListTile(
                   leading: const CustomContainerListTitleWidget(
@@ -199,7 +339,10 @@ class _WalletScreenState extends State<WalletScreen> {
                   dense: true,
                   shape: const Border(
                       bottom: BorderSide(width: 0.5, color: Colors.grey)),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, Routes.transferScreen);
+                  },
                 ),
                 ListTile(
                   leading: const CustomContainerListTitleWidget(
@@ -212,7 +355,10 @@ class _WalletScreenState extends State<WalletScreen> {
                   dense: true,
                   shape: const Border(
                       bottom: BorderSide(width: 0.5, color: Colors.grey)),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, Routes.incomeScreen);
+                  },
                 ),
                 ListTile(
                   leading: const CustomContainerListTitleWidget(

@@ -21,10 +21,10 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = [
-    const Text("Page 1"),
+    // const Text("Page 1"),
     const WalletScreen(),
     const TransactionScreen(),
-    const Text("Page 4"),
+    // const Text("Page 4"),
     const SettingsScreen()
   ];
 
@@ -54,10 +54,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           ]),
           child: CustomBottomNavigationBar(
             iconList: const [
-              IconMenu.chartPieIcon,
+              // IconMenu.chartPieIcon,
               IconMenu.walletIcon,
               IconMenu.cashMoneyIcon,
-              IconMenu.newsIcon,
+              // IconMenu.newsIcon,
               IconMenu.profileIcon,
             ],
             onChange: (val) {

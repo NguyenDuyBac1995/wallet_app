@@ -8,7 +8,7 @@ import 'package:big_wallet/features/auth/model/upload.model.dart';
 import 'package:big_wallet/features/settings/repositories/requests/create_profile.request.dart';
 import 'package:big_wallet/utilities/api.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class ProfileRepository extends Repository {
   Future<PrimaryModel> detailProfileAsync(
